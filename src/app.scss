@@ -1,0 +1,132 @@
+@import './styles/index.scss';
+
+.header {
+  display: flex;
+  height: 150px;
+  margin-bottom: 40px;
+  @extend %box-separator;
+
+  > .right {
+    flex: 1;
+  
+    > .title {
+      font-size: 32px;
+      font-weight: 600;
+      color: $black;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    > .input-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    
+      > .input-wide {
+        max-width: 900px;
+        min-width: 200px;
+      }
+    }
+  }
+}
+
+.input-form-standar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  > .input-standar {
+    max-width: 300px;
+    min-width: 150px;
+  }
+
+  > .input-wide {
+    max-width: 320px;
+    min-width: 150px;
+  }
+
+  > .input-narrow {
+    max-width: 150px;
+    min-width: 100px;
+  }
+
+  > .textarea-standar {
+    max-width: 300px;
+    min-width: 100px;
+  }
+
+}
+
+.input-form-align-top {
+  align-items: flex-start;
+}
+
+.section-form {
+  margin-bottom: 10px;
+}
+
+.section-form-header {
+  padding: 0px 0px 0px 20px;
+  margin-bottom: 20px;
+}
+
+.section-form-body {
+  padding: 0px 0px 0px 20px;
+}
+
+.section-form-flex {
+  display: flex;
+}
+
+.form-flex-left {
+  flex: 1;
+}
+
+.form-flex-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: 16;
+}
+
+.title-form {
+  font-size: 16px;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 10px;
+}
+
+.sub-title-form {
+  font-size: 16px;
+  color: $text-primary;
+  margin-bottom: 20px;
+}
+
+.sub-title-form-wrapper {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $white;
+
+  > .text {
+    font-size: 16px;
+    color: $text-primary;
+  }
+}

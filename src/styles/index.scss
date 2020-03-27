@@ -1,0 +1,45 @@
+@import './color';
+@import './font';
+
+.label-large {
+  color: $text-primary;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.label-normal {
+  width: 150px;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.label-normal-less-width {
+  width: 80px;
+}
+
+.label-top {
+  margin-top: 10px;
+}
+
+.label-wide {
+  width: 200px;
+}
+
+.margin-bottom-20 {
+  margin-bottom: 20px;
+  background-color: gold;
+}
+
+.margin-right-20 {
+  margin-right: 20px;
+}
+
+.margin-section {
+  margin-top: 60px;
+}
+
+%box-separator {
+  border-width: 1px;
+  border-color: $black;
+  // border-style: solid;
+}
