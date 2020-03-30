@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { PDFViewer, StyleSheet } from '@react-pdf/renderer';
 import Pdf from './Pdf'
 

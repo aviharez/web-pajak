@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Image, Font } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
 
 
 const Pdf = (props) => {
@@ -7,7 +7,126 @@ const Pdf = (props) => {
   
   const mataUang = props.data.dataUmum[0].mataUang;
 
-  const TabelPohonKepemilikan = () => {
+  var today = new Date();
+
+  // 12/02/2020 | 08:00:00 WIB
+  const tgl = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear() + ' | ' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+ 
+  var i;
+  let totTahun1AL=0, totTahun2AL=0, totTahun3AL=0, totSel1AL=0, totSel2AL=0, totHor1AL=0, totHor2AL=0;
+  let totTahun1AT=0, totTahun2AT=0, totTahun3AT=0, totSel1AT=0, totSel2AT=0, totHor1AT=0, totHor2AT=0;
+  let totTahun1KL=0, totTahun2KL=0, totTahun3KL=0, totSel1KL=0, totSel2KL=0, totHor1KL=0, totHor2KL=0;
+  let totTahun1LP=0, totTahun2LP=0, totTahun3LP=0, totSel1LP=0, totSel2LP=0, totHor1LP=0, totHor2LP=0;
+  let totTahun1E=0, totTahun2E=0, totTahun3E=0, totSel1E=0, totSel2E=0, totHor1E=0, totHor2E=0;
+
+  let totTahun1P=0, totTahun2P=0, totTahun3P=0, totSel1P=0, totSel2P=0, totHor1P=0, totHor2P=0;
+  let totTahun1HP=0, totTahun2HP=0, totTahun3HP=0, totSel1HP=0, totSel2HP=0, totHor1HP=0, totHor2HP=0;
+  let totTahun1PA=0, totTahun2PA=0, totTahun3PA=0, totSel1PA=0, totSel2PA=0, totHor1PA=0, totHor2PA=0;
+
+  let totTahun1B=0, totTahun2B=0, totTahun3B=0, totSel1B=0, totSel2B=0, totHor1B=0, totHor2B=0;
+  let totTahun1PB=0, totTahun2PB=0, totTahun3PB=0, totSel1PB=0, totSel2PB=0, totHor1PB=0, totHor2PB=0;
+
+  for (i=0; i < props.data.aktivaLancar.length; i++) {
+    totTahun1AL+=Number(props.data.aktivaLancar[i].nilaiTahun1);
+    totTahun2AL+=Number(props.data.aktivaLancar[i].nilaiTahun2);
+    totTahun3AL+=Number(props.data.aktivaLancar[i].nilaiTahun3);
+    totSel1AL+=(Number(props.data.aktivaLancar[i].nilaiTahun2) - Number(props.data.aktivaLancar[i].nilaiTahun1));
+    totSel2AL+=(Number(props.data.aktivaLancar[i].nilaiTahun3) - Number(props.data.aktivaLancar[i].nilaiTahun2));
+    totHor1AL+=(Number(props.data.aktivaLancar[i].nilaiTahun2) / Number(props.data.aktivaLancar[i].nilaiTahun1));
+    totHor2AL+=(Number(props.data.aktivaLancar[i].nilaiTahun3) / Number(props.data.aktivaLancar[i].nilaiTahun2));
+  }
+  
+  for (i=0; i < props.data.aktivaTetap.length; i++) {
+    totTahun1AT+=Number(props.data.aktivaTetap[i].nilaiTahun1);
+    totTahun2AT+=Number(props.data.aktivaTetap[i].nilaiTahun2);
+    totTahun3AT+=Number(props.data.aktivaTetap[i].nilaiTahun3);
+    totSel1AT+=(Number(props.data.aktivaTetap[i].nilaiTahun2) - Number(props.data.aktivaTetap[i].nilaiTahun1));
+    totSel2AT+=(Number(props.data.aktivaTetap[i].nilaiTahun3) - Number(props.data.aktivaTetap[i].nilaiTahun2));
+    totHor1AT+=(Number(props.data.aktivaTetap[i].nilaiTahun2) / Number(props.data.aktivaTetap[i].nilaiTahun1));
+    totHor2AT+=(Number(props.data.aktivaTetap[i].nilaiTahun3) / Number(props.data.aktivaTetap[i].nilaiTahun2));
+  }
+
+  for (i=0; i < props.data.kewajibanLancar.length; i++) {
+    totTahun1KL+=Number(props.data.kewajibanLancar[i].nilaiTahun1);
+    totTahun2KL+=Number(props.data.kewajibanLancar[i].nilaiTahun2);
+    totTahun3KL+=Number(props.data.kewajibanLancar[i].nilaiTahun3);
+    totSel1KL+=(Number(props.data.kewajibanLancar[i].nilaiTahun2) - Number(props.data.kewajibanLancar[i].nilaiTahun1));
+    totSel2KL+=(Number(props.data.kewajibanLancar[i].nilaiTahun3) - Number(props.data.kewajibanLancar[i].nilaiTahun2));
+    totHor1KL+=(Number(props.data.kewajibanLancar[i].nilaiTahun2) / Number(props.data.kewajibanLancar[i].nilaiTahun1));
+    totHor2KL+=(Number(props.data.kewajibanLancar[i].nilaiTahun3) / Number(props.data.kewajibanLancar[i].nilaiTahun2));
+  }
+
+  for (i=0; i < props.data.liabilitasPanjang.length; i++) {
+    totTahun1LP+=Number(props.data.liabilitasPanjang[i].nilaiTahun1);
+    totTahun2LP+=Number(props.data.liabilitasPanjang[i].nilaiTahun2);
+    totTahun3LP+=Number(props.data.liabilitasPanjang[i].nilaiTahun3);
+    totSel1LP+=(Number(props.data.liabilitasPanjang[i].nilaiTahun2) - Number(props.data.liabilitasPanjang[i].nilaiTahun1));
+    totSel2LP+=(Number(props.data.liabilitasPanjang[i].nilaiTahun3) - Number(props.data.liabilitasPanjang[i].nilaiTahun2));
+    totHor1LP+=(Number(props.data.liabilitasPanjang[i].nilaiTahun2) / Number(props.data.liabilitasPanjang[i].nilaiTahun1));
+    totHor2LP+=(Number(props.data.liabilitasPanjang[i].nilaiTahun3) / Number(props.data.liabilitasPanjang[i].nilaiTahun2));
+  }
+
+  for (i=0; i < props.data.ekuitas.length; i++) {
+    totTahun1E+=Number(props.data.ekuitas[i].nilaiTahun1);
+    totTahun2E+=Number(props.data.ekuitas[i].nilaiTahun2);
+    totTahun3E+=Number(props.data.ekuitas[i].nilaiTahun3);
+    totSel1E+=(Number(props.data.ekuitas[i].nilaiTahun2) - Number(props.data.ekuitas[i].nilaiTahun1));
+    totSel2E+=(Number(props.data.ekuitas[i].nilaiTahun3) - Number(props.data.ekuitas[i].nilaiTahun2));
+    totHor1E+=(Number(props.data.ekuitas[i].nilaiTahun2) / Number(props.data.ekuitas[i].nilaiTahun1));
+    totHor2E+=(Number(props.data.ekuitas[i].nilaiTahun3) / Number(props.data.ekuitas[i].nilaiTahun2));
+  }
+
+  for (i=0; i < props.data.pendapatan.length; i++) {
+    totTahun1P+=Number(props.data.pendapatan[i].nilaiTahun1);
+    totTahun2P+=Number(props.data.pendapatan[i].nilaiTahun2);
+    totTahun3P+=Number(props.data.pendapatan[i].nilaiTahun3);
+    totSel1P+=(Number(props.data.pendapatan[i].nilaiTahun2) - Number(props.data.pendapatan[i].nilaiTahun1));
+    totSel2P+=(Number(props.data.pendapatan[i].nilaiTahun3) - Number(props.data.pendapatan[i].nilaiTahun2));
+    totHor1P+=(Number(props.data.pendapatan[i].nilaiTahun2) / Number(props.data.pendapatan[i].nilaiTahun1));
+    totHor2P+=(Number(props.data.pendapatan[i].nilaiTahun3) / Number(props.data.pendapatan[i].nilaiTahun2));
+  }
+
+  for (i=0; i < props.data.hargaPokok.length; i++) {
+    totTahun1HP+=Number(props.data.hargaPokok[i].nilaiTahun1);
+    totTahun2HP+=Number(props.data.hargaPokok[i].nilaiTahun2);
+    totTahun3HP+=Number(props.data.hargaPokok[i].nilaiTahun3);
+    totSel1HP+=(Number(props.data.hargaPokok[i].nilaiTahun2) - Number(props.data.hargaPokok[i].nilaiTahun1));
+    totSel2HP+=(Number(props.data.hargaPokok[i].nilaiTahun3) - Number(props.data.hargaPokok[i].nilaiTahun2));
+    totHor1HP+=(Number(props.data.hargaPokok[i].nilaiTahun2) / Number(props.data.hargaPokok[i].nilaiTahun1));
+    totHor2HP+=(Number(props.data.hargaPokok[i].nilaiTahun3) / Number(props.data.hargaPokok[i].nilaiTahun2));
+  }
+
+  for (i=0; i < props.data.persediaanAkhir.length; i++) {
+    totTahun1PA+=Number(props.data.persediaanAkhir[i].nilaiTahun1);
+    totTahun2PA+=Number(props.data.persediaanAkhir[i].nilaiTahun2);
+    totTahun3PA+=Number(props.data.persediaanAkhir[i].nilaiTahun3);
+    totSel1PA+=(Number(props.data.persediaanAkhir[i].nilaiTahun2) - Number(props.data.persediaanAkhir[i].nilaiTahun1));
+    totSel2PA+=(Number(props.data.persediaanAkhir[i].nilaiTahun3) - Number(props.data.persediaanAkhir[i].nilaiTahun2));
+    totHor1PA+=(Number(props.data.persediaanAkhir[i].nilaiTahun2) / Number(props.data.persediaanAkhir[i].nilaiTahun1));
+    totHor2PA+=(Number(props.data.persediaanAkhir[i].nilaiTahun3) / Number(props.data.persediaanAkhir[i].nilaiTahun2));
+  }
+
+  for (i=0; i < props.data.biayaLaba.length; i++) {
+    totTahun1B+=Number(props.data.biayaLaba[i].nilaiTahun1);
+    totTahun2B+=Number(props.data.biayaLaba[i].nilaiTahun2);
+    totTahun3B+=Number(props.data.biayaLaba[i].nilaiTahun3);
+    totSel1B+=(Number(props.data.biayaLaba[i].nilaiTahun2) - Number(props.data.biayaLaba[i].nilaiTahun1));
+    totSel2B+=(Number(props.data.biayaLaba[i].nilaiTahun3) - Number(props.data.biayaLaba[i].nilaiTahun2));
+    totHor1B+=(Number(props.data.biayaLaba[i].nilaiTahun2) / Number(props.data.biayaLaba[i].nilaiTahun1));
+    totHor2B+=(Number(props.data.biayaLaba[i].nilaiTahun3) / Number(props.data.biayaLaba[i].nilaiTahun2));
+  }
+
+  for (i=0; i < props.data.pendapatanBeban.length; i++) {
+    totTahun1PB+=Number(props.data.pendapatanBeban[i].nilaiTahun1);
+    totTahun2PB+=Number(props.data.pendapatanBeban[i].nilaiTahun2);
+    totTahun3PB+=Number(props.data.pendapatanBeban[i].nilaiTahun3);
+    totSel1PB+=(Number(props.data.pendapatanBeban[i].nilaiTahun2) - Number(props.data.pendapatanBeban[i].nilaiTahun1));
+    totSel2PB+=(Number(props.data.pendapatanBeban[i].nilaiTahun3) - Number(props.data.pendapatanBeban[i].nilaiTahun2));
+    totHor1PB+=(Number(props.data.pendapatanBeban[i].nilaiTahun2) / Number(props.data.pendapatanBeban[i].nilaiTahun1));
+    totHor2PB+=(Number(props.data.pendapatanBeban[i].nilaiTahun3) / Number(props.data.pendapatanBeban[i].nilaiTahun2));
+  }
+
+   const TabelPohonKepemilikan = () => {
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -623,7 +742,6 @@ const Pdf = (props) => {
   }
 
   const TabelAktivaLancar = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -634,25 +752,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Akun</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2017</Text> 
+            <Text style={styles.tableCell}>{props.data.aktivaLancar[0].tahun1}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2018</Text> 
+            <Text style={styles.tableCell}>{props.data.aktivaLancar[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2019</Text> 
+            <Text style={styles.tableCell}>{props.data.aktivaLancar[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2018 - 2017</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.aktivaLancar[0].tahun2} - {props.data.aktivaLancar[0].tahun1}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2018</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.aktivaLancar[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2019 - 2018</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.aktivaLancar[0].tahun3} - {props.data.aktivaLancar[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2019</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.aktivaLancar[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}>Keterangan</Text> 
@@ -668,25 +786,25 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{a.akun}</Text> 
               </View> 
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun1}</Text> 
               </View>
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 - a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2 - a.nilaiTahun1}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 / a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun2 / a.nilaiTahun1).toFixed(2)}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 - a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3 - a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 / a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun3 / a.nilaiTahun2).toFixed(2)}</Text> 
               </View>
               <View style={styles.tableCol15}> 
                 <Text style={styles.tableCell}>{a.keterangan}</Text> 
@@ -699,28 +817,28 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Total Aset Lancar</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun1AL}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun2AL}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun3AL}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel1AL}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor1AL).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel2AL}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor2AL).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol15}> 
-            <Text style={styles.tableCell}>Keterangan</Text> 
+            <Text style={styles.tableCell}></Text> 
           </View>
         </View>
       </View>
@@ -728,7 +846,6 @@ const Pdf = (props) => {
   }
 
   const TabelAktivaTetap = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -739,25 +856,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Akun</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2017</Text> 
+            <Text style={styles.tableCell}>{props.data.aktivaTetap[0].tahun1}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2018</Text> 
+            <Text style={styles.tableCell}>{props.data.aktivaTetap[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2019</Text> 
+            <Text style={styles.tableCell}>{props.data.aktivaTetap[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2018 - 2017</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.aktivaTetap[0].tahun2} - {props.data.aktivaTetap[0].tahun1}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2018</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.aktivaTetap[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2019 - 2018</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.aktivaTetap[0].tahun3} - {props.data.aktivaTetap[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2019</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.aktivaTetap[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}>Keterangan</Text> 
@@ -773,25 +890,25 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{a.akun}</Text> 
               </View> 
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun1}</Text> 
               </View>
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 - a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2 - a.nilaiTahun1}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 / a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun2 / a.nilaiTahun1).toFixed(2)}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 - a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3 - a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 / a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun3 / a.nilaiTahun2).toFixed(2)}</Text> 
               </View>
               <View style={styles.tableCol15}> 
                 <Text style={styles.tableCell}>{a.keterangan}</Text> 
@@ -804,28 +921,28 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Total Aset Tidak Lancar</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun1AT}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun2AT}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun3AT}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel1AT}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor1AT).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel2AT}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor2AT).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol15}> 
-            <Text style={styles.tableCell}>Keterangan</Text> 
+            <Text style={styles.tableCell}></Text> 
           </View>
         </View>
       </View>
@@ -833,7 +950,6 @@ const Pdf = (props) => {
   }
 
   const TabelKewajibanLancar = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -844,25 +960,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Akun</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2017</Text> 
+            <Text style={styles.tableCell}>{props.data.kewajibanLancar[0].tahun1}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2018</Text> 
+            <Text style={styles.tableCell}>{props.data.kewajibanLancar[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2019</Text> 
+            <Text style={styles.tableCell}>{props.data.kewajibanLancar[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2018 - 2017</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.kewajibanLancar[0].tahun2} - {props.data.kewajibanLancar[0].tahun1}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2018</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.kewajibanLancar[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2019 - 2018</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.kewajibanLancar[0].tahun3} - {props.data.kewajibanLancar[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2019</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.kewajibanLancar[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}>Keterangan</Text> 
@@ -878,25 +994,25 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{a.akun}</Text> 
               </View> 
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun1}</Text> 
               </View>
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 - a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2 - a.nilaiTahun1}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 / a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun2 / a.nilaiTahun1).toFixed(2)}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 - a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3 - a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 / a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun3 / a.nilaiTahun2).toFixed(2)}</Text> 
               </View>
               <View style={styles.tableCol15}> 
                 <Text style={styles.tableCell}>{a.keterangan}</Text> 
@@ -909,28 +1025,28 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Total Liabilitas Jangka Pendek</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun1KL}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun2KL}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun3KL}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel1KL}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor1KL).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel2KL}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor2KL).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol15}> 
-            <Text style={styles.tableCell}>Keterangan</Text> 
+            <Text style={styles.tableCell}></Text> 
           </View>
         </View>
       </View>
@@ -938,7 +1054,6 @@ const Pdf = (props) => {
   }
 
   const TabelLiabilitasPanjang = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -949,25 +1064,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Akun</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2017</Text> 
+            <Text style={styles.tableCell}>{props.data.liabilitasPanjang[0].tahun1}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2018</Text> 
+            <Text style={styles.tableCell}>{props.data.liabilitasPanjang[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2019</Text> 
+            <Text style={styles.tableCell}>{props.data.liabilitasPanjang[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2018 - 2017</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.liabilitasPanjang[0].tahun2} - {props.data.liabilitasPanjang[0].tahun1}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2018</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.liabilitasPanjang[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2019 - 2018</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.liabilitasPanjang[0].tahun3} - {props.data.liabilitasPanjang[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2019</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.liabilitasPanjang[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}>Keterangan</Text> 
@@ -983,25 +1098,25 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{a.akun}</Text> 
               </View> 
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun1}</Text> 
               </View>
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 - a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2 - a.nilaiTahun1}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 / a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun2 / a.nilaiTahun1).toFixed(2)}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 - a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3 - a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 / a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun3 / a.nilaiTahun2).toFixed(2)}</Text> 
               </View>
               <View style={styles.tableCol15}> 
                 <Text style={styles.tableCell}>{a.keterangan}</Text> 
@@ -1014,28 +1129,28 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Total Liabilitas Jangka Panjang</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun1LP}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun2LP}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun3LP}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel1LP}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor1LP).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel2LP}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor2LP).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol15}> 
-            <Text style={styles.tableCell}>Keterangan</Text> 
+            <Text style={styles.tableCell}></Text> 
           </View>
         </View>
       </View>
@@ -1043,7 +1158,6 @@ const Pdf = (props) => {
   }
 
   const TabelEkuitas = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -1054,25 +1168,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Akun</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2017</Text> 
+            <Text style={styles.tableCell}>{props.data.ekuitas[0].tahun1}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2018</Text> 
+            <Text style={styles.tableCell}>{props.data.ekuitas[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2019</Text> 
+            <Text style={styles.tableCell}>{props.data.ekuitas[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2018 - 2017</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.ekuitas[0].tahun2} - {props.data.ekuitas[0].tahun1}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2018</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.ekuitas[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2019 - 2018</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.ekuitas[0].tahun3} - {props.data.ekuitas[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2019</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.ekuitas[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}>Keterangan</Text> 
@@ -1088,25 +1202,25 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{a.akun}</Text> 
               </View> 
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun1}</Text> 
               </View>
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 - a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2 - a.nilaiTahun1}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 / a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun2 / a.nilaiTahun1).toFixed(2)}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 - a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3 - a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 / a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun3 / a.nilaiTahun2).toFixed(2)}</Text> 
               </View>
               <View style={styles.tableCol15}> 
                 <Text style={styles.tableCell}>{a.keterangan}</Text> 
@@ -1119,28 +1233,28 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Total Ekuitas</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun1E}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun2E}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun3E}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel1E}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor1E).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel2E}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor2E).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol15}> 
-            <Text style={styles.tableCell}>Keterangan</Text> 
+            <Text style={styles.tableCell}></Text> 
           </View>
         </View>
       </View>
@@ -1148,7 +1262,6 @@ const Pdf = (props) => {
   }
 
   const TabelPendapatan = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -1159,25 +1272,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Akun</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2017</Text> 
+            <Text style={styles.tableCell}>{props.data.pendapatan[0].tahun1}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2018</Text> 
+            <Text style={styles.tableCell}>{props.data.pendapatan[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2019</Text> 
+            <Text style={styles.tableCell}>{props.data.pendapatan[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2018 - 2017</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.pendapatan[0].tahun2} - {props.data.pendapatan[0].tahun1}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2018</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.pendapatan[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2019 - 2018</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.pendapatan[0].tahun3} - {props.data.pendapatan[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2019</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.pendapatan[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}>Keterangan</Text> 
@@ -1193,25 +1306,25 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{a.akun}</Text> 
               </View> 
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun1}</Text> 
               </View>
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 - a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2 - a.nilaiTahun1}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 / a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun2 / a.nilaiTahun1).toFixed(2)}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 - a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3 - a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 / a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun3 / a.nilaiTahun2).toFixed(2)}</Text> 
               </View>
               <View style={styles.tableCol15}> 
                 <Text style={styles.tableCell}>{a.keterangan}</Text> 
@@ -1224,28 +1337,28 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Total Pendapatan</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun1P}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun2P}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun3P}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel1P}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor1P).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel2P}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor2P).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol15}> 
-            <Text style={styles.tableCell}>Keterangan</Text> 
+            <Text style={styles.tableCell}></Text> 
           </View>
         </View>
       </View>
@@ -1253,7 +1366,6 @@ const Pdf = (props) => {
   }
 
   const TabelHargaPokok = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -1264,25 +1376,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Akun</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2017</Text> 
+            <Text style={styles.tableCell}>{props.data.hargaPokok[0].tahun1}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2018</Text> 
+            <Text style={styles.tableCell}>{props.data.hargaPokok[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2019</Text> 
+            <Text style={styles.tableCell}>{props.data.hargaPokok[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2018 - 2017</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.hargaPokok[0].tahun2} - {props.data.hargaPokok[0].tahun1}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2018</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.hargaPokok[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2019 - 2018</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.hargaPokok[0].tahun3} - {props.data.hargaPokok[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2019</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.hargaPokok[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}>Keterangan</Text> 
@@ -1298,25 +1410,25 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{a.akun}</Text> 
               </View> 
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun1}</Text> 
               </View>
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 - a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2 - a.nilaiTahun1}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 / a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun2 / a.nilaiTahun1).toFixed(2)}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 - a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3 - a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 / a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun3 / a.nilaiTahun2).toFixed(2)}</Text> 
               </View>
               <View style={styles.tableCol15}> 
                 <Text style={styles.tableCell}>{a.keterangan}</Text> 
@@ -1329,28 +1441,28 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Persediaan Tersedia Dijual</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun1HP}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun2HP}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun3HP}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel1HP}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor1HP).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel2HP}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor2HP).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol15}> 
-            <Text style={styles.tableCell}>Keterangan</Text> 
+            <Text style={styles.tableCell}></Text> 
           </View>
         </View>
       </View>
@@ -1358,7 +1470,6 @@ const Pdf = (props) => {
   }
 
   const TabelBiaya = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -1369,25 +1480,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Akun</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2017</Text> 
+            <Text style={styles.tableCell}>{props.data.biayaLaba[0].tahun1}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2018</Text> 
+            <Text style={styles.tableCell}>{props.data.biayaLaba[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2019</Text> 
+            <Text style={styles.tableCell}>{props.data.biayaLaba[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2018 - 2017</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.biayaLaba[0].tahun2} - {props.data.biayaLaba[0].tahun1}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2018</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.biayaLaba[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2019 - 2018</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.biayaLaba[0].tahun3} - {props.data.biayaLaba[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2019</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.biayaLaba[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}>Keterangan</Text> 
@@ -1403,25 +1514,25 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{a.akun}</Text> 
               </View> 
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun1}</Text> 
               </View>
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 - a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2 - a.nilaiTahun1}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 / a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun2 / a.nilaiTahun1).toFixed(2)}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 - a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3 - a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 / a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun3 / a.nilaiTahun2).toFixed(2)}</Text> 
               </View>
               <View style={styles.tableCol15}> 
                 <Text style={styles.tableCell}>{a.keterangan}</Text> 
@@ -1434,28 +1545,28 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Total Biaya Operasional</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun1B}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun2B}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun3B}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel1B}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor1B).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel2B}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor2B).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol15}> 
-            <Text style={styles.tableCell}>Keterangan</Text> 
+            <Text style={styles.tableCell}></Text> 
           </View>
         </View>
       </View>
@@ -1463,7 +1574,6 @@ const Pdf = (props) => {
   }
 
   const TabelBeban = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -1474,25 +1584,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Akun</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2017</Text> 
+            <Text style={styles.tableCell}>{props.data.pendapatanBeban[0].tahun1}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2018</Text> 
+            <Text style={styles.tableCell}>{props.data.pendapatanBeban[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>2019</Text> 
+            <Text style={styles.tableCell}>{props.data.pendapatanBeban[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2018 - 2017</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.pendapatanBeban[0].tahun2} - {props.data.pendapatanBeban[0].tahun1}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2018</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.pendapatanBeban[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>Selisih 2019 - 2018</Text> 
+            <Text style={styles.tableCell}>Selisih {props.data.pendapatanBeban[0].tahun3} - {props.data.pendapatanBeban[0].tahun2}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>%horizontal% 2019</Text> 
+            <Text style={styles.tableCell}>%horizontal% {props.data.pendapatanBeban[0].tahun3}</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}>Keterangan</Text> 
@@ -1508,25 +1618,25 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{a.akun}</Text> 
               </View> 
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun1}</Text> 
               </View>
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 - a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun2 - a.nilaiTahun1}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun2 / a.nilaiTahun1}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun2 / a.nilaiTahun1).toFixed(2)}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 - a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{mataUang} {a.nilaiTahun3 - a.nilaiTahun2}</Text> 
               </View> 
               <View style={styles.tableCol10}> 
-                <Text style={styles.tableCell}>{a.nilaiTahun3 / a.nilaiTahun2}</Text> 
+                <Text style={styles.tableCell}>{Number(a.nilaiTahun3 / a.nilaiTahun2).toFixed(2)}</Text> 
               </View>
               <View style={styles.tableCol15}> 
                 <Text style={styles.tableCell}>{a.keterangan}</Text> 
@@ -1539,28 +1649,28 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Total Pendapatan dan Beban Lain</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun1PB}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun2PB}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun3PB}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel1PB}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor1PB).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel2PB}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor2PB).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol15}> 
-            <Text style={styles.tableCell}>Keterangan</Text> 
+            <Text style={styles.tableCell}></Text> 
           </View>
         </View>
       </View>
@@ -1568,7 +1678,6 @@ const Pdf = (props) => {
   }
 
   const TabelTotalAset = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -1576,25 +1685,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>TOTAL ASET</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun1AL + totTahun1AT}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun2AL + totTahun2AT}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun3AL + totTahun3AT}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (totTahun2AL + totTahun2AT) - (totTahun1AL + totTahun1AT) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{ Number((totTahun2AL + totTahun2AT) / (totTahun1AL + totTahun1AT)).toFixed(2) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (totTahun3AL + totTahun3AT) - (totTahun2AL + totTahun2AT) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{ Number((totTahun3AL + totTahun3AT) / (totTahun2AL + totTahun2AT)).toFixed(2) }</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}></Text> 
@@ -1605,7 +1714,6 @@ const Pdf = (props) => {
   }
 
   const TabelTotalLiabilitas = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -1613,25 +1721,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>TOTAL LIABILITAS</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun1KL + totTahun1LP}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun2KL + totTahun2LP}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun3KL + totTahun3LP}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (totTahun2KL + totTahun2LP) - (totTahun1KL + totTahun1LP) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{ Number((totTahun2KL + totTahun2LP) / (totTahun1KL + totTahun1LP)).toFixed(2) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (totTahun3KL + totTahun3LP) - (totTahun2KL + totTahun2LP) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{ Number((totTahun3KL + totTahun3LP) / (totTahun2KL + totTahun2LP)).toFixed(2) }</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}></Text> 
@@ -1642,7 +1750,6 @@ const Pdf = (props) => {
   }
 
   const TabelTotalEkuitas = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -1650,25 +1757,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>TOTAL LIABILITAS & EKUITAS</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (totTahun1KL + totTahun1LP) + totTahun1E }</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (totTahun2KL + totTahun2LP) + totTahun2E }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (totTahun3KL + totTahun3LP) + totTahun3E }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { ((totTahun2KL + totTahun2LP) + totTahun2E) - ((totTahun1KL + totTahun1LP) + totTahun1E) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{ Number(((totTahun2KL + totTahun2LP) + totTahun2E) / ((totTahun1KL + totTahun1LP) + totTahun1E)).toFixed(2) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { ((totTahun3KL + totTahun3LP) + totTahun3E) - ((totTahun2KL + totTahun2LP) + totTahun2E) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{ Number(((totTahun3KL + totTahun3LP) + totTahun3E) / ((totTahun2KL + totTahun2LP) + totTahun2E)).toFixed(2) }</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}></Text> 
@@ -1679,7 +1786,6 @@ const Pdf = (props) => {
   }
 
   const TabelPersediaanAkhir = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -1687,25 +1793,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Persediaan Akhir</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun1PA}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun2PA}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun3PA}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel1PA}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor1PA).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totSel2PA}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{Number(totHor2PA).toFixed(2)}</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}></Text> 
@@ -1716,7 +1822,6 @@ const Pdf = (props) => {
   }
 
   const TabelTotalHargaPokok = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -1724,25 +1829,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>TOTAL HARGA POKOK PENJUALAN</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun1HP - totTahun1PA}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun2HP - totTahun2PA}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun3HP - totTahun3PA}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (totTahun2HP - totTahun2PA) - (totTahun1HP - totTahun1PA) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{ Number((totTahun2HP - totTahun2PA) - (totTahun1HP - totTahun1PA)).toFixed(2) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (totTahun3HP - totTahun3PA) - (totTahun2HP - totTahun2PA) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{ Number((totTahun3HP - totTahun3PA) / (totTahun2HP - totTahun2PA)).toFixed(2) }</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}></Text> 
@@ -1753,7 +1858,6 @@ const Pdf = (props) => {
   }
 
   const TabelGrosirProfit = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -1761,25 +1865,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>GROSIR PROFIT</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun1P - (totTahun1HP - totTahun1PA)}</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun2P - (totTahun2HP - totTahun2PA)}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} {totTahun3P - (totTahun3HP - totTahun3PA)}</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (totTahun2P - (totTahun2HP - totTahun2PA)) - (totTahun1P - (totTahun1HP - totTahun1PA)) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{ Number((totTahun2P - (totTahun2HP - totTahun2PA)) / (totTahun1P - (totTahun1HP - totTahun1PA))).toFixed(2) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (totTahun3P - (totTahun3HP - totTahun3PA)) - (totTahun2P - (totTahun2HP - totTahun2PA)) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{ Number((totTahun3P - (totTahun3HP - totTahun3PA)) / (totTahun2P - (totTahun2HP - totTahun2PA))).toFixed(2) }</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}></Text> 
@@ -1790,7 +1894,6 @@ const Pdf = (props) => {
   }
 
   const TabelLabaRugi = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -1798,25 +1901,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>LABA RUGI OPERASIONAL</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (totTahun1P - (totTahun1HP - totTahun1PA)) - totTahun1B }</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (totTahun2P - (totTahun2HP - totTahun2PA)) - totTahun2B }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (totTahun3P - (totTahun3HP - totTahun3PA)) - totTahun3B }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { ((totTahun2P - (totTahun2HP - totTahun2PA)) - totTahun2B) - ((totTahun1P - (totTahun1HP - totTahun1PA)) - totTahun1B) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{ Number(((totTahun2P - (totTahun2HP - totTahun2PA)) - totTahun2B) / ((totTahun1P - (totTahun1HP - totTahun1PA)) - totTahun1B)).toFixed(2) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { ((totTahun3P - (totTahun3HP - totTahun3PA)) - totTahun3B) - ((totTahun2P - (totTahun2HP - totTahun2PA)) - totTahun2B) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{ Number(((totTahun3P - (totTahun3HP - totTahun3PA)) - totTahun3B) / ((totTahun2P - (totTahun2HP - totTahun2PA)) - totTahun2B)).toFixed(2) }</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}></Text> 
@@ -1827,7 +1930,6 @@ const Pdf = (props) => {
   }
 
   const TabelLabaSebelum = () => {
-    var i, total1=0, total2=0, total3=0, selisih1=0, selisih2=0, hor1=0, hor2=0;
     return (
     <View style={styles.table}> 
         <View style={styles.tableRow}> 
@@ -1835,25 +1937,25 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>LABA (RUGI) SEBELUM PAJAK</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { ((totTahun1P - (totTahun1HP - totTahun1PA)) - totTahun1B) - totTahun1PB }</Text> 
           </View> 
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { ((totTahun2P - (totTahun2HP - totTahun2PA)) - totTahun2B) - totTahun2PB }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{total3}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { ((totTahun3P - (totTahun3HP - totTahun3PA)) - totTahun3B) - totTahun3PB }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih1}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (((totTahun2P - (totTahun2HP - totTahun2PA)) - totTahun2B) - totTahun2PB) - (((totTahun1P - (totTahun1HP - totTahun1PA)) - totTahun1B) - totTahun1PB) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor1}</Text> 
+            <Text style={styles.tableCell}>{ Number((((totTahun2P - (totTahun2HP - totTahun2PA)) - totTahun2B) - totTahun2PB) / (((totTahun1P - (totTahun1HP - totTahun1PA)) - totTahun1B) - totTahun1PB)).toFixed(2) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{selisih2}</Text> 
+            <Text style={styles.tableCell}>{mataUang} { (((totTahun3P - (totTahun3HP - totTahun3PA)) - totTahun3B) - totTahun3PB) - (((totTahun2P - (totTahun2HP - totTahun2PA)) - totTahun2B) - totTahun2PB) }</Text> 
           </View>
           <View style={styles.tableCol10}> 
-            <Text style={styles.tableCell}>{hor2}</Text> 
+            <Text style={styles.tableCell}>{ Number((((totTahun3P - (totTahun3HP - totTahun3PA)) - totTahun3B) - totTahun3PB) / (((totTahun2P - (totTahun2HP - totTahun2PA)) - totTahun2B) - totTahun2PB)).toFixed(2) }</Text> 
           </View>
           <View style={styles.tableCol15}> 
             <Text style={styles.tableCell}></Text> 
@@ -1866,6 +1968,7 @@ const Pdf = (props) => {
   return (
   <Document>
     <Page size="A4" style={styles.page}>
+      <Text style={{ fontSize: 7, textAlign: 'right' }}>dicetak pada tanggal {tgl}</Text>
       <View style={styles.header}>
         <Image 
             style={styles.logo}

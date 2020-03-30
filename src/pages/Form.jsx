@@ -1692,7 +1692,7 @@ const Form = () => {
                             id="nilaiTahun1"
                             name="nilaiTahun1"
                             className="input is-dark input-narrow" 
-                            type="text" 
+                            type="number" 
                             placeholder=""
                             value={aktivaLancar.nilaiTahun1}
                             onChange={ event => handleInputAktivaLancar(index, event) } />
@@ -1720,7 +1720,7 @@ const Form = () => {
                             id="nilaiTahun2"
                             name="nilaiTahun2"
                             className="input is-dark input-narrow" 
-                            type="text" 
+                            type="number" 
                             placeholder=""
                             value={aktivaLancar.nilaiTahun2}
                             onChange={ event => handleInputAktivaLancar(index, event) } />
@@ -1747,7 +1747,7 @@ const Form = () => {
                             id="nilaiTahun3"
                             name="nilaiTahun3"
                             className="input is-dark input-narrow" 
-                            type="text" 
+                            type="number" 
                             placeholder=""
                             value={aktivaLancar.nilaiTahun3}
                             onChange={ event => handleInputAktivaLancar(index, event) } />
