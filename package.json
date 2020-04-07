@@ -1,6 +1,7 @@
 {
-  "name": "web-pajak-pratama",
+  "name": "LHPt",
   "version": "0.1.0",
+  "homepage": "http://beetproject.com/LHPt",
   "private": true,
   "dependencies": {
     "@david.kucsai/react-pdf-table": "^0.3.0",
@@ -18,7 +19,7 @@
   },
   "scripts": {
     "start": "react-scripts --max_old_space_size=2048 start",
-    "build": "react-scripts build",
+    "build": "react-scripts --max_old_space_size=2048  build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
