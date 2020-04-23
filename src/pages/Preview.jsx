@@ -3,7 +3,7 @@ import { PDFViewer, StyleSheet } from '@react-pdf/renderer';
 import Pdf from './Pdf'
 
 const Preview = (props) => {
-  return(
+  return (
     <PDFViewer
       style={styles.page}>
       <Pdf data={{
@@ -30,20 +30,21 @@ const Preview = (props) => {
         pendapatan: props.location.pdfProps.pendapatan,
         hargaPokok: props.location.pdfProps.hargaPokok,
         persediaanAkhir: props.location.pdfProps.persediaanAkhir,
-        biayaLaba: props.location.pdfProps.biayaLaba,
+        biayaLabaPenjualan: props.location.pdfProps.biayaLabaPenjualan,
+        biayaLabaUmum: props.location.pdfProps.biayaLabaUmum,
         pendapatanBeban: props.location.pdfProps.pendapatanBeban,
         pajakLain: props.location.pdfProps.pajakLain
-      }}/>
+      }} />
     </PDFViewer>
   );
 }
 
 const styles = StyleSheet.create({
-    page: {
-      width: '100%',
-      height: window.innerHeight,
-      objectFit: 'fill'
-    }
-  });
+  page: {
+    width: '100%',
+    height: window.innerHeight,
+    objectFit: 'fill'
+  }
+});
 
 export default Preview;

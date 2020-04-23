@@ -3,10 +3,20 @@ import logo from './../assets/kemenkeu-logo.png'
 import "./../app.scss"
 import { Link } from 'react-router-dom'
 
+function currencyFormatter(price) {
+  const priceValue = price.replace(/\./g, "");
+  return priceValue.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+};
+
+function replacePriceDot(text) {
+  return text.replace(/\./g, "")
+}
+
 const Form = () => {
 
   const [dataUmum, setDataUmum] = useState([
-    { nomor: '',
+    {
+      nomor: '',
       namaWajib: '', npwp: '', kpp: '', alamat: '', klu: '', tahunPajak: '',
       kegiatanUsaha: '',
       tahunRisk: '', nilaiRisk: '',
@@ -16,7 +26,8 @@ const Form = () => {
       unit1: '', jabatan1: '', nama1: '',
       unit2: '', jabatan2: '', nama2: '',
       unit3: '', jabatan3: '', nama3: '',
-      unit4: '', jabatan4: '', nama4: '', }
+      unit4: '', jabatan4: '', nama4: '',
+    }
   ]);
 
   // array 
@@ -25,18 +36,18 @@ const Form = () => {
   ]);
 
   const [pohonKepemilikan, setPohonKepemilikan] = useState([
-    { nama: '',  jmlModal: '', dividen: '', alamat: '', persentase: ''}
+    { nama: '', jmlModal: '', dividen: '', alamat: '', persentase: '' }
   ]);
 
   const [riwayatPengawasan, setRiwayatPengawasan] = useState([
-    { nomorSp: '', jenisPajak: '', nilaiPotensi: '', status: '', realisasi: '' }
+    { nomorSp: '', jenisPajak: '', tahunPajak: '', nilaiPotensi: '', status: '', realisasi: '' }
   ]);
 
   const [hasilPeriksa, setHasilPeriksa] = useState([
     { jenisPajak: '', tahun: '', cfmSpt: '', cfmPeriksa: '', koreksi: '' }
   ]);
 
-  const [koreksiHasil, setKoreksiHasil] = useState([ 
+  const [koreksiHasil, setKoreksiHasil] = useState([
     { tahun: '', jenisPajak: '', sumberKoreksi: '', alasanKoreksi: '' }
   ]);
 
@@ -100,7 +111,11 @@ const Form = () => {
     { akun: '', tahun1: '', nilaiTahun1: '', tahun2: '', nilaiTahun2: '', tahun3: '', nilaiTahun3: '', keterangan: '' }
   ]);
 
-  const [biayaLaba, setBiayaLaba] = useState([
+  const [biayaLabaPenjualan, setBiayaLabaPenjualan] = useState([
+    { akun: '', tahun1: '', nilaiTahun1: '', tahun2: '', nilaiTahun2: '', tahun3: '', nilaiTahun3: '', keterangan: '' }
+  ]);
+
+  const [biayaLabaUmum, setBiayaLabaUmum] = useState([
     { akun: '', tahun1: '', nilaiTahun1: '', tahun2: '', nilaiTahun2: '', tahun3: '', nilaiTahun3: '', keterangan: '' }
   ]);
 
@@ -109,7 +124,7 @@ const Form = () => {
   ]);
 
   const [pajakLain, setPajakLain] = useState([
-      { uraian: '', cfmSpt: '', cfmPenelitian: '', keterangan: '' }
+    { uraian: '', cfmSpt: '', cfmPenelitian: '', keterangan: '' }
   ]);
 
   const [hasilKeberatan, setHasilKeberatan] = useState([
@@ -119,12 +134,12 @@ const Form = () => {
   const [koreksiKeberatan, setKoreksiKeberatan] = useState([
     { masaPajak: '', jenisPajak: '', risalahKeputusan: '' }
   ]);
-  
+
 
   const handleSubmit = e => {
     e.preventDefault();
     console.log("inputFields", dataUmum);
-    
+
   }
 
   // Handle input
@@ -146,7 +161,9 @@ const Form = () => {
     if (event.target.name === "nama") {
       values[index].nama = event.target.value;
     } else if (event.target.name === "jmlModal") {
-      values[index].jmlModal = event.target.value;
+      values[index].jmlModal = replacePriceDot(event.target.value);
+    } else if (event.target.name === "npwp") {
+      values[index].npwp = event.target.value;
     } else if (event.target.name === "dividen") {
       values[index].dividen = event.target.value;
     } else if (event.target.name === "alamat") {
@@ -164,6 +181,8 @@ const Form = () => {
       values[index].nomorSp = event.target.value;
     } else if (event.target.name === "jenisPajak") {
       values[index].jenisPajak = event.target.value;
+    } else if (event.target.name === "tahunPajak") {
+      values[index].tahunPajak = event.target.value;
     } else if (event.target.name === "nilaiPotensi") {
       values[index].nilaiPotensi = event.target.value;
     } else if (event.target.name === "status") {
@@ -280,15 +299,15 @@ const Form = () => {
     } else if (event.target.name === "tahun1") {
       values[index].tahun1 = event.target.value;
     } else if (event.target.name === "nilaiTahun1") {
-      values[index].nilaiTahun1 = event.target.value;
+      values[index].nilaiTahun1 = replacePriceDot(event.target.value);
     } else if (event.target.name === "tahun2") {
       values[index].tahun2 = event.target.value;
     } else if (event.target.name === "nilaiTahun2") {
-      values[index].nilaiTahun2 = event.target.value;
+      values[index].nilaiTahun2 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun3") {
       values[index].tahun3 = event.target.value;
     } else if (event.target.name === "nilaiTahun3") {
-      values[index].nilaiTahun3 = event.target.value;
+      values[index].nilaiTahun3 = replacePriceDot(event.target.value)
     } else {
       values[index].keterangan = event.target.value;
     }
@@ -302,15 +321,15 @@ const Form = () => {
     } else if (event.target.name === "tahun1") {
       values[index].tahun1 = event.target.value;
     } else if (event.target.name === "nilaiTahun1") {
-      values[index].nilaiTahun1 = event.target.value;
+      values[index].nilaiTahun1 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun2") {
       values[index].tahun2 = event.target.value;
     } else if (event.target.name === "nilaiTahun2") {
-      values[index].nilaiTahun2 = event.target.value;
+      values[index].nilaiTahun2 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun3") {
       values[index].tahun3 = event.target.value;
     } else if (event.target.name === "nilaiTahun3") {
-      values[index].nilaiTahun3 = event.target.value;
+      values[index].nilaiTahun3 = replacePriceDot(event.target.value)
     } else {
       values[index].keterangan = event.target.value;
     }
@@ -324,15 +343,15 @@ const Form = () => {
     } else if (event.target.name === "tahun1") {
       values[index].tahun1 = event.target.value;
     } else if (event.target.name === "nilaiTahun1") {
-      values[index].nilaiTahun1 = event.target.value;
+      values[index].nilaiTahun1 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun2") {
       values[index].tahun2 = event.target.value;
     } else if (event.target.name === "nilaiTahun2") {
-      values[index].nilaiTahun2 = event.target.value;
+      values[index].nilaiTahun2 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun3") {
       values[index].tahun3 = event.target.value;
     } else if (event.target.name === "nilaiTahun3") {
-      values[index].nilaiTahun3 = event.target.value;
+      values[index].nilaiTahun3 = replacePriceDot(event.target.value)
     } else {
       values[index].keterangan = event.target.value;
     }
@@ -346,15 +365,15 @@ const Form = () => {
     } else if (event.target.name === "tahun1") {
       values[index].tahun1 = event.target.value;
     } else if (event.target.name === "nilaiTahun1") {
-      values[index].nilaiTahun1 = event.target.value;
+      values[index].nilaiTahun1 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun2") {
       values[index].tahun2 = event.target.value;
     } else if (event.target.name === "nilaiTahun2") {
-      values[index].nilaiTahun2 = event.target.value;
+      values[index].nilaiTahun2 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun3") {
       values[index].tahun3 = event.target.value;
     } else if (event.target.name === "nilaiTahun3") {
-      values[index].nilaiTahun3 = event.target.value;
+      values[index].nilaiTahun3 = replacePriceDot(event.target.value)
     } else {
       values[index].keterangan = event.target.value;
     }
@@ -368,15 +387,15 @@ const Form = () => {
     } else if (event.target.name === "tahun1") {
       values[index].tahun1 = event.target.value;
     } else if (event.target.name === "nilaiTahun1") {
-      values[index].nilaiTahun1 = event.target.value;
+      values[index].nilaiTahun1 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun2") {
       values[index].tahun2 = event.target.value;
     } else if (event.target.name === "nilaiTahun2") {
-      values[index].nilaiTahun2 = event.target.value;
+      values[index].nilaiTahun2 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun3") {
       values[index].tahun3 = event.target.value;
     } else if (event.target.name === "nilaiTahun3") {
-      values[index].nilaiTahun3 = event.target.value;
+      values[index].nilaiTahun3 = replacePriceDot(event.target.value)
     } else {
       values[index].keterangan = event.target.value;
     }
@@ -390,15 +409,15 @@ const Form = () => {
     } else if (event.target.name === "tahun1") {
       values[index].tahun1 = event.target.value;
     } else if (event.target.name === "nilaiTahun1") {
-      values[index].nilaiTahun1 = event.target.value;
+      values[index].nilaiTahun1 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun2") {
       values[index].tahun2 = event.target.value;
     } else if (event.target.name === "nilaiTahun2") {
-      values[index].nilaiTahun2 = event.target.value;
+      values[index].nilaiTahun2 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun3") {
       values[index].tahun3 = event.target.value;
     } else if (event.target.name === "nilaiTahun3") {
-      values[index].nilaiTahun3 = event.target.value;
+      values[index].nilaiTahun3 = replacePriceDot(event.target.value)
     } else {
       values[index].keterangan = event.target.value;
     }
@@ -412,15 +431,15 @@ const Form = () => {
     } else if (event.target.name === "tahun1") {
       values[index].tahun1 = event.target.value;
     } else if (event.target.name === "nilaiTahun1") {
-      values[index].nilaiTahun1 = event.target.value;
+      values[index].nilaiTahun1 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun2") {
       values[index].tahun2 = event.target.value;
     } else if (event.target.name === "nilaiTahun2") {
-      values[index].nilaiTahun2 = event.target.value;
+      values[index].nilaiTahun2 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun3") {
       values[index].tahun3 = event.target.value;
     } else if (event.target.name === "nilaiTahun3") {
-      values[index].nilaiTahun3 = event.target.value;
+      values[index].nilaiTahun3 = replacePriceDot(event.target.value)
     } else {
       values[index].keterangan = event.target.value;
     }
@@ -434,41 +453,63 @@ const Form = () => {
     } else if (event.target.name === "tahun1") {
       values[index].tahun1 = event.target.value;
     } else if (event.target.name === "nilaiTahun1") {
-      values[index].nilaiTahun1 = event.target.value;
+      values[index].nilaiTahun1 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun2") {
       values[index].tahun2 = event.target.value;
     } else if (event.target.name === "nilaiTahun2") {
-      values[index].nilaiTahun2 = event.target.value;
+      values[index].nilaiTahun2 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun3") {
       values[index].tahun3 = event.target.value;
     } else if (event.target.name === "nilaiTahun3") {
-      values[index].nilaiTahun3 = event.target.value;
+      values[index].nilaiTahun3 = replacePriceDot(event.target.value)
     } else {
       values[index].keterangan = event.target.value;
     }
     setPersediaanAkhir(values);
   }
 
-  const handleInputBiayaLaba = (index, event) => {
-    const values = [...biayaLaba];
+  const handleInputBiayaLabaPenjualan = (index, event) => {
+    const values = [...biayaLabaPenjualan];
     if (event.target.name === "akun") {
       values[index].akun = event.target.value;
     } else if (event.target.name === "tahun1") {
       values[index].tahun1 = event.target.value;
     } else if (event.target.name === "nilaiTahun1") {
-      values[index].nilaiTahun1 = event.target.value;
+      values[index].nilaiTahun1 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun2") {
       values[index].tahun2 = event.target.value;
     } else if (event.target.name === "nilaiTahun2") {
-      values[index].nilaiTahun2 = event.target.value;
+      values[index].nilaiTahun2 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun3") {
       values[index].tahun3 = event.target.value;
     } else if (event.target.name === "nilaiTahun3") {
-      values[index].nilaiTahun3 = event.target.value;
+      values[index].nilaiTahun3 = replacePriceDot(event.target.value)
     } else {
       values[index].keterangan = event.target.value;
     }
-    setBiayaLaba(values);
+    setBiayaLabaPenjualan(values);
+  }
+
+  const handleInputBiayaLabaUmum = (index, event) => {
+    const values = [...biayaLabaUmum];
+    if (event.target.name === "akun") {
+      values[index].akun = event.target.value;
+    } else if (event.target.name === "tahun1") {
+      values[index].tahun1 = event.target.value;
+    } else if (event.target.name === "nilaiTahun1") {
+      values[index].nilaiTahun1 = replacePriceDot(event.target.value)
+    } else if (event.target.name === "tahun2") {
+      values[index].tahun2 = event.target.value;
+    } else if (event.target.name === "nilaiTahun2") {
+      values[index].nilaiTahun2 = replacePriceDot(event.target.value)
+    } else if (event.target.name === "tahun3") {
+      values[index].tahun3 = event.target.value;
+    } else if (event.target.name === "nilaiTahun3") {
+      values[index].nilaiTahun3 = replacePriceDot(event.target.value)
+    } else {
+      values[index].keterangan = event.target.value;
+    }
+    setBiayaLabaUmum(values);
   }
 
   const handleInputPendapatanBeban = (index, event) => {
@@ -478,15 +519,15 @@ const Form = () => {
     } else if (event.target.name === "tahun1") {
       values[index].tahun1 = event.target.value;
     } else if (event.target.name === "nilaiTahun1") {
-      values[index].nilaiTahun1 = event.target.value;
+      values[index].nilaiTahun1 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun2") {
       values[index].tahun2 = event.target.value;
     } else if (event.target.name === "nilaiTahun2") {
-      values[index].nilaiTahun2 = event.target.value;
+      values[index].nilaiTahun2 = replacePriceDot(event.target.value)
     } else if (event.target.name === "tahun3") {
       values[index].tahun3 = event.target.value;
     } else if (event.target.name === "nilaiTahun3") {
-      values[index].nilaiTahun3 = event.target.value;
+      values[index].nilaiTahun3 = replacePriceDot(event.target.value)
     } else {
       values[index].keterangan = event.target.value;
     }
@@ -623,7 +664,7 @@ const Form = () => {
     setKoreksiKeberatan(values);
   }
 
-  
+
 
   // Handle Add
   const handleAddRiwayatLaporan = () => {
@@ -634,7 +675,7 @@ const Form = () => {
 
   const handleAddPohonKepemilikan = () => {
     const values = [...pohonKepemilikan];
-    values.push({ nama: '', jmlModal: '', dividen: '', alamat: '', persentase: '' });
+    values.push({ nama: '', jmlModal: '', npwp: '', dividen: '', alamat: '', persentase: '' });
     setPohonKepemilikan(values);
   }
 
@@ -691,10 +732,10 @@ const Form = () => {
     values.push({ modus: '' });
     setModusKetidakpatuhan(values);
   }
-  
+
   const handleAddPotensi = () => {
     const values = [...potensi];
-    values.push({ tahunPajak: '' , jenisData: '', nilaiPotensi: ''});
+    values.push({ tahunPajak: '', jenisData: '', nilaiPotensi: '' });
     setPotensi(values);
   }
 
@@ -746,10 +787,22 @@ const Form = () => {
     setPersediaanAkhir(values);
   }
 
-  const handleAddBiayaLaba = () => {
-    const values = [...biayaLaba];
+  // const handleAddBiayaLaba = () => {
+  //   const values = [...biayaLaba];
+  //   values.push({ akun: '', tahun1: '', nilaiTahun1: '', tahun2: '', nilaiTahun2: '', tahun3: '', nilaiTahun3: '', keterangan: '' });
+  //   setBiayaLaba(values);
+  // }
+
+  const handleAddBiayaLabaPenjualan = () => {
+    const values = [...biayaLabaPenjualan];
     values.push({ akun: '', tahun1: '', nilaiTahun1: '', tahun2: '', nilaiTahun2: '', tahun3: '', nilaiTahun3: '', keterangan: '' });
-    setBiayaLaba(values);
+    setBiayaLabaPenjualan(values);
+  }
+
+  const handleAddBiayaLabaUmum = () => {
+    const values = [...biayaLabaUmum];
+    values.push({ akun: '', tahun1: '', nilaiTahun1: '', tahun2: '', nilaiTahun2: '', tahun3: '', nilaiTahun3: '', keterangan: '' });
+    setBiayaLabaUmum(values);
   }
 
   const handleAddPendapatanBeban = () => {
@@ -897,54 +950,60 @@ const Form = () => {
     setPersediaanAkhir(values);
   }
 
-  const handleRemoveBiayaLaba = index => {
-    const values = [...biayaLaba];
+  const handleRemoveBiayaLabaPenjualan = index => {
+    const values = [...biayaLabaPenjualan];
     values.splice(index, 1);
-    setBiayaLaba(values);
+    setBiayaLabaPenjualan(values);
   }
 
-  const handleRemovePendapatanBeban= index => {
+  const handleRemoveBiayaLabaUmum = index => {
+    const values = [...biayaLabaUmum];
+    values.splice(index, 1);
+    setBiayaLabaUmum(values);
+  }
+
+  const handleRemovePendapatanBeban = index => {
     const values = [...pendapatanBeban];
     values.splice(index, 1);
     setPendapatanBeban(values);
   }
 
-  const handleRemovePajakLain= index => {
+  const handleRemovePajakLain = index => {
     const values = [...pajakLain];
     values.splice(index, 1);
     setPajakLain(values);
   }
 
-  const handleRemoveHasilKeberatan= index => {
+  const handleRemoveHasilKeberatan = index => {
     const values = [...hasilKeberatan];
     values.splice(index, 1);
     setHasilKeberatan(values);
   }
 
-  const handleRemoveKoreksiKeberatan= index => {
+  const handleRemoveKoreksiKeberatan = index => {
     const values = [...koreksiKeberatan];
     values.splice(index, 1);
     setKoreksiKeberatan(values);
   }
 
   return (
-    <form style={{ margin: 100 }} onSubmit={ handleSubmit }>
+    <form style={{ margin: 100 }} onSubmit={handleSubmit}>
       <div className="header">
         <img className="logo" src={logo} alt="logo" />
 
         <div className="right">
           <h1 className="title"><b>LAPORAN HASIL PENELITIAN</b></h1>
 
-          <div className="input-form" style={{paddingLeft:20}}>
+          <div className="input-form" style={{ paddingLeft: 20 }}>
             <label className="label-large"><b>NOMOR.</b></label>
-            <input 
+            <input
               id="nomor"
               name="nomor"
-              className="input is-dark input-wide" 
-              type="text" 
+              className="input is-dark input-wide"
+              type="text"
               placeholder=""
               value={dataUmum.nomor}
-              onChange={ event => handleInputDataUmum(0, event) } />
+              onChange={event => handleInputDataUmum(0, event)} />
           </div>
         </div>
       </div>
@@ -959,76 +1018,76 @@ const Form = () => {
             <div className="form-flex-left">
               <div className="input-form-standar">
                 <label className="label-normal">Nama wajib pajak</label>
-                <input 
+                <input
                   id="namaWajib"
                   name="namaWajib"
-                  className="input is-dark input-standar" 
-                  type="text" 
+                  className="input is-dark input-standar"
+                  type="text"
                   placeholder=""
                   value={dataUmum.namaWajib}
-                  onChange={ event => handleInputDataUmum(0, event) } />
+                  onChange={event => handleInputDataUmum(0, event)} />
               </div>
 
               <div className="input-form-standar">
                 <label className="label-normal">NPWP</label>
-                <input 
+                <input
                   id="npwp"
                   name="npwp"
-                  className="input is-dark input-standar" 
-                  type="text" 
+                  className="input is-dark input-standar"
+                  type="text"
                   placeholder=""
                   value={dataUmum.npwp}
-                  onChange={ event => handleInputDataUmum(0, event) } />
+                  onChange={event => handleInputDataUmum(0, event)} />
               </div>
 
               <div className="input-form-standar">
                 <label className="label-normal">KPP</label>
-                <input 
+                <input
                   id="kpp"
                   name="kpp"
-                  className="input is-dark input-standar" 
-                  type="text" 
+                  className="input is-dark input-standar"
+                  type="text"
                   placeholder=""
                   value={dataUmum.kpp}
-                  onChange={ event => handleInputDataUmum(0, event) } />
+                  onChange={event => handleInputDataUmum(0, event)} />
               </div>
             </div>
 
             <div className="form-flex-right">
               <div className="input-form-standar">
                 <label className="label-normal">Alamat</label>
-                <input 
+                <input
                   id="alamat"
                   name="alamat"
-                  className="input is-dark input-standar" 
-                  type="text" 
+                  className="input is-dark input-standar"
+                  type="text"
                   placeholder=""
                   value={dataUmum.alamat}
-                  onChange={ event => handleInputDataUmum(0, event) } />
+                  onChange={event => handleInputDataUmum(0, event)} />
               </div>
 
               <div className="input-form-standar">
                 <label className="label-normal">KLU</label>
-                <input 
+                <input
                   id="klu"
                   name="klu"
-                  className="input is-dark input-standar" 
-                  type="text" 
+                  className="input is-dark input-standar"
+                  type="text"
                   placeholder=""
                   value={dataUmum.klu}
-                  onChange={ event => handleInputDataUmum(0, event) } />
+                  onChange={event => handleInputDataUmum(0, event)} />
               </div>
 
               <div className="input-form-standar">
                 <label className="label-normal">Tahun Pajak</label>
-                <input 
+                <input
                   id="tahunPajak"
                   name="tahunPajak"
-                  className="input is-dark input-standar" 
-                  type="text" 
+                  className="input is-dark input-standar"
+                  type="text"
                   placeholder=""
                   value={dataUmum.tahunPajak}
-                  onChange={ event => handleInputDataUmum(0, event) } />
+                  onChange={event => handleInputDataUmum(0, event)} />
               </div>
             </div>
           </div>
@@ -1038,13 +1097,13 @@ const Form = () => {
         <div className="section-form-header">
           <p className="sub-title-form"><b>B. Kegiatan Usaha</b></p>
           <div className="section-form-body section-form-flex">
-            <textarea 
+            <textarea
               id="kegiatanUsaha"
               name="kegiatanUsaha"
-              className="textarea is-black has-fixed-size" 
+              className="textarea is-black has-fixed-size"
               placeholder="Kegiatan usaha"
               value={dataUmum.kegiatanUsaha}
-              onChange={ event => handleInputDataUmum(0, event) }></textarea>
+              onChange={event => handleInputDataUmum(0, event)}></textarea>
           </div>
         </div>
         <hr></hr>
@@ -1059,74 +1118,86 @@ const Form = () => {
                     <label className="label-normal">Nama</label>
                     <input
                       id="nama"
-                      name="nama" 
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      name="nama"
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={pohonKepemilikan.nama}
-                      onChange={ event => handleInputPohonKepemilikan(index, event) } />
+                      onChange={event => handleInputPohonKepemilikan(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">Jumlah modal disetor</label>
                     <input
                       id="jmlModal"
-                      name="jmlModal" 
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      name="jmlModal"
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
-                      value={pohonKepemilikan.jmlModal}
-                      onChange={ event => handleInputPohonKepemilikan(index, event) } />
+                      value={currencyFormatter(pohonKepemilikan.jmlModal)}
+                      onChange={event => handleInputPohonKepemilikan(index, event)} />
                   </div>
 
                   <div className="input-form-standar">
-                    <label className="label-normal">Dividen</label>
+                    <label className="label-normal">NPWP</label>
                     <input
-                      id="dividen"
-                      name="dividen" 
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      id="npwp-saham-tree"
+                      name="npwp"
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
-                      value={pohonKepemilikan.dividen}
-                      onChange={ event => handleInputPohonKepemilikan(index, event) } />
+                      value={pohonKepemilikan.npwp}
+                      onChange={event => handleInputPohonKepemilikan(index, event)} />
                   </div>
                 </div>
 
                 <div className="form-flex-right">
                   <div className="input-form-standar">
                     <label className="label-normal">Alamat</label>
-                    <input 
+                    <input
                       id="alamat"
                       name="alamat"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={pohonKepemilikan.alamat}
-                      onChange={ event => handleInputPohonKepemilikan(index, event) } />
+                      onChange={event => handleInputPohonKepemilikan(index, event)} />
                   </div>
 
                   <div className="input-form-standar">
                     <label className="label-normal">Persentase</label>
-                    <input 
+                    <input
                       id="persentase"
                       name="persentase"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={pohonKepemilikan.persentase}
-                      onChange={ event => handleInputPohonKepemilikan(index, event) } />
+                      onChange={event => handleInputPohonKepemilikan(index, event)} />
+                  </div>
+
+                  <div className="input-form-standar">
+                    <label className="label-normal">Dividen</label>
+                    <input
+                      id="dividen"
+                      name="dividen"
+                      className="input is-dark input-standar"
+                      type="text"
+                      placeholder=""
+                      value={pohonKepemilikan.dividen}
+                      onChange={event => handleInputPohonKepemilikan(index, event)} />
                   </div>
                 </div>
               </div>
               <div className="btn-wrapper">
-                  <button 
-                    className="button is-warning"
-                    type="button"
-                    onClick={ () => handleAddPohonKepemilikan() }>Tambah</button>
-                  <button 
-                    className="button is-danger"
-                    type="button"
-                    style={{ marginLeft: 16 }}
-                    onClick={ () => handleRemovePohonKepemilikan(index) }>Hapus</button>
+                <button
+                  className="button is-warning"
+                  type="button"
+                  onClick={() => handleAddPohonKepemilikan()}>Tambah</button>
+                <button
+                  className="button is-danger"
+                  type="button"
+                  style={{ marginLeft: 16 }}
+                  onClick={() => handleRemovePohonKepemilikan(index)}>Hapus</button>
               </div>
             </Fragment>
           ))}
@@ -1142,26 +1213,26 @@ const Form = () => {
                 id="tahunRisk"
                 name="tahunRisk"
                 value={dataUmum.tahunRisk}
-                onChange={ event => handleInputDataUmum(0, event) }>
+                onChange={event => handleInputDataUmum(0, event)}>
                 <option value="">-Select Tahun-</option>
                 <option value="2015">2015</option>
                 <option value="2016">2016</option>
                 <option value="2017">2017</option>
                 <option value="2018">2018</option>
                 <option value="2019">2019</option>
-                <option value="2020">2020</option> 
-                          {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                <option value="2020">2020</option>
+                {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
               </select>
             </div>
             <div>
-               <input 
+              <input
                 id="nilaiRisk"
                 name="nilaiRisk"
-                className="input is-dark input-standar" 
-                type="text" 
+                className="input is-dark input-standar"
+                type="text"
                 placeholder="... %"
                 value={dataUmum.nilaiRisk}
-                onChange={ event => handleInputDataUmum(0, event) } />
+                onChange={event => handleInputDataUmum(0, event)} />
             </div>
           </div>
         </div>
@@ -1176,35 +1247,35 @@ const Form = () => {
                 <div className="form-flex-left">
                   <div className="input-form-standar">
                     <label className="label-normal">Nomor LHA</label>
-                    <input 
+                    <input
                       id="nomorLHA"
                       name="nomorLHA"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={riwayatLaporan.nomorLHA}
-                      onChange={ event => handleInputRiwayatLaporan(index, event) } />
+                      onChange={event => handleInputRiwayatLaporan(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">Sumber LHA</label>
                     <input
                       id="sumberLHA"
                       name="sumberLHA"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={riwayatLaporan.sumberLHA}
-                      onChange={ event => handleInputRiwayatLaporan(index, event) } />
+                      onChange={event => handleInputRiwayatLaporan(index, event)} />
                   </div>
                 </div>
                 <div className="form-flex-right">
                   <div className="input-form-standar">
                     <label className="label-normal">Nilai LHA</label>
-                    <input 
+                    <input
                       id="nilaiLHA"
                       name="nilaiLHA"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={riwayatLaporan.nilaiLHA}
                       onChange={event => handleInputRiwayatLaporan(index, event)} />
@@ -1212,15 +1283,15 @@ const Form = () => {
                 </div>
               </div>
               <div className="btn-wrapper" style={{ marginBottom: 16 }}>
-                  <button 
-                    className="button is-warning"
-                    type="button"
-                    onClick={ () => handleAddRiwayatLaporan() }>Tambah</button>
-                  <button 
-                    className="button is-danger"
-                    type="button"
-                    style={{ marginLeft: 16 }}
-                    onClick={ () => handleRemoveRiwayatLaporan(index) }>Hapus</button>
+                <button
+                  className="button is-warning"
+                  type="button"
+                  onClick={() => handleAddRiwayatLaporan()}>Tambah</button>
+                <button
+                  className="button is-danger"
+                  type="button"
+                  style={{ marginLeft: 16 }}
+                  onClick={() => handleRemoveRiwayatLaporan(index)}>Hapus</button>
               </div>
             </Fragment>
           ))}
@@ -1236,73 +1307,84 @@ const Form = () => {
                 <div className="form-flex-left">
                   <div className="input-form-standar">
                     <label className="label-normal">Nomor SP2DK</label>
-                    <input 
+                    <input
                       id="nomorSp"
                       name="nomorSp"
-                      className="input is-dark input-standar" 
+                      className="input is-dark input-standar"
                       type="text"
                       placeholder=""
                       value={riwayatPengawasan.nomorSp}
-                      onChange={ event => handleInputRiwayatPengawasan(index, event) } />
+                      onChange={event => handleInputRiwayatPengawasan(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">Jenis Pajak</label>
-                    <input 
+                    <input
                       id="jenisPajak"
                       name="jenisPajak"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={riwayatPengawasan.jenisPajak}
-                      onChange={ event => handleInputRiwayatPengawasan(index, event) } />
+                      onChange={event => handleInputRiwayatPengawasan(index, event)} />
                   </div>
                   <div className="input-form-standar">
-                    <label className="label-normal">Nilai Potensi Akhir</label>
-                    <input 
-                      id="nilaiPotensi"
-                      name="nilaiPotensi"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                    <label className="label-normal">Tahun Pajak</label>
+                    <input
+                      id="tahunPajak"
+                      name="tahunPajak"
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
-                      value={riwayatPengawasan.nilaiPotensi}
-                      onChange={ event => handleInputRiwayatPengawasan(index, event) } />
+                      value={riwayatPengawasan.tahunPajak}
+                      onChange={event => handleInputRiwayatPengawasan(index, event)} />
                   </div>
                 </div>
                 <div className="form-flex-right">
                   <div className="input-form-standar">
+                    <label className="label-normal">Nilai Potensi Akhir</label>
+                    <input
+                      id="nilaiPotensi"
+                      name="nilaiPotensi"
+                      className="input is-dark input-standar"
+                      type="text"
+                      placeholder=""
+                      value={riwayatPengawasan.nilaiPotensi}
+                      onChange={event => handleInputRiwayatPengawasan(index, event)} />
+                  </div>
+                  <div className="input-form-standar">
                     <label className="label-normal">Status</label>
-                    <input 
+                    <input
                       id="status"
                       name="status"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={riwayatPengawasan.status}
-                      onChange={ event => handleInputRiwayatPengawasan(index, event) } />
+                      onChange={event => handleInputRiwayatPengawasan(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">Realisasi</label>
-                    <input 
+                    <input
                       id="realisasi"
                       name="realisasi"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={riwayatPengawasan.realisasi}
-                      onChange={ event => handleInputRiwayatPengawasan(index, event) } />
+                      onChange={event => handleInputRiwayatPengawasan(index, event)} />
                   </div>
                 </div>
               </div>
               <div className="btn-wrapper">
-                  <button 
-                    className="button is-warning"
-                    type="button"
-                    onClick={ () => handleAddRiwayatPengawasan() }>Tambah</button>
-                  <button 
-                    className="button is-danger"
-                    type="button"
-                    style={{ marginLeft: 16 }}
-                    onClick={ () => handleRemoveRiwayatPengawasan(index) }>Hapus</button>
+                <button
+                  className="button is-warning"
+                  type="button"
+                  onClick={() => handleAddRiwayatPengawasan()}>Tambah</button>
+                <button
+                  className="button is-danger"
+                  type="button"
+                  style={{ marginLeft: 16 }}
+                  onClick={() => handleRemoveRiwayatPengawasan(index)}>Hapus</button>
               </div>
             </Fragment>
           ))}
@@ -1317,78 +1399,78 @@ const Form = () => {
                 <div className="form-flex-left">
                   <div className="input-form-standar">
                     <label className="label-normal">Jenis Pajak</label>
-                    <input 
+                    <input
                       id="jenisPajak"
                       name="jenisPajak"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={hasilPeriksa.jenisPajak}
-                      onChange={ event => handleInputHasilPeriksa(index, event) } />
+                      onChange={event => handleInputHasilPeriksa(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">Tahun</label>
-                    <input 
+                    <input
                       id="tahun"
                       name="tahun"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={hasilPeriksa.tahun}
-                      onChange={ event => handleInputHasilPeriksa(index, event) } />
+                      onChange={event => handleInputHasilPeriksa(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">CFM SPT</label>
-                    <input 
+                    <input
                       id="cfmSpt"
                       name="cfmSpt"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={hasilPeriksa.cfmSpt}
-                      onChange={ event => handleInputHasilPeriksa(index, event) } />
+                      onChange={event => handleInputHasilPeriksa(index, event)} />
                   </div>
                 </div>
                 <div className="form-flex-right">
                   <div className="input-form-standar">
                     <label className="label-normal">CFM Pemeriksaan</label>
-                    <input 
+                    <input
                       id="cfmPeriksa"
                       name="cfmPeriksa"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={hasilPeriksa.cfmPeriksa}
-                      onChange={ event => handleInputHasilPeriksa(index, event) } />
+                      onChange={event => handleInputHasilPeriksa(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">Koreksi</label>
-                    <input 
+                    <input
                       id="koreksi"
                       name="koreksi"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={hasilPeriksa.koreksi}
-                      onChange={ event => handleInputHasilPeriksa(index, event) } />
+                      onChange={event => handleInputHasilPeriksa(index, event)} />
                   </div>
                 </div>
               </div>
               <div className="btn-wrapper">
-                <button 
+                <button
                   className="button is-warning"
                   type="button"
-                  onClick={ () => handleAddHasilPeriksa() }>Tambah</button>
-                <button 
-                    className="button is-danger"
-                    type="button"
-                    style={{ marginLeft: 16 }}
-                    onClick={ () => handleRemoveHasilPeriksa(index) }>Hapus</button>
+                  onClick={() => handleAddHasilPeriksa()}>Tambah</button>
+                <button
+                  className="button is-danger"
+                  type="button"
+                  style={{ marginLeft: 16 }}
+                  onClick={() => handleRemoveHasilPeriksa(index)}>Hapus</button>
               </div>
             </Fragment>
           ))}
-        </div> 
-                
+        </div>
+
         <hr></hr>
 
         <div className="section-form-header">
@@ -1401,62 +1483,62 @@ const Form = () => {
                 <div className="form-flex-left">
                   <div className="input-form-standar">
                     <label className="label-normal">Tahun</label>
-                    <input 
+                    <input
                       id="tahun"
                       name="tahun"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={koreksiHasil.tahun}
-                      onChange={ event => handleInputKoreksiHasil(index, event) } />
+                      onChange={event => handleInputKoreksiHasil(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">Jenis Pajak</label>
-                    <input 
+                    <input
                       id="jenisPajak"
                       name="jenisPajak"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={koreksiHasil.jenisPajak}
-                      onChange={ event => handleInputKoreksiHasil(index, event) } />
+                      onChange={event => handleInputKoreksiHasil(index, event)} />
                   </div>
                 </div>
                 <div className="form-flex-right">
                   <div className="input-form-standar">
                     <label className="label-normal">Sumber Koreksi</label>
-                    <input 
+                    <input
                       id="sumberKoreksi"
                       name="sumberKoreksi"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={koreksiHasil.sumberKoreksi}
-                      onChange={ event => handleInputKoreksiHasil(index, event) } />
+                      onChange={event => handleInputKoreksiHasil(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">Alasan Koreksi</label>
-                    <input 
+                    <input
                       id="alasanKoreksi"
                       name="alasanKoreksi"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={koreksiHasil.alasanKoreksi}
-                      onChange={ event => handleInputKoreksiHasil(index, event) } />
+                      onChange={event => handleInputKoreksiHasil(index, event)} />
                   </div>
                 </div>
               </div>
               <div className="btn-wrapper">
-                <button 
+                <button
                   className="button is-warning"
                   type="button"
-                  onClick={ () => handleAddKoreksiHasil() }>Tambah</button>
-                <button 
-                    className="button is-danger"
-                    type="button"
-                    style={{ marginLeft: 16 }}
-                    onClick={ () => handleRemoveKoreksiHasil(index) }>Hapus</button>
+                  onClick={() => handleAddKoreksiHasil()}>Tambah</button>
+                <button
+                  className="button is-danger"
+                  type="button"
+                  style={{ marginLeft: 16 }}
+                  onClick={() => handleRemoveKoreksiHasil(index)}>Hapus</button>
               </div>
             </Fragment>
           ))}
@@ -1471,78 +1553,78 @@ const Form = () => {
                 <div className="form-flex-left">
                   <div className="input-form-standar">
                     <label className="label-normal">Masa Pajak</label>
-                    <input 
+                    <input
                       id="masaPajak"
                       name="masaPajak"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={hasilKeberatan.masaPajak}
-                      onChange={ event => handleInputHasilKeberatan(index, event) } />
+                      onChange={event => handleInputHasilKeberatan(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">Jenis Pajak</label>
-                    <input 
+                    <input
                       id="jenisPajak"
                       name="jenisPajak"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={hasilKeberatan.jenisPajak}
-                      onChange={ event => handleInputHasilKeberatan(index, event) } />
+                      onChange={event => handleInputHasilKeberatan(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">Cfm Pemeriksa</label>
-                    <input 
+                    <input
                       id="cfmPemeriksa"
                       name="cfmPemeriksa"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={hasilKeberatan.cfmPemeriksa}
-                      onChange={ event => handleInputHasilKeberatan(index, event) } />
+                      onChange={event => handleInputHasilKeberatan(index, event)} />
                   </div>
                 </div>
                 <div className="form-flex-right">
                   <div className="input-form-standar">
                     <label className="label-normal">CFM Keberatan</label>
-                    <input 
+                    <input
                       id="cfmBanding"
                       name="cfmBanding"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={hasilKeberatan.cfmBanding}
-                      onChange={ event => handleInputHasilKeberatan(index, event) } />
+                      onChange={event => handleInputHasilKeberatan(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">Koreksi</label>
-                    <input 
+                    <input
                       id="koreksi"
                       name="koreksi"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={hasilKeberatan.koreksi}
-                      onChange={ event => handleInputHasilKeberatan(index, event) } />
+                      onChange={event => handleInputHasilKeberatan(index, event)} />
                   </div>
                 </div>
               </div>
               <div className="btn-wrapper">
-                <button 
+                <button
                   className="button is-warning"
                   type="button"
-                  onClick={ () => handleAddHasilKeberatan() }>Tambah</button>
-                <button 
-                    className="button is-danger"
-                    type="button"
-                    style={{ marginLeft: 16 }}
-                    onClick={ () => handleRemoveHasilKeberatan(index) }>Hapus</button>
+                  onClick={() => handleAddHasilKeberatan()}>Tambah</button>
+                <button
+                  className="button is-danger"
+                  type="button"
+                  style={{ marginLeft: 16 }}
+                  onClick={() => handleRemoveHasilKeberatan(index)}>Hapus</button>
               </div>
             </Fragment>
           ))}
-        </div> 
-                
+        </div>
+
         <hr></hr>
 
         <div className="section-form-header">
@@ -1555,51 +1637,51 @@ const Form = () => {
                 <div className="form-flex-left">
                   <div className="input-form-standar">
                     <label className="label-normal">Masa Pajak</label>
-                    <input 
+                    <input
                       id="masaPajak"
                       name="masaPajak"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={koreksiKeberatan.masaPajak}
-                      onChange={ event => handleInputKoreksiKeberatan(index, event) } />
+                      onChange={event => handleInputKoreksiKeberatan(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">Jenis Pajak</label>
-                    <input 
+                    <input
                       id="jenisPajak"
                       name="jenisPajak"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={koreksiKeberatan.jenisPajak}
-                      onChange={ event => handleInputKoreksiKeberatan(index, event) } />
+                      onChange={event => handleInputKoreksiKeberatan(index, event)} />
                   </div>
                 </div>
                 <div className="form-flex-right">
                   <div className="input-form-standar">
                     <label className="label-normal">Risalah Keputusan</label>
-                    <input 
+                    <input
                       id="risalahKeputusan"
                       name="risalahKeputusan"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={koreksiKeberatan.risalahKeputusan}
-                      onChange={ event => handleInputKoreksiKeberatan(index, event) } />
+                      onChange={event => handleInputKoreksiKeberatan(index, event)} />
                   </div>
                 </div>
               </div>
               <div className="btn-wrapper">
-                <button 
+                <button
                   className="button is-warning"
                   type="button"
-                  onClick={ () => handleAddKoreksiKeberatan() }>Tambah</button>
-                <button 
-                    className="button is-danger"
-                    type="button"
-                    style={{ marginLeft: 16 }}
-                    onClick={ () => handleRemoveKoreksiKeberatan(index) }>Hapus</button>
+                  onClick={() => handleAddKoreksiKeberatan()}>Tambah</button>
+                <button
+                  className="button is-danger"
+                  type="button"
+                  style={{ marginLeft: 16 }}
+                  onClick={() => handleRemoveKoreksiKeberatan(index)}>Hapus</button>
               </div>
             </Fragment>
           ))}
@@ -1617,7 +1699,7 @@ const Form = () => {
               id="tagihPajak"
               name="tagihPajak"
               value={dataUmum.tagihPajak}
-              onChange={ event => handleInputDataUmum(0, event) }>
+              onChange={event => handleInputDataUmum(0, event)}>
               <option value="">--Pilih Ketertagihan--</option>
               <option value="Tinggi">Tinggi</option>
               <option value="Sedang">Sedang</option>
@@ -1633,19 +1715,19 @@ const Form = () => {
         <div className="section-form-header">
           <p className="sub-title-form"><b>A. Analisis Laporan Keuangan</b></p>
           <div className="section-form-body section-form-flex input-form-standar">
-          <label className="label-normal label-wide">Pilih Mata Uang</label>
-          <div class="select">
-            <select
-              id="mataUang"
-              name="mataUang"
-              value={dataUmum.mataUang}
-              onChange={ event => handleInputDataUmum(0, event) }>
-              <option value="">--Pilih Mata Uang--</option>
-              <option value="$">$</option>
-              <option value="Rp">Rp.</option>
-            </select>
+            <label className="label-normal label-wide">Pilih Mata Uang</label>
+            <div class="select">
+              <select
+                id="mataUang"
+                name="mataUang"
+                value={dataUmum.mataUang}
+                onChange={event => handleInputDataUmum(0, event)}>
+                <option value="">--Pilih Mata Uang--</option>
+                <option value="$">$</option>
+                <option value="Rp">Rp.</option>
+              </select>
+            </div>
           </div>
-        </div>
           <div className="section-form-header">
             <p className="sub-title-form"><b>Neraca</b></p>
 
@@ -1660,14 +1742,14 @@ const Form = () => {
                       <div className="form-flex-left">
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Akun</label>
-                          <input 
+                          <input
                             id="akun"
                             name="akun"
-                            className="input is-dark input-standar input-wide" 
-                            type="text" 
+                            className="input is-dark input-standar input-wide"
+                            type="text"
                             placeholder=""
                             value={aktivaLancar.akun}
-                            onChange={ event => handleInputAktivaLancar(index, event) } />
+                            onChange={event => handleInputAktivaLancar(index, event)} />
                         </div>
 
                         <div className="input-form-standar">
@@ -1677,25 +1759,25 @@ const Form = () => {
                               id="tahun1"
                               name="tahun1"
                               value={aktivaLancar.tahun1}
-                              onChange={ event => handleInputAktivaLancar(index, event) }>
+                              onChange={event => handleInputAktivaLancar(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
+                          <input
                             id="nilaiTahun1"
                             name="nilaiTahun1"
-                            className="input is-dark input-narrow" 
-                            type="number" 
+                            className="input is-dark input-narrow"
+                            type="string"
                             placeholder=""
-                            value={aktivaLancar.nilaiTahun1}
-                            onChange={ event => handleInputAktivaLancar(index, event) } />
+                            value={currencyFormatter(aktivaLancar.nilaiTahun1)}
+                            onChange={event => handleInputAktivaLancar(index, event)} />
                         </div>
 
                         <div className="input-form-standar">
@@ -1705,25 +1787,25 @@ const Form = () => {
                               id="tahun2"
                               name="tahun2"
                               value={aktivaLancar.tahun2}
-                              onChange={ event => handleInputAktivaLancar(index, event) }>
+                              onChange={event => handleInputAktivaLancar(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
+                          <input
                             id="nilaiTahun2"
                             name="nilaiTahun2"
-                            className="input is-dark input-narrow" 
-                            type="number" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={aktivaLancar.nilaiTahun2}
-                            onChange={ event => handleInputAktivaLancar(index, event) } />
+                            value={currencyFormatter(aktivaLancar.nilaiTahun2)}
+                            onChange={event => handleInputAktivaLancar(index, event)} />
                         </div>
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Tahun 3</label>
@@ -1732,52 +1814,52 @@ const Form = () => {
                               id="tahun3"
                               name="tahun3"
                               value={aktivaLancar.tahun3}
-                              onChange={ event => handleInputAktivaLancar(index, event) }>
+                              onChange={event => handleInputAktivaLancar(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
+                          <input
                             id="nilaiTahun3"
                             name="nilaiTahun3"
-                            className="input is-dark input-narrow" 
-                            type="number" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={aktivaLancar.nilaiTahun3}
-                            onChange={ event => handleInputAktivaLancar(index, event) } />
+                            value={currencyFormatter(aktivaLancar.nilaiTahun3)}
+                            onChange={event => handleInputAktivaLancar(index, event)} />
                         </div>
                       </div>
                       <div className="form-flex-right">
                         <div className="input-form-standar input-form-align-top">
                           <label className="label-normal label-top">Keterangan</label>
-                          <textarea 
+                          <textarea
                             id="keterangan"
                             name="keterangan"
-                            className="textarea textarea-standar is-black has-fixed-size" 
+                            className="textarea textarea-standar is-black has-fixed-size"
                             placeholder=""
                             value={aktivaLancar.keterangan}
-                            onChange={ event => handleInputAktivaLancar(index, event) }></textarea>
+                            onChange={event => handleInputAktivaLancar(index, event)}></textarea>
                         </div>
 
                       </div>
 
                     </div>
                     <div className="btn-wrapper">
-                      <button 
+                      <button
                         className="button is-warning"
                         type="button"
-                        onClick={ () => handleAddAktivaLancar() }>Tambah</button>
-                      <button 
-                          className="button is-danger"
-                          type="button"
-                          style={{ marginLeft: 16 }}
-                          onClick={ () => handleRemoveAktivaLancar(index) }>Hapus</button>
+                        onClick={() => handleAddAktivaLancar()}>Tambah</button>
+                      <button
+                        className="button is-danger"
+                        type="button"
+                        style={{ marginLeft: 16 }}
+                        onClick={() => handleRemoveAktivaLancar(index)}>Hapus</button>
                     </div>
                   </Fragment>
                 ))}
@@ -1792,14 +1874,14 @@ const Form = () => {
                       <div className="form-flex-left">
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Akun</label>
-                          <input 
+                          <input
                             id="akun"
                             name="akun"
-                            className="input is-dark input-standar input-wide" 
-                            type="text" 
+                            className="input is-dark input-standar input-wide"
+                            type="text"
                             placeholder=""
                             value={aktivaTetap.akun}
-                            onChange={ event => handleInputAktivaTetap(index, event) } />
+                            onChange={event => handleInputAktivaTetap(index, event)} />
                         </div>
 
                         <div className="input-form-standar">
@@ -1809,25 +1891,25 @@ const Form = () => {
                               id="tahun1"
                               name="tahun1"
                               value={aktivaTetap.tahun1}
-                              onChange={ event => handleInputAktivaTetap(index, event) }>
+                              onChange={event => handleInputAktivaTetap(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
+                          <input
                             id="nilaiTahun1"
                             name="nilaiTahun1"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={aktivaTetap.nilaiTahun1}
-                            onChange={ event => handleInputAktivaTetap(index, event) } />
+                            value={currencyFormatter(aktivaTetap.nilaiTahun1)}
+                            onChange={event => handleInputAktivaTetap(index, event)} />
                         </div>
 
                         <div className="input-form-standar">
@@ -1837,25 +1919,25 @@ const Form = () => {
                               id="tahun2"
                               name="tahun2"
                               value={aktivaTetap.tahun2}
-                              onChange={ event => handleInputAktivaTetap(index, event) }>
+                              onChange={event => handleInputAktivaTetap(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
+                          <input
                             id="nilaiTahun2"
                             name="nilaiTahun2"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={aktivaTetap.nilaiTahun2}
-                            onChange={ event => handleInputAktivaTetap(index, event) } />
+                            value={currencyFormatter(aktivaTetap.nilaiTahun2)}
+                            onChange={event => handleInputAktivaTetap(index, event)} />
                         </div>
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Tahun 3</label>
@@ -1864,52 +1946,52 @@ const Form = () => {
                               id="tahun3"
                               name="tahun3"
                               value={aktivaTetap.tahun3}
-                              onChange={ event => handleInputAktivaTetap(index, event) }>
+                              onChange={event => handleInputAktivaTetap(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
+                          <input
                             id="nilaiTahun3"
                             name="nilaiTahun3"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={aktivaTetap.nilaiTahun3}
-                            onChange={ event => handleInputAktivaTetap(index, event) } />
+                            value={currencyFormatter(aktivaTetap.nilaiTahun3)}
+                            onChange={event => handleInputAktivaTetap(index, event)} />
                         </div>
                       </div>
                       <div className="form-flex-right">
                         <div className="input-form-standar input-form-align-top">
                           <label className="label-normal label-top">Keterangan</label>
-                          <textarea 
+                          <textarea
                             id="keterangan"
                             name="keterangan"
-                            className="textarea textarea-standar is-black has-fixed-size" 
+                            className="textarea textarea-standar is-black has-fixed-size"
                             placeholder=""
                             value={aktivaTetap.keterangan}
-                            onChange={ event => handleInputAktivaTetap(index, event) }></textarea>
+                            onChange={event => handleInputAktivaTetap(index, event)}></textarea>
                         </div>
 
                       </div>
 
                     </div>
                     <div className="btn-wrapper">
-                      <button 
+                      <button
                         className="button is-warning"
                         type="button"
-                        onClick={ () => handleAddAktivaTetap() }>Tambah</button>
-                      <button 
-                          className="button is-danger"
-                          type="button"
-                          style={{ marginLeft: 16 }}
-                          onClick={ () => handleRemoveAktivaTetap(index) }>Hapus</button>
+                        onClick={() => handleAddAktivaTetap()}>Tambah</button>
+                      <button
+                        className="button is-danger"
+                        type="button"
+                        style={{ marginLeft: 16 }}
+                        onClick={() => handleRemoveAktivaTetap(index)}>Hapus</button>
                     </div>
                   </Fragment>
                 ))}
@@ -1929,14 +2011,14 @@ const Form = () => {
                       <div className="form-flex-left">
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Akun</label>
-                          <input 
+                          <input
                             id="akun"
                             name="akun"
-                            className="input is-dark input-standar input-wide" 
-                            type="text" 
+                            className="input is-dark input-standar input-wide"
+                            type="text"
                             placeholder=""
                             value={kewajibanLancar.akun}
-                            onChange={ event => handleInputKewajibanLancar(index, event) } />
+                            onChange={event => handleInputKewajibanLancar(index, event)} />
                         </div>
 
                         <div className="input-form-standar">
@@ -1946,25 +2028,25 @@ const Form = () => {
                               id="tahun1"
                               name="tahun1"
                               value={kewajibanLancar.tahun1}
-                              onChange={ event => handleInputKewajibanLancar(index, event) }>
+                              onChange={event => handleInputKewajibanLancar(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
+                          <input
                             id="nilaiTahun1"
                             name="nilaiTahun1"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={kewajibanLancar.nilaiTahun1}
-                            onChange={ event => handleInputKewajibanLancar(index, event) } />
+                            value={currencyFormatter(kewajibanLancar.nilaiTahun1)}
+                            onChange={event => handleInputKewajibanLancar(index, event)} />
                         </div>
 
                         <div className="input-form-standar">
@@ -1974,25 +2056,25 @@ const Form = () => {
                               id="tahun2"
                               name="tahun2"
                               value={aktivaLancar.tahun2}
-                              onChange={ event => handleInputKewajibanLancar(index, event) }>
+                              onChange={event => handleInputKewajibanLancar(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
+                          <input
                             id="nilaiTahun2"
                             name="nilaiTahun2"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={kewajibanLancar.nilaiTahun2}
-                            onChange={ event => handleInputKewajibanLancar(index, event) } />
+                            value={currencyFormatter(kewajibanLancar.nilaiTahun2)}
+                            onChange={event => handleInputKewajibanLancar(index, event)} />
                         </div>
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Tahun 3</label>
@@ -2001,56 +2083,56 @@ const Form = () => {
                               id="tahun3"
                               name="tahun3"
                               value={kewajibanLancar.tahun3}
-                              onChange={ event => handleInputKewajibanLancar(index, event) }>
+                              onChange={event => handleInputKewajibanLancar(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
+                          <input
                             id="nilaiTahun3"
                             name="nilaiTahun3"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={kewajibanLancar.nilaiTahun3}
-                            onChange={ event => handleInputKewajibanLancar(index, event) } />
+                            value={currencyFormatter(kewajibanLancar.nilaiTahun3)}
+                            onChange={event => handleInputKewajibanLancar(index, event)} />
                         </div>
                       </div>
                       <div className="form-flex-right">
                         <div className="input-form-standar input-form-align-top">
                           <label className="label-normal label-top">Keterangan</label>
-                          <textarea 
+                          <textarea
                             id="keterangan"
                             name="keterangan"
-                            className="textarea textarea-standar is-black has-fixed-size" 
+                            className="textarea textarea-standar is-black has-fixed-size"
                             placeholder=""
                             value={kewajibanLancar.keterangan}
-                            onChange={ event => handleInputKewajibanLancar(index, event) }></textarea>
+                            onChange={event => handleInputKewajibanLancar(index, event)}></textarea>
                         </div>
 
                       </div>
 
                     </div>
                     <div className="btn-wrapper">
-                      <button 
+                      <button
                         className="button is-warning"
                         type="button"
-                        onClick={ () => handleAddKewajibanLancar() }>Tambah</button>
-                      <button 
-                          className="button is-danger"
-                          type="button"
-                          style={{ marginLeft: 16 }}
-                          onClick={ () => handleRemoveKewajibanLancar(index) }>Hapus</button>
+                        onClick={() => handleAddKewajibanLancar()}>Tambah</button>
+                      <button
+                        className="button is-danger"
+                        type="button"
+                        style={{ marginLeft: 16 }}
+                        onClick={() => handleRemoveKewajibanLancar(index)}>Hapus</button>
                     </div>
                   </Fragment>
                 ))}
-          <hr></hr>
+                <hr></hr>
               </div>
 
               <div className="section-form-header">
@@ -2061,14 +2143,14 @@ const Form = () => {
                       <div className="form-flex-left">
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Akun</label>
-                          <input 
+                          <input
                             id="akun"
                             name="akun"
-                            className="input is-dark input-standar input-wide" 
-                            type="text" 
+                            className="input is-dark input-standar input-wide"
+                            type="text"
                             placeholder=""
                             value={liabilitasPanjang.akun}
-                            onChange={ event => handleInputLiabilitasPanjang(index, event) } />
+                            onChange={event => handleInputLiabilitasPanjang(index, event)} />
                         </div>
 
                         <div className="input-form-standar">
@@ -2078,25 +2160,25 @@ const Form = () => {
                               id="tahun1"
                               name="tahun1"
                               value={liabilitasPanjang.tahun1}
-                              onChange={ event => handleInputLiabilitasPanjang(index, event) }>
+                              onChange={event => handleInputLiabilitasPanjang(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
+                          <input
                             id="nilaiTahun1"
                             name="nilaiTahun1"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={liabilitasPanjang.nilaiTahun1}
-                            onChange={ event => handleInputLiabilitasPanjang(index, event) } />
+                            value={currencyFormatter(liabilitasPanjang.nilaiTahun1)}
+                            onChange={event => handleInputLiabilitasPanjang(index, event)} />
                         </div>
 
                         <div className="input-form-standar">
@@ -2106,25 +2188,25 @@ const Form = () => {
                               id="tahun2"
                               name="tahun2"
                               value={liabilitasPanjang.tahun2}
-                              onChange={ event => handleInputLiabilitasPanjang(index, event) }>
+                              onChange={event => handleInputLiabilitasPanjang(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
+                          <input
                             id="nilaiTahun2"
                             name="nilaiTahun2"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={liabilitasPanjang.nilaiTahun2}
-                            onChange={ event => handleInputLiabilitasPanjang(index, event) } />
+                            value={currencyFormatter(liabilitasPanjang.nilaiTahun2)}
+                            onChange={event => handleInputLiabilitasPanjang(index, event)} />
                         </div>
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Tahun 3</label>
@@ -2133,57 +2215,57 @@ const Form = () => {
                               id="tahun3"
                               name="tahun3"
                               value={liabilitasPanjang.tahun3}
-                              onChange={ event => handleInputLiabilitasPanjang(index, event) }>
+                              onChange={event => handleInputLiabilitasPanjang(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
+                          <input
                             id="nilaiTahun3"
                             name="nilaiTahun3"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={liabilitasPanjang.nilaiTahun3}
-                            onChange={ event => handleInputLiabilitasPanjang(index, event) } />
+                            value={currencyFormatter(liabilitasPanjang.nilaiTahun3)}
+                            onChange={event => handleInputLiabilitasPanjang(index, event)} />
                         </div>
                       </div>
                       <div className="form-flex-right">
                         <div className="input-form-standar input-form-align-top">
                           <label className="label-normal label-top">Keterangan</label>
-                          <textarea 
+                          <textarea
                             id="keterangan"
                             name="keterangan"
-                            className="textarea textarea-standar is-black has-fixed-size" 
+                            className="textarea textarea-standar is-black has-fixed-size"
                             placeholder=""
                             value={liabilitasPanjang.keterangan}
-                            onChange={ event => handleInputLiabilitasPanjang(index, event) }></textarea>
+                            onChange={event => handleInputLiabilitasPanjang(index, event)}></textarea>
                         </div>
 
                       </div>
 
                     </div>
                     <div className="btn-wrapper">
-                      <button 
+                      <button
                         className="button is-warning"
                         type="button"
-                        onClick={ () => handleAddLiabilitasPanjang() }>Tambah</button>
-                      <button 
-                          className="button is-danger"
-                          type="button"
-                          style={{ marginLeft: 16 }}
-                          onClick={ () => handleRemoveLiabilitasPanjang(index) }>Hapus</button>
+                        onClick={() => handleAddLiabilitasPanjang()}>Tambah</button>
+                      <button
+                        className="button is-danger"
+                        type="button"
+                        style={{ marginLeft: 16 }}
+                        onClick={() => handleRemoveLiabilitasPanjang(index)}>Hapus</button>
                     </div>
                   </Fragment>
                 ))}
               </div>
-              
+
             </div>
           </div>
           <hr></hr>
@@ -2192,132 +2274,132 @@ const Form = () => {
           <div className="section-form-header">
             <p className="sub-title-form"><b>3. Ekuitas</b></p>
             {ekuitas.map((ekuitas, index) => (
-                  <Fragment key={`${ekuitas}~${index}`}>
-                    <div className="section-form-body section-form-flex">
-                      <div className="form-flex-left">
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Akun</label>
-                          <input 
-                            id="akun"
-                            name="akun"
-                            className="input is-dark input-standar input-wide" 
-                            type="text" 
-                            placeholder=""
-                            value={ekuitas.akun}
-                            onChange={ event => handleInputEkuitas(index, event) } />
-                        </div>
-
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Tahun 1</label>
-                          <div className="select input-narrow margin-right-20">
-                            <select
-                              id="tahun1"
-                              name="tahun1"
-                              value={ekuitas.tahun1}
-                              onChange={ event => handleInputEkuitas(index, event) }>
-                              <option value="">-Select Tahun-</option>
-                              <option value="2015">2015</option>
-                              <option value="2016">2016</option>
-                              <option value="2017">2017</option>
-                              <option value="2018">2018</option>
-                              <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
-                              {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
-                            </select>
-                          </div>
-                          <input 
-                            id="nilaiTahun1"
-                            name="nilaiTahun1"
-                            className="input is-dark input-narrow" 
-                            type="text" 
-                            placeholder=""
-                            value={ekuitas.nilaiTahun1}
-                            onChange={ event => handleInputEkuitas(index, event) } />
-                        </div>
-
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Tahun 2</label>
-                          <div className="select input-narrow margin-right-20">
-                            <select
-                              id="tahun2"
-                              name="tahun2"
-                              value={ekuitas.tahun2}
-                              onChange={ event => handleInputEkuitas(index, event) }>
-                              <option value="">-Select Tahun-</option>
-                              <option value="2015">2015</option>
-                              <option value="2016">2016</option>
-                              <option value="2017">2017</option>
-                              <option value="2018">2018</option>
-                              <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
-                              {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
-                            </select>
-                          </div>
-                          <input 
-                            id="nilaiTahun2"
-                            name="nilaiTahun2"
-                            className="input is-dark input-narrow" 
-                            type="text" 
-                            placeholder=""
-                            value={ekuitas.nilaiTahun2}
-                            onChange={ event => handleInputEkuitas(index, event) } />
-                        </div>
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Tahun 3</label>
-                          <div className="select input-narrow margin-right-20">
-                            <select
-                              id="tahun3"
-                              name="tahun3"
-                              value={ekuitas.tahun3}
-                              onChange={ event => handleInputEkuitas(index, event) }>
-                              <option value="">-Select Tahun-</option>
-                              <option value="2015">2015</option>
-                              <option value="2016">2016</option>
-                              <option value="2017">2017</option>
-                              <option value="2018">2018</option>
-                              <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
-                              {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
-                            </select>
-                          </div>
-                          <input 
-                            id="nilaiTahun3"
-                            name="nilaiTahun3"
-                            className="input is-dark input-narrow" 
-                            type="text" 
-                            placeholder=""
-                            value={ekuitas.nilaiTahun3}
-                            onChange={ event => handleInputEkuitas(index, event) } />
-                        </div>
-                      </div>
-                      <div className="form-flex-right">
-                        <div className="input-form-standar input-form-align-top">
-                          <label className="label-normal label-top">Keterangan</label>
-                          <textarea 
-                            id="keterangan"
-                            name="keterangan"
-                            className="textarea textarea-standar is-black has-fixed-size" 
-                            placeholder=""
-                            value={ekuitas.keterangan}
-                            onChange={ event => handleInputEkuitas(index, event) }></textarea>
-                        </div>
-
-                      </div>
-
+              <Fragment key={`${ekuitas}~${index}`}>
+                <div className="section-form-body section-form-flex">
+                  <div className="form-flex-left">
+                    <div className="input-form-standar">
+                      <label className="label-normal label-normal-less-width">Akun</label>
+                      <input
+                        id="akun"
+                        name="akun"
+                        className="input is-dark input-standar input-wide"
+                        type="text"
+                        placeholder=""
+                        value={ekuitas.akun}
+                        onChange={event => handleInputEkuitas(index, event)} />
                     </div>
-                    <div className="btn-wrapper">
-                      <button 
-                        className="button is-warning"
-                        type="button"
-                        onClick={ () => handleAddEkuitas() }>Tambah</button>
-                      <button 
-                          className="button is-danger"
-                          type="button"
-                          style={{ marginLeft: 16 }}
-                          onClick={ () => handleRemoveEkuitas(index) }>Hapus</button>
+
+                    <div className="input-form-standar">
+                      <label className="label-normal label-normal-less-width">Tahun 1</label>
+                      <div className="select input-narrow margin-right-20">
+                        <select
+                          id="tahun1"
+                          name="tahun1"
+                          value={ekuitas.tahun1}
+                          onChange={event => handleInputEkuitas(index, event)}>
+                          <option value="">-Select Tahun-</option>
+                          <option value="2015">2015</option>
+                          <option value="2016">2016</option>
+                          <option value="2017">2017</option>
+                          <option value="2018">2018</option>
+                          <option value="2019">2019</option>
+                          <option value="2020">2020</option>
+                          {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                        </select>
+                      </div>
+                      <input
+                        id="nilaiTahun1"
+                        name="nilaiTahun1"
+                        className="input is-dark input-narrow"
+                        type="text"
+                        placeholder=""
+                        value={currencyFormatter(ekuitas.nilaiTahun1)}
+                        onChange={event => handleInputEkuitas(index, event)} />
                     </div>
-                  </Fragment>
-                ))}
+
+                    <div className="input-form-standar">
+                      <label className="label-normal label-normal-less-width">Tahun 2</label>
+                      <div className="select input-narrow margin-right-20">
+                        <select
+                          id="tahun2"
+                          name="tahun2"
+                          value={ekuitas.tahun2}
+                          onChange={event => handleInputEkuitas(index, event)}>
+                          <option value="">-Select Tahun-</option>
+                          <option value="2015">2015</option>
+                          <option value="2016">2016</option>
+                          <option value="2017">2017</option>
+                          <option value="2018">2018</option>
+                          <option value="2019">2019</option>
+                          <option value="2020">2020</option>
+                          {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                        </select>
+                      </div>
+                      <input
+                        id="nilaiTahun2"
+                        name="nilaiTahun2"
+                        className="input is-dark input-narrow"
+                        type="text"
+                        placeholder=""
+                        value={currencyFormatter(ekuitas.nilaiTahun2)}
+                        onChange={event => handleInputEkuitas(index, event)} />
+                    </div>
+                    <div className="input-form-standar">
+                      <label className="label-normal label-normal-less-width">Tahun 3</label>
+                      <div className="select input-narrow margin-right-20">
+                        <select
+                          id="tahun3"
+                          name="tahun3"
+                          value={ekuitas.tahun3}
+                          onChange={event => handleInputEkuitas(index, event)}>
+                          <option value="">-Select Tahun-</option>
+                          <option value="2015">2015</option>
+                          <option value="2016">2016</option>
+                          <option value="2017">2017</option>
+                          <option value="2018">2018</option>
+                          <option value="2019">2019</option>
+                          <option value="2020">2020</option>
+                          {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                        </select>
+                      </div>
+                      <input
+                        id="nilaiTahun3"
+                        name="nilaiTahun3"
+                        className="input is-dark input-narrow"
+                        type="text"
+                        placeholder=""
+                        value={currencyFormatter(ekuitas.nilaiTahun3)}
+                        onChange={event => handleInputEkuitas(index, event)} />
+                    </div>
+                  </div>
+                  <div className="form-flex-right">
+                    <div className="input-form-standar input-form-align-top">
+                      <label className="label-normal label-top">Keterangan</label>
+                      <textarea
+                        id="keterangan"
+                        name="keterangan"
+                        className="textarea textarea-standar is-black has-fixed-size"
+                        placeholder=""
+                        value={ekuitas.keterangan}
+                        onChange={event => handleInputEkuitas(index, event)}></textarea>
+                    </div>
+
+                  </div>
+
+                </div>
+                <div className="btn-wrapper">
+                  <button
+                    className="button is-warning"
+                    type="button"
+                    onClick={() => handleAddEkuitas()}>Tambah</button>
+                  <button
+                    className="button is-danger"
+                    type="button"
+                    style={{ marginLeft: 16 }}
+                    onClick={() => handleRemoveEkuitas(index)}>Hapus</button>
+                </div>
+              </Fragment>
+            ))}
 
           </div>
 
@@ -2327,656 +2409,790 @@ const Form = () => {
             <div className="section-form-header">
               <p className="sub-title-form">1. Pendapatan</p>
               {pendapatan.map((pendapatan, index) => (
-                  <Fragment key={`${pendapatan}~${index}`}>
-                    <div className="section-form-body section-form-flex">
-                      <div className="form-flex-left">
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Akun</label>
-                          <input 
-                            id="akun"
-                            name="akun"
-                            className="input is-dark input-standar input-wide" 
-                            type="text" 
-                            placeholder=""
-                            value={pendapatan.akun}
-                            onChange={ event => handleInputPendapatan(index, event) } />
-                        </div>
-
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Tahun 1</label>
-                          <div className="select input-narrow margin-right-20">
-                            <select
-                              id="tahun1"
-                              name="tahun1"
-                              value={pendapatan.tahun1}
-                              onChange={ event => handleInputPendapatan(index, event) }>
-                              <option value="">-Select Tahun-</option>
-                              <option value="2015">2015</option>
-                              <option value="2016">2016</option>
-                              <option value="2017">2017</option>
-                              <option value="2018">2018</option>
-                              <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
-                              {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
-                            </select>
-                          </div>
-                          <input 
-                            id="nilaiTahun1"
-                            name="nilaiTahun1"
-                            className="input is-dark input-narrow" 
-                            type="text" 
-                            placeholder=""
-                            value={pendapatan.nilaiTahun1}
-                            onChange={ event => handleInputPendapatan(index, event) } />
-                        </div>
-
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Tahun 2</label>
-                          <div className="select input-narrow margin-right-20">
-                            <select
-                              id="tahun2"
-                              name="tahun2"
-                              value={pendapatan.tahun2}
-                              onChange={ event => handleInputPendapatan(index, event) }>
-                              <option value="">-Select Tahun-</option>
-                              <option value="2015">2015</option>
-                              <option value="2016">2016</option>
-                              <option value="2017">2017</option>
-                              <option value="2018">2018</option>
-                              <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
-                              {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
-                            </select>
-                          </div>
-                          <input 
-                            id="nilaiTahun2"
-                            name="nilaiTahun2"
-                            className="input is-dark input-narrow" 
-                            type="text" 
-                            placeholder=""
-                            value={pendapatan.nilaiTahun2}
-                            onChange={ event => handleInputPendapatan(index, event) } />
-                        </div>
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Tahun 3</label>
-                          <div className="select input-narrow margin-right-20">
-                            <select
-                              id="tahun3"
-                              name="tahun3"
-                              value={pendapatan.tahun3}
-                              onChange={ event => handleInputPendapatan(index, event) }>
-                              <option value="">-Select Tahun-</option>
-                              <option value="2015">2015</option>
-                              <option value="2016">2016</option>
-                              <option value="2017">2017</option>
-                              <option value="2018">2018</option>
-                              <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
-                              {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
-                            </select>
-                          </div>
-                          <input 
-                            id="nilaiTahun3"
-                            name="nilaiTahun3"
-                            className="input is-dark input-narrow" 
-                            type="text" 
-                            placeholder=""
-                            value={pendapatan.nilaiTahun3}
-                            onChange={ event => handleInputPendapatan(index, event) } />
-                        </div>
+                <Fragment key={`${pendapatan}~${index}`}>
+                  <div className="section-form-body section-form-flex">
+                    <div className="form-flex-left">
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Akun</label>
+                        <input
+                          id="akun"
+                          name="akun"
+                          className="input is-dark input-standar input-wide"
+                          type="text"
+                          placeholder=""
+                          value={pendapatan.akun}
+                          onChange={event => handleInputPendapatan(index, event)} />
                       </div>
-                      <div className="form-flex-right">
-                        <div className="input-form-standar input-form-align-top">
-                          <label className="label-normal label-top">Keterangan</label>
-                          <textarea 
-                            id="keterangan"
-                            name="keterangan"
-                            className="textarea textarea-standar is-black has-fixed-size" 
-                            placeholder=""
-                            value={pendapatan.keterangan}
-                            onChange={ event => handleInputPendapatan(index, event) }></textarea>
-                        </div>
 
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Tahun 1</label>
+                        <div className="select input-narrow margin-right-20">
+                          <select
+                            id="tahun1"
+                            name="tahun1"
+                            value={pendapatan.tahun1}
+                            onChange={event => handleInputPendapatan(index, event)}>
+                            <option value="">-Select Tahun-</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                          </select>
+                        </div>
+                        <input
+                          id="nilaiTahun1"
+                          name="nilaiTahun1"
+                          className="input is-dark input-narrow"
+                          type="text"
+                          placeholder=""
+                          value={currencyFormatter(pendapatan.nilaiTahun1)}
+                          onChange={event => handleInputPendapatan(index, event)} />
+                      </div>
+
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Tahun 2</label>
+                        <div className="select input-narrow margin-right-20">
+                          <select
+                            id="tahun2"
+                            name="tahun2"
+                            value={pendapatan.tahun2}
+                            onChange={event => handleInputPendapatan(index, event)}>
+                            <option value="">-Select Tahun-</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                          </select>
+                        </div>
+                        <input
+                          id="nilaiTahun2"
+                          name="nilaiTahun2"
+                          className="input is-dark input-narrow"
+                          type="text"
+                          placeholder=""
+                          value={currencyFormatter(pendapatan.nilaiTahun2)}
+                          onChange={event => handleInputPendapatan(index, event)} />
+                      </div>
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Tahun 3</label>
+                        <div className="select input-narrow margin-right-20">
+                          <select
+                            id="tahun3"
+                            name="tahun3"
+                            value={pendapatan.tahun3}
+                            onChange={event => handleInputPendapatan(index, event)}>
+                            <option value="">-Select Tahun-</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                          </select>
+                        </div>
+                        <input
+                          id="nilaiTahun3"
+                          name="nilaiTahun3"
+                          className="input is-dark input-narrow"
+                          type="text"
+                          placeholder=""
+                          value={currencyFormatter(pendapatan.nilaiTahun3)}
+                          onChange={event => handleInputPendapatan(index, event)} />
+                      </div>
+                    </div>
+                    <div className="form-flex-right">
+                      <div className="input-form-standar input-form-align-top">
+                        <label className="label-normal label-top">Keterangan</label>
+                        <textarea
+                          id="keterangan"
+                          name="keterangan"
+                          className="textarea textarea-standar is-black has-fixed-size"
+                          placeholder=""
+                          value={pendapatan.keterangan}
+                          onChange={event => handleInputPendapatan(index, event)}></textarea>
                       </div>
 
                     </div>
-                    <div className="btn-wrapper">
-                      <button 
-                        className="button is-warning"
-                        type="button"
-                        onClick={ () => handleAddPendapatan() }>Tambah</button>
-                      <button 
-                          className="button is-danger"
-                          type="button"
-                          style={{ marginLeft: 16 }}
-                          onClick={ () => handleRemovePendapatan(index) }>Hapus</button>
-                    </div>
-                  </Fragment>
-                ))}
+
+                  </div>
+                  <div className="btn-wrapper">
+                    <button
+                      className="button is-warning"
+                      type="button"
+                      onClick={() => handleAddPendapatan()}>Tambah</button>
+                    <button
+                      className="button is-danger"
+                      type="button"
+                      style={{ marginLeft: 16 }}
+                      onClick={() => handleRemovePendapatan(index)}>Hapus</button>
+                  </div>
+                </Fragment>
+              ))}
             </div>
 
             <div className="section-form-header">
-              <p className="sub-title-form">2. Harga Pokok Penjualan</p>
+              <p className="sub-title-form">2. Harga Pokok Penjualan <i style={{ fontSize: 10, color: 'red' }}>*jika memasukan beban lainnya silahkan masukan dengan angka minus (-). contoh = -90.000.0000 </i></p>
               {hargaPokok.map((hargaPokok, index) => (
-                  <Fragment key={`${hargaPokok}~${index}`}>
-                    <div className="section-form-body section-form-flex">
-                      <div className="form-flex-left">
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Akun</label>
-                          <input 
-                            id="akun"
-                            name="akun"
-                            className="input is-dark input-standar input-wide" 
-                            type="text" 
-                            placeholder=""
-                            value={hargaPokok.akun}
-                            onChange={ event => handleInputHargaPokok(index, event) } />
-                        </div>
-
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Tahun 1</label>
-                          <div className="select input-narrow margin-right-20">
-                            <select
-                              id="tahun1"
-                              name="tahun1"
-                              value={hargaPokok.tahun1}
-                              onChange={ event => handleInputHargaPokok(index, event) }>
-                              <option value="">-Select Tahun-</option>
-                              <option value="2015">2015</option>
-                              <option value="2016">2016</option>
-                              <option value="2017">2017</option>
-                              <option value="2018">2018</option>
-                              <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
-                              {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
-                            </select>
-                          </div>
-                          <input 
-                            id="nilaiTahun1"
-                            name="nilaiTahun1"
-                            className="input is-dark input-narrow" 
-                            type="text" 
-                            placeholder=""
-                            value={hargaPokok.nilaiTahun1}
-                            onChange={ event => handleInputHargaPokok(index, event) } />
-                        </div>
-
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Tahun 2</label>
-                          <div className="select input-narrow margin-right-20">
-                            <select
-                              id="tahun2"
-                              name="tahun2"
-                              value={hargaPokok.tahun2}
-                              onChange={ event => handleInputHargaPokok(index, event) }>
-                              <option value="">-Select Tahun-</option>
-                              <option value="2015">2015</option>
-                              <option value="2016">2016</option>
-                              <option value="2017">2017</option>
-                              <option value="2018">2018</option>
-                              <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
-                              {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
-                            </select>
-                          </div>
-                          <input 
-                            id="nilaiTahun2"
-                            name="nilaiTahun2"
-                            className="input is-dark input-narrow" 
-                            type="text" 
-                            placeholder=""
-                            value={hargaPokok.nilaiTahun2}
-                            onChange={ event => handleInputHargaPokok(index, event) } />
-                        </div>
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Tahun 3</label>
-                          <div className="select input-narrow margin-right-20">
-                            <select
-                              id="tahun3"
-                              name="tahun3"
-                              value={hargaPokok.tahun3}
-                              onChange={ event => handleInputHargaPokok(index, event) }>
-                              <option value="">-Select Tahun-</option>
-                              <option value="2015">2015</option>
-                              <option value="2016">2016</option>
-                              <option value="2017">2017</option>
-                              <option value="2018">2018</option>
-                              <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
-                              {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
-                            </select>
-                          </div>
-                          <input 
-                            id="nilaiTahun3"
-                            name="nilaiTahun3"
-                            className="input is-dark input-narrow" 
-                            type="text" 
-                            placeholder=""
-                            value={hargaPokok.nilaiTahun3}
-                            onChange={ event => handleInputHargaPokok(index, event) } />
-                        </div>
+                <Fragment key={`${hargaPokok}~${index}`}>
+                  <div className="section-form-body section-form-flex">
+                    <div className="form-flex-left">
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Akun</label>
+                        <input
+                          id="akun"
+                          name="akun"
+                          className="input is-dark input-standar input-wide"
+                          type="text"
+                          placeholder=""
+                          value={hargaPokok.akun}
+                          onChange={event => handleInputHargaPokok(index, event)} />
                       </div>
-                      <div className="form-flex-right">
-                        <div className="input-form-standar input-form-align-top">
-                          <label className="label-normal label-top">Keterangan</label>
-                          <textarea 
-                            id="keterangan"
-                            name="keterangan"
-                            className="textarea textarea-standar is-black has-fixed-size" 
-                            placeholder=""
-                            value={hargaPokok.keterangan}
-                            onChange={ event => handleInputHargaPokok(index, event) }></textarea>
-                        </div>
 
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Tahun 1</label>
+                        <div className="select input-narrow margin-right-20">
+                          <select
+                            id="tahun1"
+                            name="tahun1"
+                            value={hargaPokok.tahun1}
+                            onChange={event => handleInputHargaPokok(index, event)}>
+                            <option value="">-Select Tahun-</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                          </select>
+                        </div>
+                        <input
+                          id="nilaiTahun1"
+                          name="nilaiTahun1"
+                          className="input is-dark input-narrow"
+                          type="text"
+                          placeholder=""
+                          value={currencyFormatter(hargaPokok.nilaiTahun1)}
+                          onChange={event => handleInputHargaPokok(index, event)} />
+                      </div>
+
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Tahun 2</label>
+                        <div className="select input-narrow margin-right-20">
+                          <select
+                            id="tahun2"
+                            name="tahun2"
+                            value={hargaPokok.tahun2}
+                            onChange={event => handleInputHargaPokok(index, event)}>
+                            <option value="">-Select Tahun-</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                          </select>
+                        </div>
+                        <input
+                          id="nilaiTahun2"
+                          name="nilaiTahun2"
+                          className="input is-dark input-narrow"
+                          type="text"
+                          placeholder=""
+                          value={currencyFormatter(hargaPokok.nilaiTahun2)}
+                          onChange={event => handleInputHargaPokok(index, event)} />
+                      </div>
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Tahun 3</label>
+                        <div className="select input-narrow margin-right-20">
+                          <select
+                            id="tahun3"
+                            name="tahun3"
+                            value={hargaPokok.tahun3}
+                            onChange={event => handleInputHargaPokok(index, event)}>
+                            <option value="">-Select Tahun-</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                          </select>
+                        </div>
+                        <input
+                          id="nilaiTahun3"
+                          name="nilaiTahun3"
+                          className="input is-dark input-narrow"
+                          type="text"
+                          placeholder=""
+                          value={currencyFormatter(hargaPokok.nilaiTahun3)}
+                          onChange={event => handleInputHargaPokok(index, event)} />
+                      </div>
+                    </div>
+                    <div className="form-flex-right">
+                      <div className="input-form-standar input-form-align-top">
+                        <label className="label-normal label-top">Keterangan</label>
+                        <textarea
+                          id="keterangan"
+                          name="keterangan"
+                          className="textarea textarea-standar is-black has-fixed-size"
+                          placeholder=""
+                          value={hargaPokok.keterangan}
+                          onChange={event => handleInputHargaPokok(index, event)}></textarea>
                       </div>
 
                     </div>
-                    <div className="btn-wrapper">
-                      <button 
-                        className="button is-warning"
-                        type="button"
-                        onClick={ () => handleAddHargaPokok() }>Tambah</button>
-                      <button 
-                          className="button is-danger"
-                          type="button"
-                          style={{ marginLeft: 16 }}
-                          onClick={ () => handleRemoveHargaPokok(index) }>Hapus</button>
-                    </div>
-                  </Fragment>
-                ))}
+
+                  </div>
+                  <div className="btn-wrapper">
+                    <button
+                      className="button is-warning"
+                      type="button"
+                      onClick={() => handleAddHargaPokok()}>Tambah</button>
+                    <button
+                      className="button is-danger"
+                      type="button"
+                      style={{ marginLeft: 16 }}
+                      onClick={() => handleRemoveHargaPokok(index)}>Hapus</button>
+                  </div>
+                </Fragment>
+              ))}
             </div>
 
             <div className="section-form-header">
               <p className="sub-title-form">3. Persediaan Akhir</p>
               {persediaanAkhir.map((persediaanAkhir, index) => (
-                  <Fragment key={`${persediaanAkhir}~${index}`}>
-                    <div className="section-form-body section-form-flex">
-                      <div className="form-flex-left">
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Akun</label>
-                          <input 
-                            id="akun"
-                            name="akun"
-                            className="input is-dark input-standar input-wide" 
-                            type="text" 
-                            placeholder=""
-                            value={persediaanAkhir.akun}
-                            onChange={ event => handleInputPersediaanAkhir(index, event) } />
-                        </div>
-
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Tahun 1</label>
-                          <div className="select input-narrow margin-right-20">
-                            <select
-                              id="tahun1"
-                              name="tahun1"
-                              value={persediaanAkhir.tahun1}
-                              onChange={ event => handleInputPersediaanAkhir(index, event) }>
-                              <option value="">-Select Tahun-</option>
-                              <option value="2015">2015</option>
-                              <option value="2016">2016</option>
-                              <option value="2017">2017</option>
-                              <option value="2018">2018</option>
-                              <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
-                              {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
-                            </select>
-                          </div>
-                          <input 
-                            id="nilaiTahun1"
-                            name="nilaiTahun1"
-                            className="input is-dark input-narrow" 
-                            type="text" 
-                            placeholder=""
-                            value={persediaanAkhir.nilaiTahun1}
-                            onChange={ event => handleInputPersediaanAkhir(index, event) } />
-                        </div>
-
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Tahun 2</label>
-                          <div className="select input-narrow margin-right-20">
-                            <select
-                              id="tahun2"
-                              name="tahun2"
-                              value={persediaanAkhir.tahun2}
-                              onChange={ event => handleInputPersediaanAkhir(index, event) }>
-                              <option value="">-Select Tahun-</option>
-                              <option value="2015">2015</option>
-                              <option value="2016">2016</option>
-                              <option value="2017">2017</option>
-                              <option value="2018">2018</option>
-                              <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
-                              {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
-                            </select>
-                          </div>
-                          <input 
-                            id="nilaiTahun2"
-                            name="nilaiTahun2"
-                            className="input is-dark input-narrow" 
-                            type="text" 
-                            placeholder=""
-                            value={persediaanAkhir.nilaiTahun2}
-                            onChange={ event => handleInputPersediaanAkhir(index, event) } />
-                        </div>
-                        <div className="input-form-standar">
-                          <label className="label-normal label-normal-less-width">Tahun 3</label>
-                          <div className="select input-narrow margin-right-20">
-                            <select
-                              id="tahun3"
-                              name="tahun3"
-                              value={persediaanAkhir.tahun3}
-                              onChange={ event => handleInputPersediaanAkhir(index, event) }>
-                              <option value="">-Select Tahun-</option>
-                              <option value="2015">2015</option>
-                              <option value="2016">2016</option>
-                              <option value="2017">2017</option>
-                              <option value="2018">2018</option>
-                              <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
-                              {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
-                            </select>
-                          </div>
-                          <input 
-                            id="nilaiTahun3"
-                            name="nilaiTahun3"
-                            className="input is-dark input-narrow" 
-                            type="text" 
-                            placeholder=""
-                            value={persediaanAkhir.nilaiTahun3}
-                            onChange={ event => handleInputPersediaanAkhir(index, event) } />
-                        </div>
+                <Fragment key={`${persediaanAkhir}~${index}`}>
+                  <div className="section-form-body section-form-flex">
+                    <div className="form-flex-left">
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Akun</label>
+                        <input
+                          id="akun"
+                          name="akun"
+                          className="input is-dark input-standar input-wide"
+                          type="text"
+                          placeholder=""
+                          value={persediaanAkhir.akun}
+                          onChange={event => handleInputPersediaanAkhir(index, event)} />
                       </div>
-                      <div className="form-flex-right">
-                        <div className="input-form-standar input-form-align-top">
-                          <label className="label-normal label-top">Keterangan</label>
-                          <textarea 
-                            id="keterangan"
-                            name="keterangan"
-                            className="textarea textarea-standar is-black has-fixed-size" 
-                            placeholder=""
-                            value={persediaanAkhir.keterangan}
-                            onChange={ event => handleInputPersediaanAkhir(index, event) }></textarea>
-                        </div>
 
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Tahun 1</label>
+                        <div className="select input-narrow margin-right-20">
+                          <select
+                            id="tahun1"
+                            name="tahun1"
+                            value={persediaanAkhir.tahun1}
+                            onChange={event => handleInputPersediaanAkhir(index, event)}>
+                            <option value="">-Select Tahun-</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                          </select>
+                        </div>
+                        <input
+                          id="nilaiTahun1"
+                          name="nilaiTahun1"
+                          className="input is-dark input-narrow"
+                          type="text"
+                          placeholder=""
+                          value={currencyFormatter(persediaanAkhir.nilaiTahun1)}
+                          onChange={event => handleInputPersediaanAkhir(index, event)} />
+                      </div>
+
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Tahun 2</label>
+                        <div className="select input-narrow margin-right-20">
+                          <select
+                            id="tahun2"
+                            name="tahun2"
+                            value={persediaanAkhir.tahun2}
+                            onChange={event => handleInputPersediaanAkhir(index, event)}>
+                            <option value="">-Select Tahun-</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                          </select>
+                        </div>
+                        <input
+                          id="nilaiTahun2"
+                          name="nilaiTahun2"
+                          className="input is-dark input-narrow"
+                          type="text"
+                          placeholder=""
+                          value={currencyFormatter(persediaanAkhir.nilaiTahun2)}
+                          onChange={event => handleInputPersediaanAkhir(index, event)} />
+                      </div>
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Tahun 3</label>
+                        <div className="select input-narrow margin-right-20">
+                          <select
+                            id="tahun3"
+                            name="tahun3"
+                            value={persediaanAkhir.tahun3}
+                            onChange={event => handleInputPersediaanAkhir(index, event)}>
+                            <option value="">-Select Tahun-</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                          </select>
+                        </div>
+                        <input
+                          id="nilaiTahun3"
+                          name="nilaiTahun3"
+                          className="input is-dark input-narrow"
+                          type="text"
+                          placeholder=""
+                          value={currencyFormatter(persediaanAkhir.nilaiTahun3)}
+                          onChange={event => handleInputPersediaanAkhir(index, event)} />
+                      </div>
+                    </div>
+                    <div className="form-flex-right">
+                      <div className="input-form-standar input-form-align-top">
+                        <label className="label-normal label-top">Keterangan</label>
+                        <textarea
+                          id="keterangan"
+                          name="keterangan"
+                          className="textarea textarea-standar is-black has-fixed-size"
+                          placeholder=""
+                          value={persediaanAkhir.keterangan}
+                          onChange={event => handleInputPersediaanAkhir(index, event)}></textarea>
                       </div>
 
                     </div>
-                    <div className="btn-wrapper">
-                      <button 
-                        className="button is-warning"
-                        type="button"
-                        onClick={ () => handleAddPersediaanAkhir() }>Tambah</button>
-                      <button 
-                          className="button is-danger"
-                          type="button"
-                          style={{ marginLeft: 16 }}
-                          onClick={ () => handleRemovePersediaanAkhir(index) }>Hapus</button>
-                    </div>
-                  </Fragment>
-                ))}
+
+                  </div>
+                  <div className="btn-wrapper">
+                    <button
+                      className="button is-warning"
+                      type="button"
+                      onClick={() => handleAddPersediaanAkhir()}>Tambah</button>
+                    <button
+                      className="button is-danger"
+                      type="button"
+                      style={{ marginLeft: 16 }}
+                      onClick={() => handleRemovePersediaanAkhir(index)}>Hapus</button>
+                  </div>
+                </Fragment>
+              ))}
             </div>
 
             <div className="section-form-header">
               <p className="sub-title-form">4. Biaya-biaya</p>
-              {biayaLaba.map((biayaLaba, index) => (
+              <div className="section-form-header">
+                <p className="sub-title-form">i. Biaya Penjualan</p>
+                {biayaLabaPenjualan.map((biayaLaba, index) => (
                   <Fragment key={`${biayaLaba}~${index}`}>
                     <div className="section-form-body section-form-flex">
                       <div className="form-flex-left">
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Akun</label>
-                          <input 
-                            id="akun"
+                          <input
+                            id="akun-pejualan"
                             name="akun"
-                            className="input is-dark input-standar input-wide" 
-                            type="text" 
+                            className="input is-dark input-standar input-wide"
+                            type="text"
                             placeholder=""
                             value={biayaLaba.akun}
-                            onChange={ event => handleInputBiayaLaba(index, event) } />
+                            onChange={event => handleInputBiayaLabaPenjualan(index, event)} />
                         </div>
 
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Tahun 1</label>
                           <div className="select input-narrow margin-right-20">
                             <select
-                              id="tahun1"
+                              id="tahun1-pejualan"
                               name="tahun1"
                               value={biayaLaba.tahun1}
-                              onChange={ event => handleInputBiayaLaba(index, event) }>
+                              onChange={event => handleInputBiayaLabaPenjualan(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
-                            id="nilaiTahun1"
+                          <input
+                            id="nilaiTahun1-pejualan"
                             name="nilaiTahun1"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={biayaLaba.nilaiTahun1}
-                            onChange={ event => handleInputBiayaLaba(index, event) } />
+                            value={currencyFormatter(biayaLaba.nilaiTahun1)}
+                            onChange={event => handleInputBiayaLabaPenjualan(index, event)} />
                         </div>
 
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Tahun 2</label>
                           <div className="select input-narrow margin-right-20">
                             <select
-                              id="tahun2"
+                              id="tahun2-pejualan"
                               name="tahun2"
                               value={biayaLaba.tahun2}
-                              onChange={ event => handleInputBiayaLaba(index, event) }>
+                              onChange={event => handleInputBiayaLabaPenjualan(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
-                            id="nilaiTahun2"
+                          <input
+                            id="nilaiTahun2-pejualan"
                             name="nilaiTahun2"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={biayaLaba.nilaiTahun2}
-                            onChange={ event => handleInputBiayaLaba(index, event) } />
+                            value={currencyFormatter(biayaLaba.nilaiTahun2)}
+                            onChange={event => handleInputBiayaLabaPenjualan(index, event)} />
                         </div>
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Tahun 3</label>
                           <div className="select input-narrow margin-right-20">
                             <select
-                              id="tahun3"
+                              id="tahun3-pejualan"
                               name="tahun3"
                               value={biayaLaba.tahun3}
-                              onChange={ event => handleInputBiayaLaba(index, event) }>
+                              onChange={event => handleInputBiayaLabaPenjualan(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
-                            id="nilaiTahun3"
+                          <input
+                            id="nilaiTahun3-pejualan"
                             name="nilaiTahun3"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={biayaLaba.nilaiTahun3}
-                            onChange={ event => handleInputBiayaLaba(index, event) } />
+                            value={currencyFormatter(biayaLaba.nilaiTahun3)}
+                            onChange={event => handleInputBiayaLabaPenjualan(index, event)} />
                         </div>
                       </div>
                       <div className="form-flex-right">
                         <div className="input-form-standar input-form-align-top">
                           <label className="label-normal label-top">Keterangan</label>
-                          <textarea 
-                            id="keterangan"
+                          <textarea
+                            id="keterangan-pejualan"
                             name="keterangan"
-                            className="textarea textarea-standar is-black has-fixed-size" 
+                            className="textarea textarea-standar is-black has-fixed-size"
                             placeholder=""
                             value={biayaLaba.keterangan}
-                            onChange={ event => handleInputBiayaLaba(index, event) }></textarea>
+                            onChange={event => handleInputBiayaLabaPenjualan(index, event)}></textarea>
                         </div>
 
                       </div>
 
                     </div>
                     <div className="btn-wrapper">
-                      <button 
+                      <button
                         className="button is-warning"
                         type="button"
-                        onClick={ () => handleAddBiayaLaba() }>Tambah</button>
-                      <button 
-                          className="button is-danger"
-                          type="button"
-                          style={{ marginLeft: 16 }}
-                          onClick={ () => handleRemoveBiayaLaba(index) }>Hapus</button>
+                        onClick={() => handleAddBiayaLabaPenjualan()}>Tambah</button>
+                      <button
+                        className="button is-danger"
+                        type="button"
+                        style={{ marginLeft: 16 }}
+                        onClick={() => handleRemoveBiayaLabaPenjualan(index)}>Hapus</button>
                     </div>
                   </Fragment>
                 ))}
-            </div>
+              </div>
 
-            <div className="section-form-header">
-              <p className="sub-title-form">5. Pendapatan dan Beban lain-lain <i style={{fontSize:10, color:'red'}}>*jika memasukan beban lainnya silahkan masukan dengan angka minus (-). contoh = -90.000.0000 </i></p>
-              {pendapatanBeban.map((pendapatanBeban, index) => (
-                  <Fragment key={`${pendapatanBeban}~${index}`}>
+              <div className="section-form-header">
+                <p className="sub-title-form">ii. Biaya Umum</p>
+                {biayaLabaUmum.map((biayaLaba, index) => (
+                  <Fragment key={`${biayaLaba}~${index}`}>
                     <div className="section-form-body section-form-flex">
                       <div className="form-flex-left">
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Akun</label>
-                          <input 
-                            id="akun"
+                          <input
+                            id="akun-umum"
                             name="akun"
-                            className="input is-dark input-standar input-wide" 
-                            type="text" 
+                            className="input is-dark input-standar input-wide"
+                            type="text"
                             placeholder=""
-                            value={pendapatanBeban.akun}
-                            onChange={ event => handleInputPendapatanBeban(index, event) } />
+                            value={biayaLaba.akun}
+                            onChange={event => handleInputBiayaLabaUmum(index, event)} />
                         </div>
 
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Tahun 1</label>
                           <div className="select input-narrow margin-right-20">
                             <select
-                              id="tahun1"
+                              id="tahun1-umum"
                               name="tahun1"
-                              value={pendapatanBeban.tahun1}
-                              onChange={ event => handleInputPendapatanBeban(index, event) }>
+                              value={biayaLaba.tahun1}
+                              onChange={event => handleInputBiayaLabaUmum(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
-                            id="nilaiTahun1"
+                          <input
+                            id="nilaiTahun1-umum"
                             name="nilaiTahun1"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={pendapatanBeban.nilaiTahun1}
-                            onChange={ event => handleInputPendapatanBeban(index, event) } />
+                            value={currencyFormatter(biayaLaba.nilaiTahun1)}
+                            onChange={event => handleInputBiayaLabaUmum(index, event)} />
                         </div>
 
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Tahun 2</label>
                           <div className="select input-narrow margin-right-20">
                             <select
-                              id="tahun2"
+                              id="tahun2-umum"
                               name="tahun2"
-                              value={pendapatanBeban.tahun2}
-                              onChange={ event => handleInputPendapatanBeban(index, event) }>
+                              value={biayaLaba.tahun2}
+                              onChange={event => handleInputBiayaLabaUmum(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
-                            id="nilaiTahun2"
+                          <input
+                            id="nilaiTahun2-umum"
                             name="nilaiTahun2"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={pendapatanBeban.nilaiTahun2}
-                            onChange={ event => handleInputPendapatanBeban(index, event) } />
+                            value={currencyFormatter(biayaLaba.nilaiTahun2)}
+                            onChange={event => handleInputBiayaLabaUmum(index, event)} />
                         </div>
                         <div className="input-form-standar">
                           <label className="label-normal label-normal-less-width">Tahun 3</label>
                           <div className="select input-narrow margin-right-20">
                             <select
-                              id="tahun3"
+                              id="tahun3-umum"
                               name="tahun3"
-                              value={pendapatanBeban.tahun3}
-                              onChange={ event => handleInputPendapatanBeban(index, event) }>
+                              value={biayaLaba.tahun3}
+                              onChange={event => handleInputBiayaLabaUmum(index, event)}>
                               <option value="">-Select Tahun-</option>
                               <option value="2015">2015</option>
                               <option value="2016">2016</option>
                               <option value="2017">2017</option>
                               <option value="2018">2018</option>
                               <option value="2019">2019</option>
-                              <option value="2020">2020</option> 
+                              <option value="2020">2020</option>
                               {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
                             </select>
                           </div>
-                          <input 
-                            id="nilaiTahun3"
+                          <input
+                            id="nilaiTahun3-umum"
                             name="nilaiTahun3"
-                            className="input is-dark input-narrow" 
-                            type="text" 
+                            className="input is-dark input-narrow"
+                            type="text"
                             placeholder=""
-                            value={pendapatanBeban.nilaiTahun3}
-                            onChange={ event => handleInputPendapatanBeban(index, event) } />
+                            value={currencyFormatter(biayaLaba.nilaiTahun3)}
+                            onChange={event => handleInputBiayaLabaUmum(index, event)} />
                         </div>
                       </div>
                       <div className="form-flex-right">
                         <div className="input-form-standar input-form-align-top">
                           <label className="label-normal label-top">Keterangan</label>
-                          <textarea 
-                            id="keterangan"
+                          <textarea
+                            id="keterangan-umum"
                             name="keterangan"
-                            className="textarea textarea-standar is-black has-fixed-size" 
+                            className="textarea textarea-standar is-black has-fixed-size"
                             placeholder=""
-                            value={pendapatanBeban.keterangan}
-                            onChange={ event => handleInputPendapatanBeban(index, event) }></textarea>
+                            value={biayaLaba.keterangan}
+                            onChange={event => handleInputBiayaLabaUmum(index, event)}></textarea>
                         </div>
 
                       </div>
 
                     </div>
                     <div className="btn-wrapper">
-                      <button 
+                      <button
                         className="button is-warning"
                         type="button"
-                        onClick={ () => handleAddPendapatanBeban() }>Tambah</button>
-                      <button 
-                          className="button is-danger"
-                          type="button"
-                          style={{ marginLeft: 16 }}
-                          onClick={ () => handleRemovePendapatanBeban(index) }>Hapus</button>
+                        onClick={() => handleAddBiayaLabaUmum()}>Tambah</button>
+                      <button
+                        className="button is-danger"
+                        type="button"
+                        style={{ marginLeft: 16 }}
+                        onClick={() => handleRemoveBiayaLabaUmum(index)}>Hapus</button>
                     </div>
                   </Fragment>
                 ))}
+              </div>
+            </div>
+
+            <div className="section-form-header">
+              <p className="sub-title-form">5. Pendapatan dan Beban lain-lain <i style={{ fontSize: 10, color: 'red' }}>*jika memasukan beban lainnya silahkan masukan dengan angka minus (-). contoh = -90.000.0000 </i></p>
+              {pendapatanBeban.map((pendapatanBeban, index) => (
+                <Fragment key={`${pendapatanBeban}~${index}`}>
+                  <div className="section-form-body section-form-flex">
+                    <div className="form-flex-left">
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Akun</label>
+                        <input
+                          id="akun"
+                          name="akun"
+                          className="input is-dark input-standar input-wide"
+                          type="text"
+                          placeholder=""
+                          value={pendapatanBeban.akun}
+                          onChange={event => handleInputPendapatanBeban(index, event)} />
+                      </div>
+
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Tahun 1</label>
+                        <div className="select input-narrow margin-right-20">
+                          <select
+                            id="tahun1"
+                            name="tahun1"
+                            value={pendapatanBeban.tahun1}
+                            onChange={event => handleInputPendapatanBeban(index, event)}>
+                            <option value="">-Select Tahun-</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                          </select>
+                        </div>
+                        <input
+                          id="nilaiTahun1"
+                          name="nilaiTahun1"
+                          className="input is-dark input-narrow"
+                          type="text"
+                          placeholder=""
+                          value={currencyFormatter(pendapatanBeban.nilaiTahun1)}
+                          onChange={event => handleInputPendapatanBeban(index, event)} />
+                      </div>
+
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Tahun 2</label>
+                        <div className="select input-narrow margin-right-20">
+                          <select
+                            id="tahun2"
+                            name="tahun2"
+                            value={pendapatanBeban.tahun2}
+                            onChange={event => handleInputPendapatanBeban(index, event)}>
+                            <option value="">-Select Tahun-</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                          </select>
+                        </div>
+                        <input
+                          id="nilaiTahun2"
+                          name="nilaiTahun2"
+                          className="input is-dark input-narrow"
+                          type="text"
+                          placeholder=""
+                          value={currencyFormatter(pendapatanBeban.nilaiTahun2)}
+                          onChange={event => handleInputPendapatanBeban(index, event)} />
+                      </div>
+                      <div className="input-form-standar">
+                        <label className="label-normal label-normal-less-width">Tahun 3</label>
+                        <div className="select input-narrow margin-right-20">
+                          <select
+                            id="tahun3"
+                            name="tahun3"
+                            value={pendapatanBeban.tahun3}
+                            onChange={event => handleInputPendapatanBeban(index, event)}>
+                            <option value="">-Select Tahun-</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            {/* tahun terakhir adalah tahun yang berlangsung sekarang */}
+                          </select>
+                        </div>
+                        <input
+                          id="nilaiTahun3"
+                          name="nilaiTahun3"
+                          className="input is-dark input-narrow"
+                          type="text"
+                          placeholder=""
+                          value={currencyFormatter(pendapatanBeban.nilaiTahun3)}
+                          onChange={event => handleInputPendapatanBeban(index, event)} />
+                      </div>
+                    </div>
+                    <div className="form-flex-right">
+                      <div className="input-form-standar input-form-align-top">
+                        <label className="label-normal label-top">Keterangan</label>
+                        <textarea
+                          id="keterangan"
+                          name="keterangan"
+                          className="textarea textarea-standar is-black has-fixed-size"
+                          placeholder=""
+                          value={pendapatanBeban.keterangan}
+                          onChange={event => handleInputPendapatanBeban(index, event)}></textarea>
+                      </div>
+
+                    </div>
+
+                  </div>
+                  <div className="btn-wrapper">
+                    <button
+                      className="button is-warning"
+                      type="button"
+                      onClick={() => handleAddPendapatanBeban()}>Tambah</button>
+                    <button
+                      className="button is-danger"
+                      type="button"
+                      style={{ marginLeft: 16 }}
+                      onClick={() => handleRemovePendapatanBeban(index)}>Hapus</button>
+                  </div>
+                </Fragment>
+              ))}
             </div>
 
 
@@ -2989,24 +3205,24 @@ const Form = () => {
           {transferPricing.map((transferPricing, index) => (
             <Fragment key={`${transferPricing}~${index}`}>
               <div className="section-form-body section-form-flex">
-                <textarea 
+                <textarea
                   id="analisis"
                   name="analisis"
-                  className="textarea is-black has-fixed-size" 
+                  className="textarea is-black has-fixed-size"
                   placeholder=""
                   value={transferPricing.analisis}
-                  onChange={ event => handleInputTransferPricing(index, event) }></textarea>
+                  onChange={event => handleInputTransferPricing(index, event)}></textarea>
               </div>
               <div className="btn-wrapper" style={{ marginTop: 20 }}>
-                <button 
+                <button
                   className="button is-warning"
                   type="button"
-                  onClick={ () => handleAddTransferPricing() }>Tambah</button>
-                <button 
-                    className="button is-danger"
-                    type="button"
-                    style={{ marginLeft: 16 }}
-                    onClick={ () => handleRemoveTransferPricing(index) }>Hapus</button>
+                  onClick={() => handleAddTransferPricing()}>Tambah</button>
+                <button
+                  className="button is-danger"
+                  type="button"
+                  style={{ marginLeft: 16 }}
+                  onClick={() => handleRemoveTransferPricing(index)}>Hapus</button>
               </div>
             </Fragment>
           ))}
@@ -3020,61 +3236,61 @@ const Form = () => {
                 <div className="form-flex-left">
                   <div className="input-form-standar">
                     <label className="label-normal">Uraian</label>
-                    <input 
+                    <input
                       id="uraian"
                       name="uraian"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={pajakLain.uraian}
-                      onChange={ event => handleInputPajakLain(index, event) } />
+                      onChange={event => handleInputPajakLain(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">CFM SPT</label>
-                    <input 
+                    <input
                       id="cfmSpt"
                       name="cfmSpt"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={pajakLain.cfmSpt}
-                      onChange={ event => handleInputPajakLain(index, event) } />
+                      onChange={event => handleInputPajakLain(index, event)} />
                   </div>
                   <div className="input-form-standar">
                     <label className="label-normal">CFM Penelitian</label>
-                    <input 
+                    <input
                       id="cfmPenelitian"
                       name="cfmPenelitian"
-                      className="input is-dark input-standar" 
-                      type="text" 
+                      className="input is-dark input-standar"
+                      type="text"
                       placeholder=""
                       value={pajakLain.cfmPenelitian}
-                      onChange={ event => handleInputPajakLain(index, event) } />
+                      onChange={event => handleInputPajakLain(index, event)} />
                   </div>
                 </div>
                 <div className="form-flex-right">
                   <div className="input-form-standar input-form-align-top">
                     <label className="label-normal label-top">Keterangan</label>
-                    <textarea 
+                    <textarea
                       id="keterangan"
                       name="keterangan"
-                      className="textarea textarea-standar is-black has-fixed-size" 
+                      className="textarea textarea-standar is-black has-fixed-size"
                       placeholder=""
                       value={pajakLain.keterangan}
-                      onChange={ event => handleInputPajakLain(index, event) }></textarea>
+                      onChange={event => handleInputPajakLain(index, event)}></textarea>
                   </div>
                 </div>
               </div>
               <div className="btn-wrapper">
-                <button 
+                <button
                   className="button is-warning"
                   type="button"
-                  onClick={ () => handleAddPajakLain() }>Tambah</button>
-                <button 
-                    className="button is-danger"
-                    type="button"
-                    style={{ marginLeft: 16 }}
-                    onClick={ () => handleRemovePajakLain(index) }>Hapus</button>
+                  onClick={() => handleAddPajakLain()}>Tambah</button>
+                <button
+                  className="button is-danger"
+                  type="button"
+                  style={{ marginLeft: 16 }}
+                  onClick={() => handleRemovePajakLain(index)}>Hapus</button>
               </div>
             </Fragment>
           ))}
@@ -3092,50 +3308,50 @@ const Form = () => {
                   <div className="form-flex-left">
                     <div className="input-form-standar">
                       <label className="label-normal">Nomor</label>
-                      <input 
+                      <input
                         id="nomor"
                         name="nomor"
-                        className="input is-dark input-standar input-wide" 
-                        type="text" 
+                        className="input is-dark input-standar input-wide"
+                        type="text"
                         placeholder=""
                         value={hasilKunjungan.nomor}
-                        onChange={ event => handleInputHasilKunjungan(index, event) } />
+                        onChange={event => handleInputHasilKunjungan(index, event)} />
                     </div>
                     <div className="input-form-standar">
                       <label className="label-normal">Tanggal</label>
-                      <input 
+                      <input
                         id="tanggal"
                         name="tanggal"
-                        className="input is-dark input-standar input-wide" 
-                        type="date" 
+                        className="input is-dark input-standar input-wide"
+                        type="date"
                         placeholder=""
                         value={hasilKunjungan.tanggal}
-                        onChange={ event => handleInputHasilKunjungan(index, event) } />
+                        onChange={event => handleInputHasilKunjungan(index, event)} />
                     </div>
                     <div className="input-form-standar">
                       <label className="label-normal">Hasil Kunjugan</label>
-                      <input 
+                      <input
                         id="hasil"
                         name="hasil"
-                        className="input is-dark input-standar input-wide" 
-                        type="text" 
+                        className="input is-dark input-standar input-wide"
+                        type="text"
                         placeholder=""
                         value={hasilKunjungan.hasil}
-                        onChange={ event => handleInputHasilKunjungan(index, event) } />
+                        onChange={event => handleInputHasilKunjungan(index, event)} />
                     </div>
                   </div>
                 </div>
 
                 <div className="btn-wrapper">
-                  <button 
+                  <button
                     className="button is-warning"
                     type="button"
-                    onClick={ () => handleAddHasilKunjungan() }>Tambah</button>
-                  <button 
-                      className="button is-danger"
-                      type="button"
-                      style={{ marginLeft: 16 }}
-                      onClick={ () => handleRemoveHasilKunjungan(index) }>Hapus</button>
+                    onClick={() => handleAddHasilKunjungan()}>Tambah</button>
+                  <button
+                    className="button is-danger"
+                    type="button"
+                    style={{ marginLeft: 16 }}
+                    onClick={() => handleRemoveHasilKunjungan(index)}>Hapus</button>
                 </div>
               </Fragment>
             ))}
@@ -3146,24 +3362,24 @@ const Form = () => {
             {faktaLapangan.map((faktaLapangan, index) => (
               <Fragment key={`${faktaLapangan}~${index}`}>
                 <div className="section-form-body section-form-flex">
-                  <textarea 
+                  <textarea
                     id="fakta"
                     name="fakta"
-                    className="textarea is-black has-fixed-size" 
+                    className="textarea is-black has-fixed-size"
                     placeholder=""
                     value={faktaLapangan.fakta}
-                    onChange={ event => handleInputFaktaLapangan(index, event) }></textarea>
+                    onChange={event => handleInputFaktaLapangan(index, event)}></textarea>
                 </div>
                 <div className="btn-wrapper" style={{ marginTop: 20 }}>
-                  <button 
+                  <button
                     className="button is-warning"
                     type="button"
-                    onClick={ () => handleAddFaktaLapangan() }>Tambah</button>
-                  <button 
-                      className="button is-danger"
-                      type="button"
-                      style={{ marginLeft: 16 }}
-                      onClick={ () => handleRemoveFaktaLapangan(index) }>Hapus</button>
+                    onClick={() => handleAddFaktaLapangan()}>Tambah</button>
+                  <button
+                    className="button is-danger"
+                    type="button"
+                    style={{ marginLeft: 16 }}
+                    onClick={() => handleRemoveFaktaLapangan(index)}>Hapus</button>
                 </div>
               </Fragment>
             ))}
@@ -3177,73 +3393,73 @@ const Form = () => {
                   <div className="form-flex-left">
                     <div className="input-form-standar">
                       <label className="label-normal">Tahun Pajak</label>
-                      <input 
+                      <input
                         id="tahunPajak"
                         name="tahunPajak"
-                        className="input is-dark input-standar" 
-                        type="text" 
+                        className="input is-dark input-standar"
+                        type="text"
                         placeholder=""
                         value={pengaduanMasyarakat.tahunPajak}
-                        onChange={ event => handleInputPengaduanMasyarakat(index, event) } />
+                        onChange={event => handleInputPengaduanMasyarakat(index, event)} />
                     </div>
                     <div className="input-form-standar">
                       <label className="label-normal">Jenis Data</label>
-                      <input 
+                      <input
                         id="jenisData"
                         name="jenisData"
-                        className="input is-dark input-standar" 
-                        type="text" 
+                        className="input is-dark input-standar"
+                        type="text"
                         placeholder=""
                         value={pengaduanMasyarakat.jenisData}
-                        onChange={ event => handleInputPengaduanMasyarakat(index, event) } />
+                        onChange={event => handleInputPengaduanMasyarakat(index, event)} />
                     </div>
                     <div className="input-form-standar">
                       <label className="label-normal">Tindak Lanjut Surat Pengaduan</label>
-                      <input 
+                      <input
                         id="tindakLanjut"
                         name="tindakLanjut"
-                        className="input is-dark input-standar" 
-                        type="text" 
+                        className="input is-dark input-standar"
+                        type="text"
                         placeholder=""
                         value={pengaduanMasyarakat.tindakLanjut}
-                        onChange={ event => handleInputPengaduanMasyarakat(index, event) } />
+                        onChange={event => handleInputPengaduanMasyarakat(index, event)} />
                     </div>
                   </div>
                   <div className="form-flex-right">
                     <div className="input-form-standar">
                       <label className="label-normal">Nilai Data</label>
-                      <input 
+                      <input
                         id="nilaiData"
                         name="nilaiData"
-                        className="input is-dark input-standar" 
-                        type="text" 
+                        className="input is-dark input-standar"
+                        type="text"
                         placeholder=""
                         value={pengaduanMasyarakat.nilaiData}
-                        onChange={ event => handleInputPengaduanMasyarakat(index, event) } />
+                        onChange={event => handleInputPengaduanMasyarakat(index, event)} />
                     </div>
                     <div className="input-form-standar">
                       <label className="label-normal">Modus Operandi</label>
-                      <input 
+                      <input
                         id="modusOper"
                         name="modusOper"
-                        className="input is-dark input-standar" 
-                        type="text" 
+                        className="input is-dark input-standar"
+                        type="text"
                         placeholder=""
                         value={pengaduanMasyarakat.modusOper}
-                        onChange={ event => handleInputPengaduanMasyarakat(index, event) } />
+                        onChange={event => handleInputPengaduanMasyarakat(index, event)} />
                     </div>
                   </div>
                 </div>
                 <div className="btn-wrapper">
-                  <button 
+                  <button
                     className="button is-warning"
                     type="button"
-                    onClick={ () => handleAddPengaduanMasyarakat() }>Tambah</button>
-                  <button 
-                      className="button is-danger"
-                      type="button"
-                      style={{ marginLeft: 16 }}
-                      onClick={ () => handleRemovePengaduanMasyarakat(index) }>Hapus</button>
+                    onClick={() => handleAddPengaduanMasyarakat()}>Tambah</button>
+                  <button
+                    className="button is-danger"
+                    type="button"
+                    style={{ marginLeft: 16 }}
+                    onClick={() => handleRemovePengaduanMasyarakat(index)}>Hapus</button>
                 </div>
               </Fragment>
             ))}
@@ -3257,13 +3473,13 @@ const Form = () => {
         <div className="section-form-header">
           <p className="sub-title-form">A. Wajib Pajak telah memenuhi kewajiban perpajakan</p>
           <div className="section-form-body section-form-flex">
-            <textarea 
+            <textarea
               id="memenuhiKewajiban"
               name="memenuhiKewajiban"
-              className="textarea is-black has-fixed-size" 
+              className="textarea is-black has-fixed-size"
               placeholder=""
               value={dataUmum.memenuhiKewajiban}
-              onChange={ event => handleInputDataUmum(0, event) }></textarea>
+              onChange={event => handleInputDataUmum(0, event)}></textarea>
           </div>
         </div>
 
@@ -3274,24 +3490,24 @@ const Form = () => {
             {indikasiKetidakpatuhan.map((indikasiKetidakpatuhan, index) => (
               <Fragment key={`${indikasiKetidakpatuhan}~${index}`}>
                 <div className="input-form-standar">
-                  <input 
+                  <input
                     id="indikasi"
                     name="indikasi"
-                    className="input is-dark input-standar input-wide" 
-                    type="text" 
+                    className="input is-dark input-standar input-wide"
+                    type="text"
                     placeholder=""
                     value={indikasiKetidakpatuhan.indikasi}
-                    onChange={ event => handleInputIndikasiKetidakpatuhan(index, event) } />
-                  <button 
+                    onChange={event => handleInputIndikasiKetidakpatuhan(index, event)} />
+                  <button
                     style={{ marginLeft: 16 }}
                     className="button is-warning"
                     type="button"
-                    onClick={ () => handleAddIndikasiKetidakpatuhan() }>Tambah</button>
-                  <button 
-                      className="button is-danger"
-                      type="button"
-                      style={{ marginLeft: 16 }}
-                      onClick={ () => handleRemoveIndikasiKetidakpatuhan(index) }>Hapus</button>
+                    onClick={() => handleAddIndikasiKetidakpatuhan()}>Tambah</button>
+                  <button
+                    className="button is-danger"
+                    type="button"
+                    style={{ marginLeft: 16 }}
+                    onClick={() => handleRemoveIndikasiKetidakpatuhan(index)}>Hapus</button>
                 </div>
               </Fragment>
             ))}
@@ -3302,24 +3518,24 @@ const Form = () => {
             {modusKetidakpatuhan.map((modusKetidakpatuhan, index) => (
               <Fragment key={`${modusKetidakpatuhan}~${index}`}>
                 <div className="input-form-standar">
-                  <input 
+                  <input
                     id="indikasi"
                     name="indikasi"
-                    className="input is-dark input-standar input-wide" 
-                    type="text" 
+                    className="input is-dark input-standar input-wide"
+                    type="text"
                     placeholder=""
                     value={modusKetidakpatuhan.modus}
-                    onChange={ event => handleInputModusKetidakpatuhan(index, event) } />
-                  <button 
+                    onChange={event => handleInputModusKetidakpatuhan(index, event)} />
+                  <button
                     style={{ marginLeft: 16 }}
                     className="button is-warning"
                     type="button"
-                    onClick={ () => handleAddModusKetidakpatuhan() }>Tambah</button>
-                  <button 
-                      className="button is-danger"
-                      type="button"
-                      style={{ marginLeft: 16 }}
-                      onClick={ () => handleRemoveModusKetidakpatuhan(index) }>Hapus</button>
+                    onClick={() => handleAddModusKetidakpatuhan()}>Tambah</button>
+                  <button
+                    className="button is-danger"
+                    type="button"
+                    style={{ marginLeft: 16 }}
+                    onClick={() => handleRemoveModusKetidakpatuhan(index)}>Hapus</button>
                 </div>
               </Fragment>
             ))}
@@ -3333,51 +3549,51 @@ const Form = () => {
                   <div className="form-flex-left">
                     <div className="input-form-standar">
                       <label className="label-normal">Tahun Pajak</label>
-                      <input 
+                      <input
                         id="tahunPajak"
                         name="tahunPajak"
-                        className="input is-dark input-standar" 
-                        type="text" 
+                        className="input is-dark input-standar"
+                        type="text"
                         placeholder=""
                         value={potensi.tahunPajak}
-                        onChange={ event => handleInputPotensi(index, event) } />
+                        onChange={event => handleInputPotensi(index, event)} />
                     </div>
                     <div className="input-form-standar">
                       <label className="label-normal">Jenis Data</label>
-                      <input 
+                      <input
                         id="jenisData"
                         name="jenisData"
-                        className="input is-dark input-standar" 
-                        type="text" 
+                        className="input is-dark input-standar"
+                        type="text"
                         placeholder=""
                         value={potensi.jenisData}
-                        onChange={ event => handleInputPotensi(index, event) } />
+                        onChange={event => handleInputPotensi(index, event)} />
                     </div>
                   </div>
                   <div className="form-flex-right">
                     <div className="input-form-standar">
                       <label className="label-normal">Nilai Potensi</label>
-                      <input 
+                      <input
                         id="nilaiPotensi"
                         name="nilaiPotensi"
-                        className="input is-dark input-standar" 
-                        type="text" 
+                        className="input is-dark input-standar"
+                        type="text"
                         placeholder=""
                         value={potensi.nilaiPotensi}
-                        onChange={ event => handleInputPotensi(index, event) } />
+                        onChange={event => handleInputPotensi(index, event)} />
                     </div>
                   </div>
                 </div>
                 <div className="btn-wrapper">
-                  <button 
+                  <button
                     className="button is-warning"
                     type="button"
-                    onClick={ () => handleAddPotensi() }>Tambah</button>
-                  <button 
-                      className="button is-danger"
-                      type="button"
-                      style={{ marginLeft: 16 }}
-                      onClick={ () => handleRemovePotensi(index) }>Hapus</button>
+                    onClick={() => handleAddPotensi()}>Tambah</button>
+                  <button
+                    className="button is-danger"
+                    type="button"
+                    style={{ marginLeft: 16 }}
+                    onClick={() => handleRemovePotensi(index)}>Hapus</button>
                 </div>
               </Fragment>
             ))}
@@ -3391,354 +3607,366 @@ const Form = () => {
       <div className="section-form margin-section">
         <p className="title-form">IV. LAMPIRAN</p>
         <div className="section-form-body section-form-flex">
-          <textarea 
+          <textarea
             id="lampiran"
             name="lampiran"
-            className="textarea is-black has-fixed-size" 
+            className="textarea is-black has-fixed-size"
             placeholder=""
             value={dataUmum.lampiran}
-            onChange={ event => handleInputDataUmum(0, event) }></textarea>
+            onChange={event => handleInputDataUmum(0, event)}></textarea>
         </div>
       </div>
 
       <div className="section-form margin-section">
         <p className="title-form">V. PENANDANTANGANAN LHPt</p>
-          <div className="section-form-body section-form-flex input-form-standar">
-            <label className="label-normal label-wide">Penempatan posisi 1</label>
-            <div class="select margin-right-20">
-              <select
-                id="unit1"
-                name="unit1"
-                value={dataUmum.unit1}
-                onChange={ event => handleInputDataUmum(0, event) }>
-                <option value="">-Pilih Unit Organisasi-</option>
-                <option value="KPP Pratama">KPP Pratama</option>
-                <option value="Seksi Pengawasan dan Konsultasi II">Seksi Pengawasan dan Konsultasi II</option>
-                <option value="Seksi Pengawasan dan Konsultasi III">Seksi Pengawasan dan Konsultasi III</option>
-                <option value="Seksi Pengawasan dan Konsultasi IV">Seksi Pengawasan dan Konsultasi IV</option>
-                <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
-                <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
-              </select>
-            </div>
-            <div class="select margin-right-20">
-              <select
-                id="jabatan1"
-                name="jabatan1"
-                value={dataUmum.jabatan1}
-                onChange={ event => handleInputDataUmum(0, event) }>
-                <option value="">-Pilih Jabatan-</option>
-                <option value="Kepala Kantor">Kepala Kantor</option>
-                <option value="Kepala Seksi">Kepala Seksi</option>
-                <option value="Account Representative">Account Representative</option>
-              </select>
-            </div>
-            <div class="select margin-right-20">
-              <select
-                id="nama1"
-                name="nama1"
-                value={dataUmum.nama1}
-                onChange={ event => handleInputDataUmum(0, event) }>
-                <option value="">-Pilih Nama-</option>
-                <option value="FAISAL FATAHILLAH">FAISAL FATAHILLAH</option>
-                <option value="RICKY WELLYANDO">RICKY WELLYANDO</option>
-                <option value="TUNGGUL HAMONANGAN MANURUNG">TUNGGUL HAMONANGAN MANURUNG</option>
-                <option value="SUBECHAN">SUBECHAN</option>
-                <option value="BENY SANTOSO">BENY SANTOSO</option>
-                <option value="AIDA HELMY FITRIANA">AIDA HELMY FITRIANA</option>
-                <option value="NDRA SANTOSO">INDRA SANTOSO</option>
-                <option value="HASNIATI">HASNIATI</option>
-                <option value="DANIA SWANDITA">DANIA SWANDITA</option>
-                <option value="NORMA GITA LIANI">NORMA GITA LIANI</option>
-                <option value="WIDYA CIPTA RANY">WIDYA CIPTA RANY</option>
-                <option value="MUHAMMAD IQBAL RIZQILLAH">MUHAMMAD IQBAL RIZQILLAH</option>
-                <option value="EVY RIANA">EVY RIANA</option>
-                <option value="DIAN MOHAMAD YAKOP">DIAN MOHAMAD YAKOP</option>
-                <option value="KURNIA WAHDI">KURNIA WAHDI</option>
-                <option value="ERNIE ARTHA">ERNIE ARTHA</option>
-                <option value="RIAN YULI HARTANTO">RIAN YULI HARTANTO</option>
-                <option value="SOPHIAN HADI PRANOTO">SOPHIAN HADI PRANOTO</option>
-                <option value="REMON">REMON</option>
-                <option value="SULAEMAN">SULAEMAN</option>
-                <option value="FAHMI SYAMSIDI">FAHMI SYAMSIDI</option>
-                <option value="EKO PRASETYO WAHYU DEWANTO">EKO PRASETYO WAHYU DEWANTO</option>
-                <option value="MARIA ARZALIA">MARIA ARZALIA</option>
-                <option value="IKA KUSUMAWATI">IKA KUSUMAWATI</option>
-                <option value="MARIANA NOVIANTI">MARIANA NOVIANTI</option>
-                <option value="YUDHA PRATAMA SUMADI">YUDHA PRATAMA SUMADI</option>
-                <option value="VINI ASTRIANI">VINI ASTRIANI</option>
-                <option value="EKA MUSIKAWATI">EKA MUSIKAWATI</option>
-                <option value="RIZKY KURNIANI">RIZKY KURNIANI</option>
-                <option value="EYO SURYADI">EYO SURYADI</option>
-                <option value="CHEVI NOVIZAYANTI">CHEVI NOVIZAYANTI</option>
-                <option value="KADEK BUDAYA">KADEK BUDAYA</option>
-                <option value="SAGITA AYU DIWANTI">SAGITA AYU DIWANTI</option>
-                <option value="GETA THERESIA PANGGABEAN">GETA THERESIA PANGGABEAN</option>
-                <option value="ACEP KUSNADI NURKAMIL">ACEP KUSNADI NURKAMIL</option>
-                <option value="ROY JOHANNES BUDIMAN MARBUN">ROY JOHANNES BUDIMAN MARBUN</option>
-                <option value="ACH. MURTAKI">ACH. MURTAKI</option>
-                <option value="ADHARIANI SARAH">ADHARIANI SARAH</option>
-                <option value="SANDY PURBANDARU">SANDY PURBANDARU</option>
-                <option value="MERY NATALIA">MERY NATALIA</option>
-                <option value="ENDRO HERMAWAN">ENDRO HERMAWAN</option>
-                <option value="INTEN RATNA SARI">INTEN RATNA SARI</option>
-              </select>
-            </div>
-          </div>
-
-          {/* posisi 2 */}
-          <div className="section-form-body section-form-flex input-form-standar">
-            <label className="label-normal label-wide">Penempatan posisi 2</label>
-            <div class="select margin-right-20">
+        <div className="section-form-body section-form-flex input-form-standar">
+          <label className="label-normal label-wide">Penempatan posisi 1</label>
+          <div class="select select-width margin-right-20">
             <select
-                id="unit2"
-                name="unit2"
-                value={dataUmum.unit2}
-                onChange={ event => handleInputDataUmum(0, event) }>
-                <option value="">-Pilih Unit Organisasi-</option>
-                <option value="KPP Pratama">KPP Pratama</option>
-                <option value="Seksi Pengawasan dan Konsultasi II">Seksi Pengawasan dan Konsultasi II</option>
-                <option value="Seksi Pengawasan dan Konsultasi III">Seksi Pengawasan dan Konsultasi III</option>
-                <option value="Seksi Pengawasan dan Konsultasi IV">Seksi Pengawasan dan Konsultasi IV</option>
-                <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
-                <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
-              </select>
-            </div>
-            <div class="select margin-right-20">
-              <select
-                id="jabatan2"
-                name="jabatan2"
-                value={dataUmum.jabatan2}
-                onChange={ event => handleInputDataUmum(0, event) }>
-                <option value="">-Pilih Jabatan-</option>
-                <option value="Kepala Kantor">Kepala Kantor</option>
-                <option value="Kepala Seksi">Kepala Seksi</option>
-                <option value="Account Representative">Account Representative</option>
-              </select>
-            </div>
-            <div class="select margin-right-20">
-              <select
-                id="nama2"
-                name="nama2"
-                value={dataUmum.nama2}
-                onChange={ event => handleInputDataUmum(0, event) }>
-                <option value="">-Pilih Nama-</option>
-                <option value="FAISAL FATAHILLAH">FAISAL FATAHILLAH</option>
-                <option value="RICKY WELLYANDO">RICKY WELLYANDO</option>
-                <option value="TUNGGUL HAMONANGAN MANURUNG">TUNGGUL HAMONANGAN MANURUNG</option>
-                <option value="SUBECHAN">SUBECHAN</option>
-                <option value="BENY SANTOSO">BENY SANTOSO</option>
-                <option value="AIDA HELMY FITRIANA">AIDA HELMY FITRIANA</option>
-                <option value="NDRA SANTOSO">INDRA SANTOSO</option>
-                <option value="HASNIATI">HASNIATI</option>
-                <option value="DANIA SWANDITA">DANIA SWANDITA</option>
-                <option value="NORMA GITA LIANI">NORMA GITA LIANI</option>
-                <option value="WIDYA CIPTA RANY">WIDYA CIPTA RANY</option>
-                <option value="MUHAMMAD IQBAL RIZQILLAH">MUHAMMAD IQBAL RIZQILLAH</option>
-                <option value="EVY RIANA">EVY RIANA</option>
-                <option value="DIAN MOHAMAD YAKOP">DIAN MOHAMAD YAKOP</option>
-                <option value="KURNIA WAHDI">KURNIA WAHDI</option>
-                <option value="ERNIE ARTHA">ERNIE ARTHA</option>
-                <option value="RIAN YULI HARTANTO">RIAN YULI HARTANTO</option>
-                <option value="SOPHIAN HADI PRANOTO">SOPHIAN HADI PRANOTO</option>
-                <option value="REMON">REMON</option>
-                <option value="SULAEMAN">SULAEMAN</option>
-                <option value="FAHMI SYAMSIDI">FAHMI SYAMSIDI</option>
-                <option value="EKO PRASETYO WAHYU DEWANTO">EKO PRASETYO WAHYU DEWANTO</option>
-                <option value="MARIA ARZALIA">MARIA ARZALIA</option>
-                <option value="IKA KUSUMAWATI">IKA KUSUMAWATI</option>
-                <option value="MARIANA NOVIANTI">MARIANA NOVIANTI</option>
-                <option value="YUDHA PRATAMA SUMADI">YUDHA PRATAMA SUMADI</option>
-                <option value="VINI ASTRIANI">VINI ASTRIANI</option>
-                <option value="EKA MUSIKAWATI">EKA MUSIKAWATI</option>
-                <option value="RIZKY KURNIANI">RIZKY KURNIANI</option>
-                <option value="EYO SURYADI">EYO SURYADI</option>
-                <option value="CHEVI NOVIZAYANTI">CHEVI NOVIZAYANTI</option>
-                <option value="KADEK BUDAYA">KADEK BUDAYA</option>
-                <option value="SAGITA AYU DIWANTI">SAGITA AYU DIWANTI</option>
-                <option value="GETA THERESIA PANGGABEAN">GETA THERESIA PANGGABEAN</option>
-                <option value="ACEP KUSNADI NURKAMIL">ACEP KUSNADI NURKAMIL</option>
-                <option value="ROY JOHANNES BUDIMAN MARBUN">ROY JOHANNES BUDIMAN MARBUN</option>
-                <option value="ACH. MURTAKI">ACH. MURTAKI</option>
-                <option value="ADHARIANI SARAH">ADHARIANI SARAH</option>
-                <option value="SANDY PURBANDARU">SANDY PURBANDARU</option>
-                <option value="MERY NATALIA">MERY NATALIA</option>
-                <option value="ENDRO HERMAWAN">ENDRO HERMAWAN</option>
-                <option value="INTEN RATNA SARI">INTEN RATNA SARI</option>
-              </select>
-            </div>
+              id="unit1"
+              name="unit1"
+              value={dataUmum.unit1}
+              onChange={event => handleInputDataUmum(0, event)}>
+              <option value="">-Pilih Unit Organisasi-</option>
+              <option value="KPP Pratama">KPP Pratama</option>
+              <option value="Seksi Pengawasan dan Konsultasi II">Seksi Pengawasan dan Konsultasi II</option>
+              <option value="Seksi Pengawasan dan Konsultasi III">Seksi Pengawasan dan Konsultasi III</option>
+              <option value="Seksi Pengawasan dan Konsultasi IV">Seksi Pengawasan dan Konsultasi IV</option>
+              <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
+            </select>
           </div>
+          <div class="select select-width margin-right-20">
+            <select
+              id="jabatan1"
+              name="jabatan1"
+              value={dataUmum.jabatan1}
+              onChange={event => handleInputDataUmum(0, event)}>
+              <option value="">-Pilih Jabatan-</option>
+              <option value="Kepala Kantor">Kepala Kantor</option>
+              <option value="Kepala Seksi">Kepala Seksi</option>
+              <option value="Account Representative">Account Representative</option>
+              <option value="Supervisor Fungsional Pemeriksa ">Supervisor Fungsional Pemeriksa </option>
+            </select>
+          </div>
+          <div class="select select-width margin-right-20">
+            <select
+              id="nama1"
+              name="nama1"
+              value={dataUmum.nama1}
+              onChange={event => handleInputDataUmum(0, event)}>
+              <option value="">-Pilih Nama-</option>
+              <option value="FAISAL FATAHILLAH">FAISAL FATAHILLAH</option>
+              <option value="RICKY WELLYANDO">RICKY WELLYANDO</option>
+              <option value="TUNGGUL HAMONANGAN MANURUNG">TUNGGUL HAMONANGAN MANURUNG</option>
+              <option value="SUBECHAN">SUBECHAN</option>
+              <option value="BENY SANTOSO">BENY SANTOSO</option>
+              <option value="AIDA HELMY FITRIANA">AIDA HELMY FITRIANA</option>
+              <option value="NDRA SANTOSO">INDRA SANTOSO</option>
+              <option value="HASNIATI">HASNIATI</option>
+              <option value="DANIA SWANDITA">DANIA SWANDITA</option>
+              <option value="NORMA GITA LIANI">NORMA GITA LIANI</option>
+              <option value="WIDYA CIPTA RANY">WIDYA CIPTA RANY</option>
+              <option value="MUHAMMAD IQBAL RIZQILLAH">MUHAMMAD IQBAL RIZQILLAH</option>
+              <option value="EVY RIANA">EVY RIANA</option>
+              <option value="DIAN MOHAMAD YAKOP">DIAN MOHAMAD YAKOP</option>
+              <option value="KURNIA WAHDI">KURNIA WAHDI</option>
+              <option value="ERNIE ARTHA">ERNIE ARTHA</option>
+              <option value="RIAN YULI HARTANTO">RIAN YULI HARTANTO</option>
+              <option value="SOPHIAN HADI PRANOTO">SOPHIAN HADI PRANOTO</option>
+              <option value="REMON">REMON</option>
+              <option value="SULAEMAN">SULAEMAN</option>
+              <option value="FAHMI SYAMSIDI">FAHMI SYAMSIDI</option>
+              <option value="EKO PRASETYO WAHYU DEWANTO">EKO PRASETYO WAHYU DEWANTO</option>
+              <option value="MARIA ARZALIA">MARIA ARZALIA</option>
+              <option value="IKA KUSUMAWATI">IKA KUSUMAWATI</option>
+              <option value="MARIANA NOVIANTI">MARIANA NOVIANTI</option>
+              <option value="YUDHA PRATAMA SUMADI">YUDHA PRATAMA SUMADI</option>
+              <option value="VINI ASTRIANI">VINI ASTRIANI</option>
+              <option value="EKA MUSIKAWATI">EKA MUSIKAWATI</option>
+              <option value="RIZKY KURNIANI">RIZKY KURNIANI</option>
+              <option value="EYO SURYADI">EYO SURYADI</option>
+              <option value="CHEVI NOVIZAYANTI">CHEVI NOVIZAYANTI</option>
+              <option value="KADEK BUDAYA">KADEK BUDAYA</option>
+              <option value="SAGITA AYU DIWANTI">SAGITA AYU DIWANTI</option>
+              <option value="GETA THERESIA PANGGABEAN">GETA THERESIA PANGGABEAN</option>
+              <option value="ACEP KUSNADI NURKAMIL">ACEP KUSNADI NURKAMIL</option>
+              <option value="ROY JOHANNES BUDIMAN MARBUN">ROY JOHANNES BUDIMAN MARBUN</option>
+              <option value="ACH. MURTAKI">ACH. MURTAKI</option>
+              <option value="ADHARIANI SARAH">ADHARIANI SARAH</option>
+              <option value="SANDY PURBANDARU">SANDY PURBANDARU</option>
+              <option value="MERY NATALIA">MERY NATALIA</option>
+              <option value="ENDRO HERMAWAN">ENDRO HERMAWAN</option>
+              <option value="INTEN RATNA SARI">INTEN RATNA SARI</option>
+              <option value="RENE SARI UTAMI">RENE SARI UTAMI</option>
+              <option value="PEBRIZAL">PEBRIZAL</option>
+              <option value="ILHAM WAHYUDIN">ILHAM WAHYUDIN</option>
+            </select>
+          </div>
+        </div>
 
-          {/* posisi 3 */}
-          <div className="section-form-body section-form-flex input-form-standar">
-            <label className="label-normal label-wide">Penempatan posisi 3</label>
-            <div class="select margin-right-20">
-              <select
-                id="unit3"
-                name="unit3"
-                value={dataUmum.unit3}
-                onChange={ event => handleInputDataUmum(0, event) }>
-                <option value="">-Pilih Unit Organisasi-</option>
-                <option value="KPP Pratama">KPP Pratama</option>
-                <option value="Seksi Pengawasan dan Konsultasi II">Seksi Pengawasan dan Konsultasi II</option>
-                <option value="Seksi Pengawasan dan Konsultasi III">Seksi Pengawasan dan Konsultasi III</option>
-                <option value="Seksi Pengawasan dan Konsultasi IV">Seksi Pengawasan dan Konsultasi IV</option>
-                <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
-                <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
-              </select>
-            </div>
-            <div class="select margin-right-20">
-              <select
-                id="jabatan3"
-                name="jabatan3"
-                value={dataUmum.jabatan3}
-                onChange={ event => handleInputDataUmum(0, event) }>
-                <option value="">-Pilih Jabatan-</option>
-                <option value="Kepala Kantor">Kepala Kantor</option>
-                <option value="Kepala Seksi">Kepala Seksi</option>
-                <option value="Account Representative">Account Representative</option>
-              </select>
-            </div>
-            <div class="select margin-right-20">
-              <select
-                id="nama3"
-                name="nama3"
-                value={dataUmum.nama3}
-                onChange={ event => handleInputDataUmum(0, event) }>
-                <option value="">-Pilih Nama-</option>
-                <option value="FAISAL FATAHILLAH">FAISAL FATAHILLAH</option>
-                <option value="RICKY WELLYANDO">RICKY WELLYANDO</option>
-                <option value="TUNGGUL HAMONANGAN MANURUNG">TUNGGUL HAMONANGAN MANURUNG</option>
-                <option value="SUBECHAN">SUBECHAN</option>
-                <option value="BENY SANTOSO">BENY SANTOSO</option>
-                <option value="AIDA HELMY FITRIANA">AIDA HELMY FITRIANA</option>
-                <option value="NDRA SANTOSO">INDRA SANTOSO</option>
-                <option value="HASNIATI">HASNIATI</option>
-                <option value="DANIA SWANDITA">DANIA SWANDITA</option>
-                <option value="NORMA GITA LIANI">NORMA GITA LIANI</option>
-                <option value="WIDYA CIPTA RANY">WIDYA CIPTA RANY</option>
-                <option value="MUHAMMAD IQBAL RIZQILLAH">MUHAMMAD IQBAL RIZQILLAH</option>
-                <option value="EVY RIANA">EVY RIANA</option>
-                <option value="DIAN MOHAMAD YAKOP">DIAN MOHAMAD YAKOP</option>
-                <option value="KURNIA WAHDI">KURNIA WAHDI</option>
-                <option value="ERNIE ARTHA">ERNIE ARTHA</option>
-                <option value="RIAN YULI HARTANTO">RIAN YULI HARTANTO</option>
-                <option value="SOPHIAN HADI PRANOTO">SOPHIAN HADI PRANOTO</option>
-                <option value="REMON">REMON</option>
-                <option value="SULAEMAN">SULAEMAN</option>
-                <option value="FAHMI SYAMSIDI">FAHMI SYAMSIDI</option>
-                <option value="EKO PRASETYO WAHYU DEWANTO">EKO PRASETYO WAHYU DEWANTO</option>
-                <option value="MARIA ARZALIA">MARIA ARZALIA</option>
-                <option value="IKA KUSUMAWATI">IKA KUSUMAWATI</option>
-                <option value="MARIANA NOVIANTI">MARIANA NOVIANTI</option>
-                <option value="YUDHA PRATAMA SUMADI">YUDHA PRATAMA SUMADI</option>
-                <option value="VINI ASTRIANI">VINI ASTRIANI</option>
-                <option value="EKA MUSIKAWATI">EKA MUSIKAWATI</option>
-                <option value="RIZKY KURNIANI">RIZKY KURNIANI</option>
-                <option value="EYO SURYADI">EYO SURYADI</option>
-                <option value="CHEVI NOVIZAYANTI">CHEVI NOVIZAYANTI</option>
-                <option value="KADEK BUDAYA">KADEK BUDAYA</option>
-                <option value="SAGITA AYU DIWANTI">SAGITA AYU DIWANTI</option>
-                <option value="GETA THERESIA PANGGABEAN">GETA THERESIA PANGGABEAN</option>
-                <option value="ACEP KUSNADI NURKAMIL">ACEP KUSNADI NURKAMIL</option>
-                <option value="ROY JOHANNES BUDIMAN MARBUN">ROY JOHANNES BUDIMAN MARBUN</option>
-                <option value="ACH. MURTAKI">ACH. MURTAKI</option>
-                <option value="ADHARIANI SARAH">ADHARIANI SARAH</option>
-                <option value="SANDY PURBANDARU">SANDY PURBANDARU</option>
-                <option value="MERY NATALIA">MERY NATALIA</option>
-                <option value="ENDRO HERMAWAN">ENDRO HERMAWAN</option>
-                <option value="INTEN RATNA SARI">INTEN RATNA SARI</option>
-              </select>
-            </div>
+        {/* posisi 2 */}
+        <div className="section-form-body section-form-flex input-form-standar">
+          <label className="label-normal label-wide">Penempatan posisi 2</label>
+          <div class="select select-width margin-right-20">
+            <select
+              id="unit2"
+              name="unit2"
+              value={dataUmum.unit2}
+              onChange={event => handleInputDataUmum(0, event)}>
+              <option value="">-Pilih Unit Organisasi-</option>
+              <option value="KPP Pratama">KPP Pratama</option>
+              <option value="Seksi Pengawasan dan Konsultasi II">Seksi Pengawasan dan Konsultasi II</option>
+              <option value="Seksi Pengawasan dan Konsultasi III">Seksi Pengawasan dan Konsultasi III</option>
+              <option value="Seksi Pengawasan dan Konsultasi IV">Seksi Pengawasan dan Konsultasi IV</option>
+              <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
+            </select>
           </div>
+          <div class="select select-width margin-right-20">
+            <select
+              id="jabatan2"
+              name="jabatan2"
+              value={dataUmum.jabatan2}
+              onChange={event => handleInputDataUmum(0, event)}>
+              <option value="">-Pilih Jabatan-</option>
+              <option value="Kepala Kantor">Kepala Kantor</option>
+              <option value="Kepala Seksi">Kepala Seksi</option>
+              <option value="Account Representative">Account Representative</option>
+              <option value="Supervisor Fungsional Pemeriksa ">Supervisor Fungsional Pemeriksa </option>
+            </select>
+          </div>
+          <div class="select select-width margin-right-20">
+            <select
+              id="nama2"
+              name="nama2"
+              value={dataUmum.nama2}
+              onChange={event => handleInputDataUmum(0, event)}>
+              <option value="">-Pilih Nama-</option>
+              <option value="FAISAL FATAHILLAH">FAISAL FATAHILLAH</option>
+              <option value="RICKY WELLYANDO">RICKY WELLYANDO</option>
+              <option value="TUNGGUL HAMONANGAN MANURUNG">TUNGGUL HAMONANGAN MANURUNG</option>
+              <option value="SUBECHAN">SUBECHAN</option>
+              <option value="BENY SANTOSO">BENY SANTOSO</option>
+              <option value="AIDA HELMY FITRIANA">AIDA HELMY FITRIANA</option>
+              <option value="NDRA SANTOSO">INDRA SANTOSO</option>
+              <option value="HASNIATI">HASNIATI</option>
+              <option value="DANIA SWANDITA">DANIA SWANDITA</option>
+              <option value="NORMA GITA LIANI">NORMA GITA LIANI</option>
+              <option value="WIDYA CIPTA RANY">WIDYA CIPTA RANY</option>
+              <option value="MUHAMMAD IQBAL RIZQILLAH">MUHAMMAD IQBAL RIZQILLAH</option>
+              <option value="EVY RIANA">EVY RIANA</option>
+              <option value="DIAN MOHAMAD YAKOP">DIAN MOHAMAD YAKOP</option>
+              <option value="KURNIA WAHDI">KURNIA WAHDI</option>
+              <option value="ERNIE ARTHA">ERNIE ARTHA</option>
+              <option value="RIAN YULI HARTANTO">RIAN YULI HARTANTO</option>
+              <option value="SOPHIAN HADI PRANOTO">SOPHIAN HADI PRANOTO</option>
+              <option value="REMON">REMON</option>
+              <option value="SULAEMAN">SULAEMAN</option>
+              <option value="FAHMI SYAMSIDI">FAHMI SYAMSIDI</option>
+              <option value="EKO PRASETYO WAHYU DEWANTO">EKO PRASETYO WAHYU DEWANTO</option>
+              <option value="MARIA ARZALIA">MARIA ARZALIA</option>
+              <option value="IKA KUSUMAWATI">IKA KUSUMAWATI</option>
+              <option value="MARIANA NOVIANTI">MARIANA NOVIANTI</option>
+              <option value="YUDHA PRATAMA SUMADI">YUDHA PRATAMA SUMADI</option>
+              <option value="VINI ASTRIANI">VINI ASTRIANI</option>
+              <option value="EKA MUSIKAWATI">EKA MUSIKAWATI</option>
+              <option value="RIZKY KURNIANI">RIZKY KURNIANI</option>
+              <option value="EYO SURYADI">EYO SURYADI</option>
+              <option value="CHEVI NOVIZAYANTI">CHEVI NOVIZAYANTI</option>
+              <option value="KADEK BUDAYA">KADEK BUDAYA</option>
+              <option value="SAGITA AYU DIWANTI">SAGITA AYU DIWANTI</option>
+              <option value="GETA THERESIA PANGGABEAN">GETA THERESIA PANGGABEAN</option>
+              <option value="ACEP KUSNADI NURKAMIL">ACEP KUSNADI NURKAMIL</option>
+              <option value="ROY JOHANNES BUDIMAN MARBUN">ROY JOHANNES BUDIMAN MARBUN</option>
+              <option value="ACH. MURTAKI">ACH. MURTAKI</option>
+              <option value="ADHARIANI SARAH">ADHARIANI SARAH</option>
+              <option value="SANDY PURBANDARU">SANDY PURBANDARU</option>
+              <option value="MERY NATALIA">MERY NATALIA</option>
+              <option value="ENDRO HERMAWAN">ENDRO HERMAWAN</option>
+              <option value="INTEN RATNA SARI">INTEN RATNA SARI</option>
+              <option value="RENE SARI UTAMI">RENE SARI UTAMI</option>
+              <option value="PEBRIZAL">PEBRIZAL</option>
+              <option value="ILHAM WAHYUDIN">ILHAM WAHYUDIN</option>
+            </select>
+          </div>
+        </div>
 
-          {/* posisi 4 */}
-          <div className="section-form-body section-form-flex input-form-standar">
-            <label className="label-normal label-wide">Penempatan posisi 4</label>
-            <div class="select margin-right-20">
-              <select
-                id="unit4"
-                name="unit4"
-                value={dataUmum.unit4}
-                onChange={ event => handleInputDataUmum(0, event) }>
-                <option value="">-Pilih Unit Organisasi-</option>
-                <option value="KPP Pratama">KPP Pratama</option>
-                <option value="Seksi Pengawasan dan Konsultasi II">Seksi Pengawasan dan Konsultasi II</option>
-                <option value="Seksi Pengawasan dan Konsultasi III">Seksi Pengawasan dan Konsultasi III</option>
-                <option value="Seksi Pengawasan dan Konsultasi IV">Seksi Pengawasan dan Konsultasi IV</option>
-                <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
-                <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
-              </select>
-            </div>
-            <div class="select margin-right-20">
-              <select
-                id="jabatan4"
-                name="jabatan4"
-                value={dataUmum.jabatan4}
-                onChange={ event => handleInputDataUmum(0, event) }>
-                <option value="">-Pilih Jabatan-</option>
-                <option value="Kepala Kantor">Kepala Kantor</option>
-                <option value="Kepala Seksi">Kepala Seksi</option>
-                <option value="Account Representative">Account Representative</option>
-              </select>
-            </div>
-            <div class="select margin-right-20">
-              <select
-                id="nama4"
-                name="nama4"
-                value={dataUmum.nama4}
-                onChange={ event => handleInputDataUmum(0, event) }>
-                <option value="">-Pilih Nama-</option>
-                <option value="FAISAL FATAHILLAH">FAISAL FATAHILLAH</option>
-                <option value="RICKY WELLYANDO">RICKY WELLYANDO</option>
-                <option value="TUNGGUL HAMONANGAN MANURUNG">TUNGGUL HAMONANGAN MANURUNG</option>
-                <option value="SUBECHAN">SUBECHAN</option>
-                <option value="BENY SANTOSO">BENY SANTOSO</option>
-                <option value="AIDA HELMY FITRIANA">AIDA HELMY FITRIANA</option>
-                <option value="NDRA SANTOSO">INDRA SANTOSO</option>
-                <option value="HASNIATI">HASNIATI</option>
-                <option value="DANIA SWANDITA">DANIA SWANDITA</option>
-                <option value="NORMA GITA LIANI">NORMA GITA LIANI</option>
-                <option value="WIDYA CIPTA RANY">WIDYA CIPTA RANY</option>
-                <option value="MUHAMMAD IQBAL RIZQILLAH">MUHAMMAD IQBAL RIZQILLAH</option>
-                <option value="EVY RIANA">EVY RIANA</option>
-                <option value="DIAN MOHAMAD YAKOP">DIAN MOHAMAD YAKOP</option>
-                <option value="KURNIA WAHDI">KURNIA WAHDI</option>
-                <option value="ERNIE ARTHA">ERNIE ARTHA</option>
-                <option value="RIAN YULI HARTANTO">RIAN YULI HARTANTO</option>
-                <option value="SOPHIAN HADI PRANOTO">SOPHIAN HADI PRANOTO</option>
-                <option value="REMON">REMON</option>
-                <option value="SULAEMAN">SULAEMAN</option>
-                <option value="FAHMI SYAMSIDI">FAHMI SYAMSIDI</option>
-                <option value="EKO PRASETYO WAHYU DEWANTO">EKO PRASETYO WAHYU DEWANTO</option>
-                <option value="MARIA ARZALIA">MARIA ARZALIA</option>
-                <option value="IKA KUSUMAWATI">IKA KUSUMAWATI</option>
-                <option value="MARIANA NOVIANTI">MARIANA NOVIANTI</option>
-                <option value="YUDHA PRATAMA SUMADI">YUDHA PRATAMA SUMADI</option>
-                <option value="VINI ASTRIANI">VINI ASTRIANI</option>
-                <option value="EKA MUSIKAWATI">EKA MUSIKAWATI</option>
-                <option value="RIZKY KURNIANI">RIZKY KURNIANI</option>
-                <option value="EYO SURYADI">EYO SURYADI</option>
-                <option value="CHEVI NOVIZAYANTI">CHEVI NOVIZAYANTI</option>
-                <option value="KADEK BUDAYA">KADEK BUDAYA</option>
-                <option value="SAGITA AYU DIWANTI">SAGITA AYU DIWANTI</option>
-                <option value="GETA THERESIA PANGGABEAN">GETA THERESIA PANGGABEAN</option>
-                <option value="ACEP KUSNADI NURKAMIL">ACEP KUSNADI NURKAMIL</option>
-                <option value="ROY JOHANNES BUDIMAN MARBUN">ROY JOHANNES BUDIMAN MARBUN</option>
-                <option value="ACH. MURTAKI">ACH. MURTAKI</option>
-                <option value="ADHARIANI SARAH">ADHARIANI SARAH</option>
-                <option value="SANDY PURBANDARU">SANDY PURBANDARU</option>
-                <option value="MERY NATALIA">MERY NATALIA</option>
-                <option value="ENDRO HERMAWAN">ENDRO HERMAWAN</option>
-                <option value="INTEN RATNA SARI">INTEN RATNA SARI</option>
-              </select>
-            </div>
+        {/* posisi 3 */}
+        <div className="section-form-body section-form-flex input-form-standar">
+          <label className="label-normal label-wide">Penempatan posisi 3</label>
+          <div class="select select-width margin-right-20">
+            <select
+              id="unit3"
+              name="unit3"
+              value={dataUmum.unit3}
+              onChange={event => handleInputDataUmum(0, event)}>
+              <option value="">-Pilih Unit Organisasi-</option>
+              <option value="KPP Pratama">KPP Pratama</option>
+              <option value="Seksi Pengawasan dan Konsultasi II">Seksi Pengawasan dan Konsultasi II</option>
+              <option value="Seksi Pengawasan dan Konsultasi III">Seksi Pengawasan dan Konsultasi III</option>
+              <option value="Seksi Pengawasan dan Konsultasi IV">Seksi Pengawasan dan Konsultasi IV</option>
+              <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
+            </select>
           </div>
+          <div class="select select-width margin-right-20">
+            <select
+              id="jabatan3"
+              name="jabatan3"
+              value={dataUmum.jabatan3}
+              onChange={event => handleInputDataUmum(0, event)}>
+              <option value="">-Pilih Jabatan-</option>
+              <option value="Kepala Kantor">Kepala Kantor</option>
+              <option value="Kepala Seksi">Kepala Seksi</option>
+              <option value="Account Representative">Account Representative</option>
+              <option value="Supervisor Fungsional Pemeriksa ">Supervisor Fungsional Pemeriksa </option>
+            </select>
+          </div>
+          <div class="select select-width margin-right-20">
+            <select
+              id="nama3"
+              name="nama3"
+              value={dataUmum.nama3}
+              onChange={event => handleInputDataUmum(0, event)}>
+              <option value="">-Pilih Nama-</option>
+              <option value="FAISAL FATAHILLAH">FAISAL FATAHILLAH</option>
+              <option value="RICKY WELLYANDO">RICKY WELLYANDO</option>
+              <option value="TUNGGUL HAMONANGAN MANURUNG">TUNGGUL HAMONANGAN MANURUNG</option>
+              <option value="SUBECHAN">SUBECHAN</option>
+              <option value="BENY SANTOSO">BENY SANTOSO</option>
+              <option value="AIDA HELMY FITRIANA">AIDA HELMY FITRIANA</option>
+              <option value="NDRA SANTOSO">INDRA SANTOSO</option>
+              <option value="HASNIATI">HASNIATI</option>
+              <option value="DANIA SWANDITA">DANIA SWANDITA</option>
+              <option value="NORMA GITA LIANI">NORMA GITA LIANI</option>
+              <option value="WIDYA CIPTA RANY">WIDYA CIPTA RANY</option>
+              <option value="MUHAMMAD IQBAL RIZQILLAH">MUHAMMAD IQBAL RIZQILLAH</option>
+              <option value="EVY RIANA">EVY RIANA</option>
+              <option value="DIAN MOHAMAD YAKOP">DIAN MOHAMAD YAKOP</option>
+              <option value="KURNIA WAHDI">KURNIA WAHDI</option>
+              <option value="ERNIE ARTHA">ERNIE ARTHA</option>
+              <option value="RIAN YULI HARTANTO">RIAN YULI HARTANTO</option>
+              <option value="SOPHIAN HADI PRANOTO">SOPHIAN HADI PRANOTO</option>
+              <option value="REMON">REMON</option>
+              <option value="SULAEMAN">SULAEMAN</option>
+              <option value="FAHMI SYAMSIDI">FAHMI SYAMSIDI</option>
+              <option value="EKO PRASETYO WAHYU DEWANTO">EKO PRASETYO WAHYU DEWANTO</option>
+              <option value="MARIA ARZALIA">MARIA ARZALIA</option>
+              <option value="IKA KUSUMAWATI">IKA KUSUMAWATI</option>
+              <option value="MARIANA NOVIANTI">MARIANA NOVIANTI</option>
+              <option value="YUDHA PRATAMA SUMADI">YUDHA PRATAMA SUMADI</option>
+              <option value="VINI ASTRIANI">VINI ASTRIANI</option>
+              <option value="EKA MUSIKAWATI">EKA MUSIKAWATI</option>
+              <option value="RIZKY KURNIANI">RIZKY KURNIANI</option>
+              <option value="EYO SURYADI">EYO SURYADI</option>
+              <option value="CHEVI NOVIZAYANTI">CHEVI NOVIZAYANTI</option>
+              <option value="KADEK BUDAYA">KADEK BUDAYA</option>
+              <option value="SAGITA AYU DIWANTI">SAGITA AYU DIWANTI</option>
+              <option value="GETA THERESIA PANGGABEAN">GETA THERESIA PANGGABEAN</option>
+              <option value="ACEP KUSNADI NURKAMIL">ACEP KUSNADI NURKAMIL</option>
+              <option value="ROY JOHANNES BUDIMAN MARBUN">ROY JOHANNES BUDIMAN MARBUN</option>
+              <option value="ACH. MURTAKI">ACH. MURTAKI</option>
+              <option value="ADHARIANI SARAH">ADHARIANI SARAH</option>
+              <option value="SANDY PURBANDARU">SANDY PURBANDARU</option>
+              <option value="MERY NATALIA">MERY NATALIA</option>
+              <option value="ENDRO HERMAWAN">ENDRO HERMAWAN</option>
+              <option value="INTEN RATNA SARI">INTEN RATNA SARI</option>
+              <option value="RENE SARI UTAMI">RENE SARI UTAMI</option>
+              <option value="PEBRIZAL">PEBRIZAL</option>
+              <option value="ILHAM WAHYUDIN">ILHAM WAHYUDIN</option>
+            </select>
+          </div>
+        </div>
+
+        {/* posisi 4 */}
+        <div className="section-form-body section-form-flex input-form-standar">
+          <label className="label-normal label-wide">Penempatan posisi 4</label>
+          <div class="select select-width margin-right-20">
+            <select
+              id="unit4"
+              name="unit4"
+              value={dataUmum.unit4}
+              onChange={event => handleInputDataUmum(0, event)}>
+              <option value="">-Pilih Unit Organisasi-</option>
+              <option value="KPP Pratama">KPP Pratama</option>
+              <option value="Seksi Pengawasan dan Konsultasi II">Seksi Pengawasan dan Konsultasi II</option>
+              <option value="Seksi Pengawasan dan Konsultasi III">Seksi Pengawasan dan Konsultasi III</option>
+              <option value="Seksi Pengawasan dan Konsultasi IV">Seksi Pengawasan dan Konsultasi IV</option>
+              <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
+            </select>
+          </div>
+          <div class="select select-width margin-right-20">
+            <select
+              id="jabatan4"
+              name="jabatan4"
+              value={dataUmum.jabatan4}
+              onChange={event => handleInputDataUmum(0, event)}>
+              <option value="">-Pilih Jabatan-</option>
+              <option value="Kepala Kantor">Kepala Kantor</option>
+              <option value="Kepala Seksi">Kepala Seksi</option>
+              <option value="Account Representative">Account Representative</option>
+              <option value="Supervisor Fungsional Pemeriksa ">Supervisor Fungsional Pemeriksa </option>
+            </select>
+          </div>
+          <div class="select select-width margin-right-20">
+            <select
+              id="nama4"
+              name="nama4"
+              value={dataUmum.nama4}
+              onChange={event => handleInputDataUmum(0, event)}>
+              <option value="">-Pilih Nama-</option>
+              <option value="FAISAL FATAHILLAH">FAISAL FATAHILLAH</option>
+              <option value="RICKY WELLYANDO">RICKY WELLYANDO</option>
+              <option value="TUNGGUL HAMONANGAN MANURUNG">TUNGGUL HAMONANGAN MANURUNG</option>
+              <option value="SUBECHAN">SUBECHAN</option>
+              <option value="BENY SANTOSO">BENY SANTOSO</option>
+              <option value="AIDA HELMY FITRIANA">AIDA HELMY FITRIANA</option>
+              <option value="NDRA SANTOSO">INDRA SANTOSO</option>
+              <option value="HASNIATI">HASNIATI</option>
+              <option value="DANIA SWANDITA">DANIA SWANDITA</option>
+              <option value="NORMA GITA LIANI">NORMA GITA LIANI</option>
+              <option value="WIDYA CIPTA RANY">WIDYA CIPTA RANY</option>
+              <option value="MUHAMMAD IQBAL RIZQILLAH">MUHAMMAD IQBAL RIZQILLAH</option>
+              <option value="EVY RIANA">EVY RIANA</option>
+              <option value="DIAN MOHAMAD YAKOP">DIAN MOHAMAD YAKOP</option>
+              <option value="KURNIA WAHDI">KURNIA WAHDI</option>
+              <option value="ERNIE ARTHA">ERNIE ARTHA</option>
+              <option value="RIAN YULI HARTANTO">RIAN YULI HARTANTO</option>
+              <option value="SOPHIAN HADI PRANOTO">SOPHIAN HADI PRANOTO</option>
+              <option value="REMON">REMON</option>
+              <option value="SULAEMAN">SULAEMAN</option>
+              <option value="FAHMI SYAMSIDI">FAHMI SYAMSIDI</option>
+              <option value="EKO PRASETYO WAHYU DEWANTO">EKO PRASETYO WAHYU DEWANTO</option>
+              <option value="MARIA ARZALIA">MARIA ARZALIA</option>
+              <option value="IKA KUSUMAWATI">IKA KUSUMAWATI</option>
+              <option value="MARIANA NOVIANTI">MARIANA NOVIANTI</option>
+              <option value="YUDHA PRATAMA SUMADI">YUDHA PRATAMA SUMADI</option>
+              <option value="VINI ASTRIANI">VINI ASTRIANI</option>
+              <option value="EKA MUSIKAWATI">EKA MUSIKAWATI</option>
+              <option value="RIZKY KURNIANI">RIZKY KURNIANI</option>
+              <option value="EYO SURYADI">EYO SURYADI</option>
+              <option value="CHEVI NOVIZAYANTI">CHEVI NOVIZAYANTI</option>
+              <option value="KADEK BUDAYA">KADEK BUDAYA</option>
+              <option value="SAGITA AYU DIWANTI">SAGITA AYU DIWANTI</option>
+              <option value="GETA THERESIA PANGGABEAN">GETA THERESIA PANGGABEAN</option>
+              <option value="ACEP KUSNADI NURKAMIL">ACEP KUSNADI NURKAMIL</option>
+              <option value="ROY JOHANNES BUDIMAN MARBUN">ROY JOHANNES BUDIMAN MARBUN</option>
+              <option value="ACH. MURTAKI">ACH. MURTAKI</option>
+              <option value="ADHARIANI SARAH">ADHARIANI SARAH</option>
+              <option value="SANDY PURBANDARU">SANDY PURBANDARU</option>
+              <option value="MERY NATALIA">MERY NATALIA</option>
+              <option value="ENDRO HERMAWAN">ENDRO HERMAWAN</option>
+              <option value="INTEN RATNA SARI">INTEN RATNA SARI</option>
+              <option value="RENE SARI UTAMI">RENE SARI UTAMI</option>
+              <option value="PEBRIZAL">PEBRIZAL</option>
+              <option value="ILHAM WAHYUDIN">ILHAM WAHYUDIN</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       <div className="btn-wrapper margin-section">
         <Link to={{
           pathname: '/preview',
-          pdfProps:{
+          pdfProps: {
             dataUmum: dataUmum,
             riwayatLaporan: riwayatLaporan,
             pohonKepemilikan: pohonKepemilikan,
@@ -3762,7 +3990,8 @@ const Form = () => {
             pendapatan: pendapatan,
             hargaPokok: hargaPokok,
             persediaanAkhir: persediaanAkhir,
-            biayaLaba: biayaLaba,
+            biayaLabaPenjualan: biayaLabaPenjualan,
+            biayaLabaUmum: biayaLabaUmum,
             pendapatanBeban: pendapatanBeban,
             pajakLain: pajakLain
           }
