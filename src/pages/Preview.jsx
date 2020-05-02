@@ -33,7 +33,8 @@ const Preview = (props) => {
         biayaLabaPenjualan: props.location.pdfProps.biayaLabaPenjualan,
         biayaLabaUmum: props.location.pdfProps.biayaLabaUmum,
         pendapatanBeban: props.location.pdfProps.pendapatanBeban,
-        pajakLain: props.location.pdfProps.pajakLain
+        pajakLain: props.location.pdfProps.pajakLain,
+        dataLampiran: props.location.pdfProps.dataLampiran
       }} />
     </PDFViewer>
   );

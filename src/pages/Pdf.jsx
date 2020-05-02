@@ -18,6 +18,16 @@ function currencyFormatter(price) {
   return priceValue.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
 };
 
+function formatNpwp(value) {
+  if (typeof value === 'string') {
+    return value.replace(/(\d{2})(\d{3})(\d{3})(\d{1})(\d{3})(\d{3})/, '$1.$2.$3.$4-$5.$6');
+  }
+}
+
+function convertDate(dateString){
+  return dateString.split("-").reverse().join("-");  
+}
+
 function arc(x, y, radius, startAngle, endAngle, anticlockwise) {
   var startX = x + radius * Math.cos(startAngle);
   var startY = y + radius * Math.sin(startAngle);
@@ -35,7 +45,7 @@ function arc(x, y, radius, startAngle, endAngle, anticlockwise) {
 
 const Pdf = (props) => {
   // console.log("isi dari sebelah: ", props.location.dataForm);
-  const mataUang = props.data.dataUmum[0].mataUang;
+  const mataUang = "";
   var today = new Date();
   var i;
 
@@ -207,7 +217,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{a.alamat}</Text>
               </View>
               <View style={styles.tableCol25}>
-                <Text style={styles.tableCell}>{a.npwp}</Text>
+                <Text style={styles.tableCell}>{formatNpwp(a.npwp)}</Text>
               </View>
               <View style={styles.tableCol15}>
                 <Text style={styles.tableCell}>{currencyFormatter(a.jmlModal)}</Text>
@@ -296,13 +306,13 @@ const Pdf = (props) => {
               <View style={styles.tableCol5}>
                 <Text style={styles.tableCell}>{index + 1}</Text>
               </View>
-              <View style={styles.tableCol15}>
+              <View style={styles.tableCol25}>
                 <Text style={styles.tableCell}>{truncateText(a.nomorSp, 14)}</Text>
               </View>
-              <View style={styles.tableCol20}>
+              <View style={styles.tableCol15}>
                 <Text style={styles.tableCell}>{a.jenisPajak}</Text>
               </View>
-              <View style={styles.tableCol15}>
+              <View style={styles.tableCol10}>
                 <Text style={styles.tableCell}>{a.tahunPajak}</Text>
               </View>
               <View style={styles.tableCol15}>
@@ -335,10 +345,10 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Tahun</Text>
           </View>
           <View style={styles.tableCol20}>
-            <Text style={styles.tableCell}>CFM SPT</Text>
+            <Text style={styles.tableCell}>Cfm SPT</Text>
           </View>
           <View style={styles.tableCol20}>
-            <Text style={styles.tableCell}>CFM Pemeriksaan</Text>
+            <Text style={styles.tableCell}>Cfm Pemeriksaan</Text>
           </View>
           <View style={styles.tableCol25}>
             <Text style={styles.tableCell}>Koreksi (Rp)</Text>
@@ -431,10 +441,10 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Jenis Pajak</Text>
           </View>
           <View style={styles.tableCol20}>
-            <Text style={styles.tableCell}>CFM Pemeriksa</Text>
+            <Text style={styles.tableCell}>Cfm Pemeriksa</Text>
           </View>
           <View style={styles.tableCol20}>
-            <Text style={styles.tableCell}>CFM Keberatan/Banding</Text>
+            <Text style={styles.tableCell}>Cfm Keberatan/Banding</Text>
           </View>
           <View style={styles.tableCol25}>
             <Text style={styles.tableCell}>Koreksi (Rp)</Text>
@@ -545,10 +555,10 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Uraian</Text>
           </View>
           <View style={styles.tableCol15}>
-            <Text style={styles.tableCell}>CFM SPT</Text>
+            <Text style={styles.tableCell}>Cfm SPT</Text>
           </View>
           <View style={styles.tableCol15}>
-            <Text style={styles.tableCell}>CFM Penelitian</Text>
+            <Text style={styles.tableCell}>Cfm Penelitian</Text>
           </View>
           <View style={styles.tableCol35}>
             <Text style={styles.tableCell}>Keterangan</Text>
@@ -606,7 +616,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{a.nomor}</Text>
               </View>
               <View style={styles.tableCol25}>
-                <Text style={styles.tableCell}>{a.tanggal}</Text>
+                <Text style={styles.tableCell}>{convertDate(a.tanggal)}</Text>
               </View>
               <View style={styles.tableCol45}>
                 <Text style={styles.tableCell}>{a.hasil}</Text>
@@ -2153,7 +2163,7 @@ const Pdf = (props) => {
             <Text style={{ fontSize: 12 }}>DIREKTORAT JENDERAL PAJAK</Text>
             <Text style={{ fontSize: 12 }}>KANTOR WILAYAH DJP BANTEN</Text>
             <Text style={{ fontSize: 12, marginBottom: 10 }}>KANTOR PELAYANAN PAJAK PRATAMA TANGERANG TIMUR</Text>
-            <Text style={{ fontSize: 7 }}>JL. SATRIA SUDIRMA, KOMPLEK PEMERINTAH KOTA TANGERANG, TANGERANG 15111</Text>
+            <Text style={{ fontSize: 7 }}>JL. SATRIA SUDIRMAN, KOMPLEK PEMERINTAH KOTA TANGERANG, TANGERANG 15111</Text>
             <Text style={{ fontSize: 7 }}>TELEPON (021) 55737559, 55737560 ; FAKSIMILI (021) 55791479; SITUS www.pajak.go.id</Text>
             <Text style={{ fontSize: 7 }}>EMAIL pengaduan@pajak.go.id</Text>
           </View>
@@ -2168,7 +2178,7 @@ const Pdf = (props) => {
               {
                 [
                   { label: "Nama wajib pajak", value: props.data.dataUmum[0].namaWajib },
-                  { label: "NPWP", value: props.data.dataUmum[0].npwp },
+                  { label: "NPWP", value: formatNpwp(props.data.dataUmum[0].npwp) },
                   { label: "KPP", value: props.data.dataUmum[0].kpp },
                   { label: "Alamat", value: props.data.dataUmum[0].alamat },
                   { label: "KLU", value: props.data.dataUmum[0].klu },
@@ -2283,6 +2293,7 @@ const Pdf = (props) => {
           </View>
           
         </View>
+        <Text style={styles.footer} fixed>KPP Tangerang Timur</Text>
       </Page>
       <Page size="A4" style={styles.page} orientation="landscape">
         <Text style={{ fontSize: 11 }}>II. ANALISIS DATA INFORMASI</Text>
@@ -2358,6 +2369,7 @@ const Pdf = (props) => {
               </View>
             </View>
           </View>
+          <Text style={styles.footer} fixed>KPP Tangerang Timur</Text>
       </Page>
       <Page size="A4" style={styles.page}>
         <View>
@@ -2421,7 +2433,7 @@ const Pdf = (props) => {
           <View style={{ paddingVertical: 6, paddingHorizontal: 10 }}>
             <Text style={{ fontSize: 11 }}>{props.data.dataUmum[0].lampiran}</Text>
           </View>
-          <Text style={{ fontSize: 11 }}>V. PENANDATANGANAN LPHt</Text>
+          <Text style={{ fontSize: 11 }}>V. PENANDATANGAN LPHt</Text>
           <View style={{ paddingVertical: 12, flexDirection: 'column' }}>
             <View style={{ flexDirection: 'row' }}>
               <View style={{ flex: 1, paddingHorizontal: 15 }}>
@@ -2469,6 +2481,8 @@ const Pdf = (props) => {
               </View>
             </View>
           </View>
+
+          <Text style={styles.footer} fixed>KPP Tangerang Timur</Text>
         
       </Page>
 
@@ -2600,8 +2614,24 @@ const styles = StyleSheet.create({
   tableCell: {
     margin: "auto",
     marginTop: 5,
-    fontSize: 8
-  }
+    fontSize: 8,
+    textAlign: 'justify',
+    alignSelf: 'flex-start'
+  },
+  tableCellJust: {
+    margin: "auto",
+    marginTop: 5,
+    fontSize: 8,
+  },
+  footer: {
+    position: 'absolute',
+    fontSize: 7,
+    bottom: 30,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
+    color: 'grey',
+  },
 });
 
 

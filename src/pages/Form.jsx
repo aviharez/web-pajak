@@ -75,6 +75,10 @@ const Form = () => {
     { modus: '' }
   ]);
 
+  const [dataLampiran, setDataLampiran] = useState([
+    { lampiran: '' }
+  ]);
+
   const [potensi, setPotensi] = useState([
     { tahunPajak: '', jenisData: '', nilaiPotensi: '' }
   ]);
@@ -278,6 +282,12 @@ const Form = () => {
     const values = [...modusKetidakpatuhan];
     values[index].modus = event.target.value;
     setModusKetidakpatuhan(values);
+  }
+
+  const handleInputLampiran = (index, event) => {
+    const values = [...dataLampiran];
+    values[index].lampiran = event.target.value;
+    setDataLampiran(values);
   }
 
   const handleInputPotensi = (index, event) => {
@@ -733,6 +743,12 @@ const Form = () => {
     setModusKetidakpatuhan(values);
   }
 
+  const handleAddLampiran = () => {
+    const values = [...dataLampiran];
+    values.push({ lampiran: '' });
+    setDataLampiran(values);
+  }
+
   const handleAddPotensi = () => {
     const values = [...potensi];
     values.push({ tahunPajak: '', jenisData: '', nilaiPotensi: '' });
@@ -837,153 +853,211 @@ const Form = () => {
   }
 
   const handleRemovePohonKepemilikan = index => {
-    const values = [...pohonKepemilikan];
-    values.splice(index, 1);
-    setPohonKepemilikan(values);
+      const values = [...pohonKepemilikan];
+      if(values.length > 1) {
+        values.splice(index, 1);
+        setPohonKepemilikan(values);
+      }
   }
 
   const handleRemoveRiwayatPengawasan = index => {
     const values = [...riwayatPengawasan];
-    values.splice(index, 1);
-    setRiwayatPengawasan(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setRiwayatPengawasan(values);
+    }
   }
 
   const handleRemoveHasilPeriksa = index => {
     const values = [...hasilPeriksa];
-    values.splice(index, 1);
-    setHasilPeriksa(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setHasilPeriksa(values);
+    }
   }
 
   const handleRemoveKoreksiHasil = index => {
     const values = [...koreksiHasil];
-    values.splice(index, 1);
-    setKoreksiHasil(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setKoreksiHasil(values);
+    }
   }
 
   const handleRemoveTransferPricing = index => {
     const values = [...transferPricing];
-    values.splice(index, 1);
-    setTransferPricing(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setTransferPricing(values);
+    }
   }
 
   const handleRemoveHasilKunjungan = index => {
     const values = [...hasilKunjungan];
-    values.splice(index, 1);
-    setHasilKunjungan(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setHasilKunjungan(values);
+    }
   }
 
   const handleRemoveFaktaLapangan = index => {
     const values = [...faktaLapangan];
-    values.splice(index, 1);
-    setFaktaLapangan(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setFaktaLapangan(values);
+    }
   }
 
   const handleRemovePengaduanMasyarakat = index => {
     const values = [...pengaduanMasyarakat];
-    values.splice(index, 1);
-    setPengaduanMasyarakat(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setPengaduanMasyarakat(values);
+    }
   }
 
   const handleRemoveIndikasiKetidakpatuhan = index => {
     const values = [...indikasiKetidakpatuhan];
-    values.splice(index, 1);
-    setIndikasiKetidakpatuhan(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setIndikasiKetidakpatuhan(values);
+    }
   }
 
   const handleRemoveModusKetidakpatuhan = index => {
     const values = [...modusKetidakpatuhan];
-    values.splice(index, 1);
-    setModusKetidakpatuhan(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setModusKetidakpatuhan(values);
+    }
+  }
+
+  const handleRemoveLampiran = index => {
+    const values = [...dataLampiran];
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setDataLampiran(values);
+    }
   }
 
   const handleRemovePotensi = index => {
     const values = [...potensi];
-    values.splice(index, 1);
-    setPotensi(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setPotensi(values);
+    }
   }
 
   const handleRemoveAktivaLancar = index => {
     const values = [...aktivaLancar];
-    values.splice(index, 1);
-    setAktivaLancar(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setAktivaLancar(values);
+    }
   }
 
   const handleRemoveAktivaTetap = index => {
     const values = [...aktivaTetap];
-    values.splice(index, 1);
-    setAktivaTetap(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setAktivaTetap(values);
+    }
   }
 
   const handleRemoveKewajibanLancar = index => {
     const values = [...kewajibanLancar];
-    values.splice(index, 1);
-    setKewajibanLancar(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setKewajibanLancar(values);
+    }
   }
 
   const handleRemoveLiabilitasPanjang = index => {
     const values = [...liabilitasPanjang];
-    values.splice(index, 1);
-    setLiabilitasPanjang(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setLiabilitasPanjang(values);
+    }
   }
 
   const handleRemoveEkuitas = index => {
     const values = [...ekuitas];
-    values.splice(index, 1);
-    setEkuitas(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setEkuitas(values);
+    }
   }
 
   const handleRemovePendapatan = index => {
     const values = [...pendapatan];
-    values.splice(index, 1);
-    setPendapatan(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setPendapatan(values);
+    }
   }
 
   const handleRemoveHargaPokok = index => {
     const values = [...hargaPokok];
-    values.splice(index, 1);
-    setHargaPokok(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setHargaPokok(values);
+    }
   }
 
   const handleRemovePersediaanAkhir = index => {
     const values = [...persediaanAkhir];
-    values.splice(index, 1);
-    setPersediaanAkhir(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setPersediaanAkhir(values);
+    }
   }
 
   const handleRemoveBiayaLabaPenjualan = index => {
     const values = [...biayaLabaPenjualan];
-    values.splice(index, 1);
-    setBiayaLabaPenjualan(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setBiayaLabaPenjualan(values);
+    }
   }
 
   const handleRemoveBiayaLabaUmum = index => {
     const values = [...biayaLabaUmum];
-    values.splice(index, 1);
-    setBiayaLabaUmum(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setBiayaLabaUmum(values);
+    }
   }
 
   const handleRemovePendapatanBeban = index => {
     const values = [...pendapatanBeban];
-    values.splice(index, 1);
-    setPendapatanBeban(values);
+    if(values.length > 1) {  
+      values.splice(index, 1);
+      setPendapatanBeban(values);
+    }
   }
 
   const handleRemovePajakLain = index => {
     const values = [...pajakLain];
-    values.splice(index, 1);
-    setPajakLain(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setPajakLain(values);
+    }
   }
 
   const handleRemoveHasilKeberatan = index => {
     const values = [...hasilKeberatan];
-    values.splice(index, 1);
-    setHasilKeberatan(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setHasilKeberatan(values);
+    }
   }
 
   const handleRemoveKoreksiKeberatan = index => {
     const values = [...koreksiKeberatan];
-    values.splice(index, 1);
-    setKoreksiKeberatan(values);
+    if(values.length > 1) {
+      values.splice(index, 1);
+      setKoreksiKeberatan(values);
+    }
   }
 
   return (
@@ -1176,7 +1250,7 @@ const Form = () => {
                   </div>
 
                   <div className="input-form-standar">
-                    <label className="label-normal">Dividen</label>
+                    <label className="label-normal">Rupiah Pemisahnya</label>
                     <input
                       id="dividen"
                       name="dividen"
@@ -1277,7 +1351,7 @@ const Form = () => {
                       className="input is-dark input-standar"
                       type="text"
                       placeholder=""
-                      value={riwayatLaporan.nilaiLHA}
+                      value={currencyFormatter(riwayatLaporan.nilaiLHA)}
                       onChange={event => handleInputRiwayatLaporan(index, event)} />
                   </div>
                 </div>
@@ -1348,7 +1422,7 @@ const Form = () => {
                       className="input is-dark input-standar"
                       type="text"
                       placeholder=""
-                      value={riwayatPengawasan.nilaiPotensi}
+                      value={currencyFormatter(riwayatPengawasan.nilaiPotensi)}
                       onChange={event => handleInputRiwayatPengawasan(index, event)} />
                   </div>
                   <div className="input-form-standar">
@@ -1370,7 +1444,7 @@ const Form = () => {
                       className="input is-dark input-standar"
                       type="text"
                       placeholder=""
-                      value={riwayatPengawasan.realisasi}
+                      value={currencyFormatter(riwayatPengawasan.realisasi)}
                       onChange={event => handleInputRiwayatPengawasan(index, event)} />
                   </div>
                 </div>
@@ -1420,27 +1494,27 @@ const Form = () => {
                       onChange={event => handleInputHasilPeriksa(index, event)} />
                   </div>
                   <div className="input-form-standar">
-                    <label className="label-normal">CFM SPT</label>
+                    <label className="label-normal">Cfm SPT</label>
                     <input
                       id="cfmSpt"
                       name="cfmSpt"
                       className="input is-dark input-standar"
                       type="text"
                       placeholder=""
-                      value={hasilPeriksa.cfmSpt}
+                      value={currencyFormatter(hasilPeriksa.cfmSpt)}
                       onChange={event => handleInputHasilPeriksa(index, event)} />
                   </div>
                 </div>
                 <div className="form-flex-right">
                   <div className="input-form-standar">
-                    <label className="label-normal">CFM Pemeriksaan</label>
+                    <label className="label-normal">Cfm Pemeriksaan</label>
                     <input
                       id="cfmPeriksa"
                       name="cfmPeriksa"
                       className="input is-dark input-standar"
                       type="text"
                       placeholder=""
-                      value={hasilPeriksa.cfmPeriksa}
+                      value={currencyFormatter(hasilPeriksa.cfmPeriksa)}
                       onChange={event => handleInputHasilPeriksa(index, event)} />
                   </div>
                   <div className="input-form-standar">
@@ -1581,20 +1655,20 @@ const Form = () => {
                       className="input is-dark input-standar"
                       type="text"
                       placeholder=""
-                      value={hasilKeberatan.cfmPemeriksa}
+                      value={currencyFormatter(hasilKeberatan.cfmPemeriksa)}
                       onChange={event => handleInputHasilKeberatan(index, event)} />
                   </div>
                 </div>
                 <div className="form-flex-right">
                   <div className="input-form-standar">
-                    <label className="label-normal">CFM Keberatan</label>
+                    <label className="label-normal">Cfm Keberatan</label>
                     <input
                       id="cfmBanding"
                       name="cfmBanding"
                       className="input is-dark input-standar"
                       type="text"
                       placeholder=""
-                      value={hasilKeberatan.cfmBanding}
+                      value={currencyFormatter(hasilKeberatan.cfmBanding)}
                       onChange={event => handleInputHasilKeberatan(index, event)} />
                   </div>
                   <div className="input-form-standar">
@@ -3246,25 +3320,25 @@ const Form = () => {
                       onChange={event => handleInputPajakLain(index, event)} />
                   </div>
                   <div className="input-form-standar">
-                    <label className="label-normal">CFM SPT</label>
+                    <label className="label-normal">Cfm SPT</label>
                     <input
                       id="cfmSpt"
                       name="cfmSpt"
                       className="input is-dark input-standar"
                       type="text"
                       placeholder=""
-                      value={pajakLain.cfmSpt}
+                      value={currencyFormatter(pajakLain.cfmSpt)}
                       onChange={event => handleInputPajakLain(index, event)} />
                   </div>
                   <div className="input-form-standar">
-                    <label className="label-normal">CFM Penelitian</label>
+                    <label className="label-normal">Cfm Penelitian</label>
                     <input
                       id="cfmPenelitian"
                       name="cfmPenelitian"
                       className="input is-dark input-standar"
                       type="text"
                       placeholder=""
-                      value={pajakLain.cfmPenelitian}
+                      value={currencyFormatter(pajakLain.cfmPenelitian)}
                       onChange={event => handleInputPajakLain(index, event)} />
                   </div>
                 </div>
@@ -3403,7 +3477,7 @@ const Form = () => {
                         onChange={event => handleInputPengaduanMasyarakat(index, event)} />
                     </div>
                     <div className="input-form-standar">
-                      <label className="label-normal">Jenis Data</label>
+                      <label className="label-normal">Jenis Pajak</label>
                       <input
                         id="jenisData"
                         name="jenisData"
@@ -3434,7 +3508,7 @@ const Form = () => {
                         className="input is-dark input-standar"
                         type="text"
                         placeholder=""
-                        value={pengaduanMasyarakat.nilaiData}
+                        value={currencyFormatter(pengaduanMasyarakat.nilaiData)}
                         onChange={event => handleInputPengaduanMasyarakat(index, event)} />
                     </div>
                     <div className="input-form-standar">
@@ -3559,7 +3633,7 @@ const Form = () => {
                         onChange={event => handleInputPotensi(index, event)} />
                     </div>
                     <div className="input-form-standar">
-                      <label className="label-normal">Jenis Data</label>
+                      <label className="label-normal">Jenis Pajak</label>
                       <input
                         id="jenisData"
                         name="jenisData"
@@ -3579,7 +3653,7 @@ const Form = () => {
                         className="input is-dark input-standar"
                         type="text"
                         placeholder=""
-                        value={potensi.nilaiPotensi}
+                        value={currencyFormatter(potensi.nilaiPotensi)}
                         onChange={event => handleInputPotensi(index, event)} />
                     </div>
                   </div>
@@ -3607,18 +3681,37 @@ const Form = () => {
       <div className="section-form margin-section">
         <p className="title-form">IV. LAMPIRAN</p>
         <div className="section-form-body section-form-flex">
-          <textarea
-            id="lampiran"
-            name="lampiran"
-            className="textarea is-black has-fixed-size"
-            placeholder=""
-            value={dataUmum.lampiran}
-            onChange={event => handleInputDataUmum(0, event)}></textarea>
+          {dataLampiran.map((dataLampiran, index) => (
+              <Fragment key={`${dataLampiran}~${index}`}>
+                <div className="section-form-body section-form-flex">
+                  <textarea
+                    id="lampiran"
+                    name="lampiran"
+                    className="textarea is-black has-fixed-size"
+                    placeholder=""
+                    value={dataLampiran.lampiran}
+                    onChange={event => handleInputLampiran(0, event)}></textarea>
+                </div>
+                <div className="btn-wrapper" style={{ marginTop: 20 }}>
+                 <button
+                    style={{ marginLeft: 16 }}
+                    className="button is-warning"
+                    type="button"
+                    onClick={() => handleAddLampiran()}>Tambah</button>
+                  <button
+                    className="button is-danger"
+                    type="button"
+                    style={{ marginLeft: 16 }}
+                    onClick={() => handleRemoveLampiran(index)}>Hapus</button>
+                </div>
+              </Fragment>
+            ))}
+          
         </div>
       </div>
 
       <div className="section-form margin-section">
-        <p className="title-form">V. PENANDANTANGANAN LHPt</p>
+        <p className="title-form">V. PENANDANTANGAN LHPt</p>
         <div className="section-form-body section-form-flex input-form-standar">
           <label className="label-normal label-wide">Penempatan posisi 1</label>
           <div class="select select-width margin-right-20">
@@ -3629,10 +3722,10 @@ const Form = () => {
               onChange={event => handleInputDataUmum(0, event)}>
               <option value="">-Pilih Unit Organisasi-</option>
               <option value="KPP Pratama">KPP Pratama</option>
-              <option value="Seksi Pengawasan dan Konsultasi II">Seksi Pengawasan dan Konsultasi II</option>
-              <option value="Seksi Pengawasan dan Konsultasi III">Seksi Pengawasan dan Konsultasi III</option>
-              <option value="Seksi Pengawasan dan Konsultasi IV">Seksi Pengawasan dan Konsultasi IV</option>
-              <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
+              <option value="Pengawasan dan Konsultasi II">Pengawasan dan Konsultasi II</option>
+              <option value="Pengawasan dan Konsultasi III">Pengawasan dan Konsultasi III</option>
+              <option value="Pengawasan dan Konsultasi IV">Pengawasan dan Konsultasi IV</option>
+              <option value="Ekstensifikasi dan Penyuluhan">Ekstensifikasi dan Penyuluhan</option>
             </select>
           </div>
           <div class="select select-width margin-right-20">
@@ -3715,10 +3808,10 @@ const Form = () => {
               onChange={event => handleInputDataUmum(0, event)}>
               <option value="">-Pilih Unit Organisasi-</option>
               <option value="KPP Pratama">KPP Pratama</option>
-              <option value="Seksi Pengawasan dan Konsultasi II">Seksi Pengawasan dan Konsultasi II</option>
-              <option value="Seksi Pengawasan dan Konsultasi III">Seksi Pengawasan dan Konsultasi III</option>
-              <option value="Seksi Pengawasan dan Konsultasi IV">Seksi Pengawasan dan Konsultasi IV</option>
-              <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
+              <option value="Pengawasan dan Konsultasi II">Pengawasan dan Konsultasi II</option>
+              <option value="Pengawasan dan Konsultasi III">Pengawasan dan Konsultasi III</option>
+              <option value="Pengawasan dan Konsultasi IV">Pengawasan dan Konsultasi IV</option>
+              <option value="Ekstensifikasi dan Penyuluhan">Ekstensifikasi dan Penyuluhan</option>
             </select>
           </div>
           <div class="select select-width margin-right-20">
@@ -3801,10 +3894,10 @@ const Form = () => {
               onChange={event => handleInputDataUmum(0, event)}>
               <option value="">-Pilih Unit Organisasi-</option>
               <option value="KPP Pratama">KPP Pratama</option>
-              <option value="Seksi Pengawasan dan Konsultasi II">Seksi Pengawasan dan Konsultasi II</option>
-              <option value="Seksi Pengawasan dan Konsultasi III">Seksi Pengawasan dan Konsultasi III</option>
-              <option value="Seksi Pengawasan dan Konsultasi IV">Seksi Pengawasan dan Konsultasi IV</option>
-              <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
+              <option value="Pengawasan dan Konsultasi II">Pengawasan dan Konsultasi II</option>
+              <option value="Pengawasan dan Konsultasi III">Pengawasan dan Konsultasi III</option>
+              <option value="Pengawasan dan Konsultasi IV">Pengawasan dan Konsultasi IV</option>
+              <option value="Ekstensifikasi dan Penyuluhan">Ekstensifikasi dan Penyuluhan</option>
             </select>
           </div>
           <div class="select select-width margin-right-20">
@@ -3887,10 +3980,10 @@ const Form = () => {
               onChange={event => handleInputDataUmum(0, event)}>
               <option value="">-Pilih Unit Organisasi-</option>
               <option value="KPP Pratama">KPP Pratama</option>
-              <option value="Seksi Pengawasan dan Konsultasi II">Seksi Pengawasan dan Konsultasi II</option>
-              <option value="Seksi Pengawasan dan Konsultasi III">Seksi Pengawasan dan Konsultasi III</option>
-              <option value="Seksi Pengawasan dan Konsultasi IV">Seksi Pengawasan dan Konsultasi IV</option>
-              <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
+              <option value="Pengawasan dan Konsultasi II">Pengawasan dan Konsultasi II</option>
+              <option value="Pengawasan dan Konsultasi III">Pengawasan dan Konsultasi III</option>
+              <option value="Pengawasan dan Konsultasi IV">Pengawasan dan Konsultasi IV</option>
+              <option value="Ekstensifikasi dan Penyuluhan">Ekstensifikasi dan Penyuluhan</option>
             </select>
           </div>
           <div class="select select-width margin-right-20">
@@ -3993,7 +4086,8 @@ const Form = () => {
             biayaLabaPenjualan: biayaLabaPenjualan,
             biayaLabaUmum: biayaLabaUmum,
             pendapatanBeban: pendapatanBeban,
-            pajakLain: pajakLain
+            pajakLain: pajakLain,
+            dataLampiran: dataLampiran
           }
         }}>
           <button className="button is-info">SAVE / CETAK</button>
