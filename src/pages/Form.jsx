@@ -3680,7 +3680,6 @@ const Form = () => {
 
       <div className="section-form margin-section">
         <p className="title-form">IV. LAMPIRAN</p>
-        <div className="section-form-body section-form-flex">
           {dataLampiran.map((dataLampiran, index) => (
               <Fragment key={`${dataLampiran}~${index}`}>
                 <div className="section-form-body section-form-flex">
@@ -3690,7 +3689,7 @@ const Form = () => {
                     className="textarea is-black has-fixed-size"
                     placeholder=""
                     value={dataLampiran.lampiran}
-                    onChange={event => handleInputLampiran(0, event)}></textarea>
+                    onChange={event => handleInputLampiran(index, event)}></textarea>
                 </div>
                 <div className="btn-wrapper" style={{ marginTop: 20 }}>
                  <button
@@ -3706,8 +3705,6 @@ const Form = () => {
                 </div>
               </Fragment>
             ))}
-          
-        </div>
       </div>
 
       <div className="section-form margin-section">

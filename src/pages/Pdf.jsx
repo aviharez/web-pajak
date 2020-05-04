@@ -619,7 +619,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{convertDate(a.tanggal)}</Text>
               </View>
               <View style={styles.tableCol45}>
-                <Text style={styles.tableCell}>{a.hasil}</Text>
+                <Text style={styles.tableCellLeft}>{a.hasil}</Text>
               </View>
             </View>
           );
@@ -841,7 +841,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{a.akun}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCell}>{mataUang} {currencyFormatter(a.nilaiTahun1)}</Text>
@@ -945,7 +945,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{a.akun}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCell}>{mataUang} {currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1049,7 +1049,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{a.akun}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCell}>{mataUang} {currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1153,7 +1153,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{a.akun}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCell}>{mataUang} {currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1257,7 +1257,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{a.akun}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCell}>{mataUang} {currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1361,7 +1361,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{a.akun}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCell}>{mataUang} {currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1465,7 +1465,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{a.akun}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCell}>{mataUang} {currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1569,7 +1569,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{a.akun}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCell}>{mataUang} {currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1673,7 +1673,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{a.akun}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCell}>{mataUang} {currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1777,7 +1777,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCell}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{a.akun}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCell}>{mataUang} {currencyFormatter(a.nilaiTahun1)}</Text>
@@ -2127,6 +2127,33 @@ const Pdf = (props) => {
     );
   }
 
+  const TabelLampiran = () => {
+    return (
+      <View style={styles.table}>
+        <View style={styles.tableRow}>
+          <View style={styles.tableCol5}>
+            <Text style={styles.tableCell}>No.</Text>
+          </View>
+          <View style={styles.tableCol95}>
+            <Text style={styles.tableCell}>Lampiran</Text>
+          </View>
+        </View>
+        {props.data.dataLampiran.map((a, index) => {
+          return (
+            <View style={styles.tableRow}>
+              <View style={styles.tableCol5}>
+                <Text style={styles.tableCell}>{index + 1}</Text>
+              </View>
+              <View style={styles.tableCol95}>
+                <Text style={styles.tableCell}>{a.lampiran}</Text>
+              </View>
+            </View>
+          );
+        })}
+      </View>
+    );
+  }
+
   function getPercent() {
     let data = props.data.pohonKepemilikan
     let percent = []
@@ -2431,30 +2458,25 @@ const Pdf = (props) => {
           </View>
           <Text style={{ fontSize: 11 }}>IV. LAMPIRAN</Text>
           <View style={{ paddingVertical: 6, paddingHorizontal: 10 }}>
-            <Text style={{ fontSize: 11 }}>{props.data.dataUmum[0].lampiran}</Text>
+            <TabelLampiran />
           </View>
-          <Text style={{ fontSize: 11 }}>V. PENANDATANGAN LPHt</Text>
+          <Text style={{ fontSize: 11, paddingTop: 10, paddingBottom: 20 }}>V. PENANDATANGAN LPHt</Text>
           <View style={{ paddingVertical: 12, flexDirection: 'column' }}>
             <View style={{ flexDirection: 'row' }}>
-              <View style={{ flex: 1, paddingHorizontal: 15 }}>
-                <Text style={{ fontSize: 11 }}>{props.data.dataUmum[0].jabatan1} {props.data.dataUmum[0].unit1}</Text>
+              <View style={{ flex: 1, paddingHorizontal: 15, flexDirection: 'column' }}>
+                <Text style={{ fontSize: 10 }}>{props.data.dataUmum[0].jabatan1}</Text>
+                <Text style={{ fontSize: 10 }}>{props.data.dataUmum[0].unit1}</Text>
+                <Text style={{ fontSize: 10, marginTop: 70 }}>{props.data.dataUmum[0].nama1}</Text>
               </View>
               <View style={{ flex: 1, paddingHorizontal: 15 }}>
-                <Text style={{ fontSize: 11 }}>{props.data.dataUmum[0].jabatan2} {props.data.dataUmum[0].unit2}</Text>
+                <Text style={{ fontSize: 10 }}>{props.data.dataUmum[0].jabatan2}</Text>
+                <Text style={{ fontSize: 10 }}>{props.data.dataUmum[0].unit2}</Text>
+                <Text style={{ fontSize: 10, marginTop: 70 }}>{props.data.dataUmum[0].nama2}</Text>
               </View>
               <View style={{ flex: 1, paddingHorizontal: 15 }}>
-                <Text style={{ fontSize: 11 }}>{props.data.dataUmum[0].jabatan3} {props.data.dataUmum[0].unit3}</Text>
-              </View>
-            </View>
-            <View style={{ flexDirection: 'row', marginTop: 50 }}>
-              <View style={{ flex: 1, paddingHorizontal: 15 }}>
-                <Text style={{ fontSize: 11 }}>{props.data.dataUmum[0].nama1}</Text>
-              </View>
-              <View style={{ flex: 1, paddingHorizontal: 15 }}>
-                <Text style={{ fontSize: 11 }}>{props.data.dataUmum[0].nama2}</Text>
-              </View>
-              <View style={{ flex: 1, paddingHorizontal: 15 }}>
-                <Text style={{ fontSize: 11 }}>{props.data.dataUmum[0].nama3}</Text>
+                <Text style={{ fontSize: 10 }}>{props.data.dataUmum[0].jabatan3}</Text>
+                <Text style={{ fontSize: 10 }}>{props.data.dataUmum[0].unit3}</Text>
+                <Text style={{ fontSize: 10, marginTop: 70 }}>{props.data.dataUmum[0].nama3}</Text>
               </View>
             </View>
             <View style={{ flexDirection: 'row', marginTop: 30 }}>
@@ -2462,21 +2484,12 @@ const Pdf = (props) => {
 
               </View>
               <View style={{ flex: 1, paddingHorizontal: 15 }}>
-                <Text style={{ fontSize: 11 }}>Menyetujui,</Text>
-                <Text style={{ fontSize: 11 }}>{props.data.dataUmum[0].jabatan4} {props.data.dataUmum[0].unit4}</Text>
+                <Text style={{ fontSize: 10 }}>Menyetujui,</Text>
+                <Text style={{ fontSize: 10 }}>{props.data.dataUmum[0].jabatan4}</Text>
+                <Text style={{ fontSize: 10 }}>{props.data.dataUmum[0].unit4}</Text>
+                <Text style={{ fontSize: 10, marginTop: 70 }}>{props.data.dataUmum[0].nama4}</Text>
               </View>
               <View style={{ flex: 1, paddingHorizontal: 15 }}>
-
-              </View>
-            </View>
-            <View style={{ flexDirection: 'row', marginTop: 50 }}>
-              <View style={{ flex: 1, paddingHorizontal: 20 }}>
-
-              </View>
-              <View style={{ flex: 1, paddingHorizontal: 20 }}>
-                <Text style={{ fontSize: 11 }}>{props.data.dataUmum[0].nama4}</Text>
-              </View>
-              <View style={{ flex: 1, paddingHorizontal: 20 }}>
 
               </View>
             </View>
@@ -2613,14 +2626,12 @@ const styles = StyleSheet.create({
   },
   tableCell: {
     margin: "auto",
-    marginTop: 5,
+    marginVertical: 5,
     fontSize: 8,
-    textAlign: 'justify',
-    alignSelf: 'flex-start'
   },
-  tableCellJust: {
-    margin: "auto",
-    marginTop: 5,
+  tableCellLeft: {
+    marginVertical: 5,
+    marginHorizontal: 5,
     fontSize: 8,
   },
   footer: {
