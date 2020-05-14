@@ -188,11 +188,11 @@ const Form = () => {
     } else if (event.target.name === "tahunPajak") {
       values[index].tahunPajak = event.target.value;
     } else if (event.target.name === "nilaiPotensi") {
-      values[index].nilaiPotensi = event.target.value;
+      values[index].nilaiPotensi = replacePriceDot(event.target.value);
     } else if (event.target.name === "status") {
       values[index].status = event.target.value;
     } else {
-      values[index].realisasi = event.target.value;
+      values[index].realisasi = replacePriceDot(event.target.value);
     }
 
     setRiwayatPengawasan(values);
@@ -205,11 +205,11 @@ const Form = () => {
     } else if (event.target.name === "tahun") {
       values[index].tahun = event.target.value;
     } else if (event.target.name === "cfmSpt") {
-      values[index].cfmSpt = event.target.value;
+      values[index].cfmSpt = replacePriceDot(event.target.value);
     } else if (event.target.name === "cfmPeriksa") {
-      values[index].cfmPeriksa = event.target.value;
+      values[index].cfmPeriksa = replacePriceDot(event.target.value);
     } else {
-      values[index].koreksi = event.target.value;
+      values[index].koreksi = replacePriceDot(event.target.value);
     }
 
     setHasilPeriksa(values);
@@ -297,7 +297,7 @@ const Form = () => {
     } else if (event.target.name === "jenisData") {
       values[index].jenisData = event.target.value;
     } else {
-      values[index].nilaiPotensi = event.target.value;
+      values[index].nilaiPotensi = replacePriceDot(event.target.value);
     }
     setPotensi(values);
   }
@@ -637,9 +637,9 @@ const Form = () => {
     if (event.target.name === "uraian") {
       values[index].uraian = event.target.value;
     } else if (event.target.name === "cfmSpt") {
-      values[index].cfmSpt = event.target.value;
+      values[index].cfmSpt = replacePriceDot(event.target.value);
     } else if (event.target.name === "cfmPenelitian") {
-      values[index].cfmPenelitian = event.target.value;
+      values[index].cfmPenelitian = replacePriceDot(event.target.value);
     } else {
       values[index].keterangan = event.target.value;
     }
@@ -653,11 +653,11 @@ const Form = () => {
     } else if (event.target.name === "jenisPajak") {
       values[index].jenisPajak = event.target.value;
     } else if (event.target.name === "cfmPemeriksa") {
-      values[index].cfmPemeriksa = event.target.value;
+      values[index].cfmPemeriksa = replacePriceDot(event.target.value);
     } else if (event.target.name === "cfmBanding") {
-      values[index].cfmBanding = event.target.value;
+      values[index].cfmBanding = replacePriceDot(event.target.value);
     } else {
-      values[index].koreksi = event.target.value;
+      values[index].koreksi = replacePriceDot(event.target.value);
     }
     setHasilKeberatan(values);
   }
@@ -1250,14 +1250,14 @@ const Form = () => {
                   </div>
 
                   <div className="input-form-standar">
-                    <label className="label-normal">Rupiah Pemisahnya</label>
+                    <label className="label-normal">Dividen</label>
                     <input
                       id="dividen"
                       name="dividen"
                       className="input is-dark input-standar"
                       type="text"
                       placeholder=""
-                      value={pohonKepemilikan.dividen}
+                      value={currencyFormatter(pohonKepemilikan.dividen)}
                       onChange={event => handleInputPohonKepemilikan(index, event)} />
                   </div>
                 </div>
@@ -1525,7 +1525,7 @@ const Form = () => {
                       className="input is-dark input-standar"
                       type="text"
                       placeholder=""
-                      value={hasilPeriksa.koreksi}
+                      value={currencyFormatter(hasilPeriksa.koreksi)}
                       onChange={event => handleInputHasilPeriksa(index, event)} />
                   </div>
                 </div>
@@ -1679,7 +1679,7 @@ const Form = () => {
                       className="input is-dark input-standar"
                       type="text"
                       placeholder=""
-                      value={hasilKeberatan.koreksi}
+                      value={currencyFormatter(hasilKeberatan.koreksi)}
                       onChange={event => handleInputHasilKeberatan(index, event)} />
                   </div>
                 </div>
@@ -2612,7 +2612,7 @@ const Form = () => {
             </div>
 
             <div className="section-form-header">
-              <p className="sub-title-form">2. Harga Pokok Penjualan <i style={{ fontSize: 10, color: 'red' }}>*jika memasukan beban lainnya silahkan masukan dengan angka minus (-). contoh = -90.000.0000 </i></p>
+              <p className="sub-title-form">2. Harga Pokok Penjualan</p>
               {hargaPokok.map((hargaPokok, index) => (
                 <Fragment key={`${hargaPokok}~${index}`}>
                   <div className="section-form-body section-form-flex">
@@ -3711,83 +3711,35 @@ const Form = () => {
         <p className="title-form">V. PENANDANTANGAN LHPt</p>
         <div className="section-form-body section-form-flex input-form-standar">
           <label className="label-normal label-wide">Penempatan posisi 1</label>
-          <div class="select select-width margin-right-20">
+          <div class="select select-width margin-right-20" style={{flex: 1}}>
             <select
+              style={{width: '100%'}}
               id="unit1"
               name="unit1"
               value={dataUmum.unit1}
               onChange={event => handleInputDataUmum(0, event)}>
               <option value="">-Pilih Unit Organisasi-</option>
-              <option value="KPP Pratama">KPP Pratama</option>
-              <option value="Pengawasan dan Konsultasi II">Pengawasan dan Konsultasi II</option>
-              <option value="Pengawasan dan Konsultasi III">Pengawasan dan Konsultasi III</option>
-              <option value="Pengawasan dan Konsultasi IV">Pengawasan dan Konsultasi IV</option>
-              <option value="Ekstensifikasi dan Penyuluhan">Ekstensifikasi dan Penyuluhan</option>
             </select>
           </div>
-          <div class="select select-width margin-right-20">
+          <div class="select select-width margin-right-20" style={{flex: 1}}>
             <select
+              style={{width: '100%'}}
               id="jabatan1"
               name="jabatan1"
               value={dataUmum.jabatan1}
               onChange={event => handleInputDataUmum(0, event)}>
-              <option value="">-Pilih Jabatan-</option>
-              <option value="Kepala Kantor">Kepala Kantor</option>
-              <option value="Kepala Seksi">Kepala Seksi</option>
-              <option value="Account Representative">Account Representative</option>
-              <option value="Supervisor Fungsional Pemeriksa ">Supervisor Fungsional Pemeriksa </option>
+              <option value="Supervisor Fungsional Pemeriksa ">Supervisor Fungsional Pemeriksa</option>
             </select>
           </div>
-          <div class="select select-width margin-right-20">
+          <div class="select select-width margin-right-20" style={{flex: 1}}>
             <select
+              style={{width: '100%'}}
               id="nama1"
               name="nama1"
               value={dataUmum.nama1}
               onChange={event => handleInputDataUmum(0, event)}>
               <option value="">-Pilih Nama-</option>
-              <option value="FAISAL FATAHILLAH">FAISAL FATAHILLAH</option>
-              <option value="RICKY WELLYANDO">RICKY WELLYANDO</option>
-              <option value="TUNGGUL HAMONANGAN MANURUNG">TUNGGUL HAMONANGAN MANURUNG</option>
-              <option value="SUBECHAN">SUBECHAN</option>
-              <option value="BENY SANTOSO">BENY SANTOSO</option>
-              <option value="AIDA HELMY FITRIANA">AIDA HELMY FITRIANA</option>
-              <option value="NDRA SANTOSO">INDRA SANTOSO</option>
-              <option value="HASNIATI">HASNIATI</option>
-              <option value="DANIA SWANDITA">DANIA SWANDITA</option>
-              <option value="NORMA GITA LIANI">NORMA GITA LIANI</option>
-              <option value="WIDYA CIPTA RANY">WIDYA CIPTA RANY</option>
-              <option value="MUHAMMAD IQBAL RIZQILLAH">MUHAMMAD IQBAL RIZQILLAH</option>
-              <option value="EVY RIANA">EVY RIANA</option>
-              <option value="DIAN MOHAMAD YAKOP">DIAN MOHAMAD YAKOP</option>
-              <option value="KURNIA WAHDI">KURNIA WAHDI</option>
-              <option value="ERNIE ARTHA">ERNIE ARTHA</option>
-              <option value="RIAN YULI HARTANTO">RIAN YULI HARTANTO</option>
-              <option value="SOPHIAN HADI PRANOTO">SOPHIAN HADI PRANOTO</option>
-              <option value="REMON">REMON</option>
-              <option value="SULAEMAN">SULAEMAN</option>
-              <option value="FAHMI SYAMSIDI">FAHMI SYAMSIDI</option>
-              <option value="EKO PRASETYO WAHYU DEWANTO">EKO PRASETYO WAHYU DEWANTO</option>
-              <option value="MARIA ARZALIA">MARIA ARZALIA</option>
-              <option value="IKA KUSUMAWATI">IKA KUSUMAWATI</option>
-              <option value="MARIANA NOVIANTI">MARIANA NOVIANTI</option>
-              <option value="YUDHA PRATAMA SUMADI">YUDHA PRATAMA SUMADI</option>
-              <option value="VINI ASTRIANI">VINI ASTRIANI</option>
-              <option value="EKA MUSIKAWATI">EKA MUSIKAWATI</option>
-              <option value="RIZKY KURNIANI">RIZKY KURNIANI</option>
-              <option value="EYO SURYADI">EYO SURYADI</option>
-              <option value="CHEVI NOVIZAYANTI">CHEVI NOVIZAYANTI</option>
-              <option value="KADEK BUDAYA">KADEK BUDAYA</option>
-              <option value="SAGITA AYU DIWANTI">SAGITA AYU DIWANTI</option>
-              <option value="GETA THERESIA PANGGABEAN">GETA THERESIA PANGGABEAN</option>
-              <option value="ACEP KUSNADI NURKAMIL">ACEP KUSNADI NURKAMIL</option>
-              <option value="ROY JOHANNES BUDIMAN MARBUN">ROY JOHANNES BUDIMAN MARBUN</option>
-              <option value="ACH. MURTAKI">ACH. MURTAKI</option>
-              <option value="ADHARIANI SARAH">ADHARIANI SARAH</option>
-              <option value="SANDY PURBANDARU">SANDY PURBANDARU</option>
-              <option value="MERY NATALIA">MERY NATALIA</option>
-              <option value="ENDRO HERMAWAN">ENDRO HERMAWAN</option>
-              <option value="INTEN RATNA SARI">INTEN RATNA SARI</option>
-              <option value="RENE SARI UTAMI">RENE SARI UTAMI</option>
+              <option value="IRENE SARI UTAMI">IRENE SARI UTAMI</option>
               <option value="PEBRIZAL">PEBRIZAL</option>
               <option value="ILHAM WAHYUDIN">ILHAM WAHYUDIN</option>
             </select>
@@ -3797,85 +3749,45 @@ const Form = () => {
         {/* posisi 2 */}
         <div className="section-form-body section-form-flex input-form-standar">
           <label className="label-normal label-wide">Penempatan posisi 2</label>
-          <div class="select select-width margin-right-20">
+          <div class="select select-width margin-right-20" style={{flex: 1}}>
             <select
+              style={{width: '100%'}}
               id="unit2"
               name="unit2"
               value={dataUmum.unit2}
               onChange={event => handleInputDataUmum(0, event)}>
               <option value="">-Pilih Unit Organisasi-</option>
-              <option value="KPP Pratama">KPP Pratama</option>
+              <option value="Pengawasan dan Konsultasi I">Pengawasan dan Konsultasi I</option>
               <option value="Pengawasan dan Konsultasi II">Pengawasan dan Konsultasi II</option>
               <option value="Pengawasan dan Konsultasi III">Pengawasan dan Konsultasi III</option>
               <option value="Pengawasan dan Konsultasi IV">Pengawasan dan Konsultasi IV</option>
+              <option value="Pengawasan dan Konsultasi V">Pengawasan dan Konsultasi V</option>
               <option value="Ekstensifikasi dan Penyuluhan">Ekstensifikasi dan Penyuluhan</option>
             </select>
           </div>
-          <div class="select select-width margin-right-20">
+          <div class="select select-width margin-right-20" style={{flex: 1}}>
             <select
+              style={{width: '100%'}}
               id="jabatan2"
               name="jabatan2"
               value={dataUmum.jabatan2}
               onChange={event => handleInputDataUmum(0, event)}>
-              <option value="">-Pilih Jabatan-</option>
-              <option value="Kepala Kantor">Kepala Kantor</option>
               <option value="Kepala Seksi">Kepala Seksi</option>
-              <option value="Account Representative">Account Representative</option>
-              <option value="Supervisor Fungsional Pemeriksa ">Supervisor Fungsional Pemeriksa </option>
             </select>
           </div>
-          <div class="select select-width margin-right-20">
+          <div class="select select-width margin-right-20" style={{flex: 1}}>
             <select
+              style={{width: '100%'}}
               id="nama2"
               name="nama2"
               value={dataUmum.nama2}
               onChange={event => handleInputDataUmum(0, event)}>
               <option value="">-Pilih Nama-</option>
-              <option value="FAISAL FATAHILLAH">FAISAL FATAHILLAH</option>
+              <option value="AI MULJANI">AI MULJANI</option>
               <option value="RICKY WELLYANDO">RICKY WELLYANDO</option>
               <option value="TUNGGUL HAMONANGAN MANURUNG">TUNGGUL HAMONANGAN MANURUNG</option>
               <option value="SUBECHAN">SUBECHAN</option>
               <option value="BENY SANTOSO">BENY SANTOSO</option>
-              <option value="AIDA HELMY FITRIANA">AIDA HELMY FITRIANA</option>
-              <option value="NDRA SANTOSO">INDRA SANTOSO</option>
-              <option value="HASNIATI">HASNIATI</option>
-              <option value="DANIA SWANDITA">DANIA SWANDITA</option>
-              <option value="NORMA GITA LIANI">NORMA GITA LIANI</option>
-              <option value="WIDYA CIPTA RANY">WIDYA CIPTA RANY</option>
-              <option value="MUHAMMAD IQBAL RIZQILLAH">MUHAMMAD IQBAL RIZQILLAH</option>
-              <option value="EVY RIANA">EVY RIANA</option>
-              <option value="DIAN MOHAMAD YAKOP">DIAN MOHAMAD YAKOP</option>
-              <option value="KURNIA WAHDI">KURNIA WAHDI</option>
-              <option value="ERNIE ARTHA">ERNIE ARTHA</option>
-              <option value="RIAN YULI HARTANTO">RIAN YULI HARTANTO</option>
-              <option value="SOPHIAN HADI PRANOTO">SOPHIAN HADI PRANOTO</option>
-              <option value="REMON">REMON</option>
-              <option value="SULAEMAN">SULAEMAN</option>
-              <option value="FAHMI SYAMSIDI">FAHMI SYAMSIDI</option>
-              <option value="EKO PRASETYO WAHYU DEWANTO">EKO PRASETYO WAHYU DEWANTO</option>
-              <option value="MARIA ARZALIA">MARIA ARZALIA</option>
-              <option value="IKA KUSUMAWATI">IKA KUSUMAWATI</option>
-              <option value="MARIANA NOVIANTI">MARIANA NOVIANTI</option>
-              <option value="YUDHA PRATAMA SUMADI">YUDHA PRATAMA SUMADI</option>
-              <option value="VINI ASTRIANI">VINI ASTRIANI</option>
-              <option value="EKA MUSIKAWATI">EKA MUSIKAWATI</option>
-              <option value="RIZKY KURNIANI">RIZKY KURNIANI</option>
-              <option value="EYO SURYADI">EYO SURYADI</option>
-              <option value="CHEVI NOVIZAYANTI">CHEVI NOVIZAYANTI</option>
-              <option value="KADEK BUDAYA">KADEK BUDAYA</option>
-              <option value="SAGITA AYU DIWANTI">SAGITA AYU DIWANTI</option>
-              <option value="GETA THERESIA PANGGABEAN">GETA THERESIA PANGGABEAN</option>
-              <option value="ACEP KUSNADI NURKAMIL">ACEP KUSNADI NURKAMIL</option>
-              <option value="ROY JOHANNES BUDIMAN MARBUN">ROY JOHANNES BUDIMAN MARBUN</option>
-              <option value="ACH. MURTAKI">ACH. MURTAKI</option>
-              <option value="ADHARIANI SARAH">ADHARIANI SARAH</option>
-              <option value="SANDY PURBANDARU">SANDY PURBANDARU</option>
-              <option value="MERY NATALIA">MERY NATALIA</option>
-              <option value="ENDRO HERMAWAN">ENDRO HERMAWAN</option>
-              <option value="INTEN RATNA SARI">INTEN RATNA SARI</option>
-              <option value="RENE SARI UTAMI">RENE SARI UTAMI</option>
-              <option value="PEBRIZAL">PEBRIZAL</option>
-              <option value="ILHAM WAHYUDIN">ILHAM WAHYUDIN</option>
             </select>
           </div>
         </div>
@@ -3883,85 +3795,83 @@ const Form = () => {
         {/* posisi 3 */}
         <div className="section-form-body section-form-flex input-form-standar">
           <label className="label-normal label-wide">Penempatan posisi 3</label>
-          <div class="select select-width margin-right-20">
+          <div class="select select-width margin-right-20" style={{flex: 1}}>
             <select
+              style={{width: '100%'}}
               id="unit3"
               name="unit3"
               value={dataUmum.unit3}
               onChange={event => handleInputDataUmum(0, event)}>
               <option value="">-Pilih Unit Organisasi-</option>
-              <option value="KPP Pratama">KPP Pratama</option>
-              <option value="Pengawasan dan Konsultasi II">Pengawasan dan Konsultasi II</option>
-              <option value="Pengawasan dan Konsultasi III">Pengawasan dan Konsultasi III</option>
-              <option value="Pengawasan dan Konsultasi IV">Pengawasan dan Konsultasi IV</option>
-              <option value="Ekstensifikasi dan Penyuluhan">Ekstensifikasi dan Penyuluhan</option>
+              <option value="Seksi Pengawasan dan Konsultasi I">Seksi Pengawasan dan Konsultasi I</option>
+              <option value="Seksi Pengawasan dan Konsultasi II">Seksi Pengawasan dan Konsultasi II</option>
+              <option value="Seksi Pengawasan dan Konsultasi III">Seksi Pengawasan dan Konsultasi III</option>
+              <option value="Seksi Pengawasan dan Konsultasi IV">Seksi Pengawasan dan Konsultasi IV</option>
+              <option value="Seksi Pengawasan dan Konsultasi V">Seksi Pengawasan dan Konsultasi V</option>
+              <option value="Seksi Ekstensifikasi dan Penyuluhan">Seksi Ekstensifikasi dan Penyuluhan</option>
             </select>
           </div>
-          <div class="select select-width margin-right-20">
+          <div class="select select-width margin-right-20" style={{flex: 1}}>
             <select
+              style={{width: '100%'}}
               id="jabatan3"
               name="jabatan3"
               value={dataUmum.jabatan3}
               onChange={event => handleInputDataUmum(0, event)}>
-              <option value="">-Pilih Jabatan-</option>
-              <option value="Kepala Kantor">Kepala Kantor</option>
-              <option value="Kepala Seksi">Kepala Seksi</option>
               <option value="Account Representative">Account Representative</option>
-              <option value="Supervisor Fungsional Pemeriksa ">Supervisor Fungsional Pemeriksa </option>
             </select>
           </div>
-          <div class="select select-width margin-right-20">
+          <div class="select select-width margin-right-20" style={{flex: 1}}>
             <select
+              style={{width: '100%'}}
               id="nama3"
               name="nama3"
               value={dataUmum.nama3}
               onChange={event => handleInputDataUmum(0, event)}>
               <option value="">-Pilih Nama-</option>
-              <option value="FAISAL FATAHILLAH">FAISAL FATAHILLAH</option>
-              <option value="RICKY WELLYANDO">RICKY WELLYANDO</option>
-              <option value="TUNGGUL HAMONANGAN MANURUNG">TUNGGUL HAMONANGAN MANURUNG</option>
-              <option value="SUBECHAN">SUBECHAN</option>
-              <option value="BENY SANTOSO">BENY SANTOSO</option>
-              <option value="AIDA HELMY FITRIANA">AIDA HELMY FITRIANA</option>
-              <option value="NDRA SANTOSO">INDRA SANTOSO</option>
+              <option value="RIFLIANA SARIF">RIFLIANA SARIF</option>
+              <option value="RANY MILA RAHMAWATI">RANI MILA RAHMAWATI</option>
+              <option value="MULYATI">MULYATI</option>
+              <option value="RIA RESTUTI">RIA RESTUTI</option>
+              <option value="SULAKSONO PAMBUDI">SULAKSONO PAMBUDI</option>
+              <option value="THEODORO FERDIAN W.O">THEODORO FERDIAN W.O</option>
+              <option value="EVY RIANA">EVY RIANA</option>
+              <option value="KURNIA WAHDI">KURNIA WAHDI</option>
               <option value="HASNIATI">HASNIATI</option>
               <option value="DANIA SWANDITA">DANIA SWANDITA</option>
-              <option value="NORMA GITA LIANI">NORMA GITA LIANI</option>
+              <option value="AIDA HELMY FITRIANA">AIDA HELMY FITRIANA</option>
+              <option value="INDRA SANTOSO">INDRA SANTOSO</option>
               <option value="WIDYA CIPTA RANY">WIDYA CIPTA RANY</option>
               <option value="MUHAMMAD IQBAL RIZQILLAH">MUHAMMAD IQBAL RIZQILLAH</option>
-              <option value="EVY RIANA">EVY RIANA</option>
+              <option value="NORMA GITA LIANI">NORMA GITA LIANI</option>
               <option value="DIAN MOHAMAD YAKOP">DIAN MOHAMAD YAKOP</option>
-              <option value="KURNIA WAHDI">KURNIA WAHDI</option>
-              <option value="ERNIE ARTHA">ERNIE ARTHA</option>
-              <option value="RIAN YULI HARTANTO">RIAN YULI HARTANTO</option>
-              <option value="SOPHIAN HADI PRANOTO">SOPHIAN HADI PRANOTO</option>
-              <option value="REMON">REMON</option>
-              <option value="SULAEMAN">SULAEMAN</option>
-              <option value="FAHMI SYAMSIDI">FAHMI SYAMSIDI</option>
               <option value="EKO PRASETYO WAHYU DEWANTO">EKO PRASETYO WAHYU DEWANTO</option>
-              <option value="MARIA ARZALIA">MARIA ARZALIA</option>
+              <option value="SULAEMAN">SULAEMAN</option>
+              <option value="ERNIE ARTHA">ERNIE ARTHA</option>
+              <option value="SOPHIAN HADI PRANOTO">SOPHIAN HADI PRANOTO</option>
+              <option value="FAHMI SYAMSIDI">FAHMI SYAMSIDI</option>
               <option value="IKA KUSUMAWATI">IKA KUSUMAWATI</option>
-              <option value="MARIANA NOVIANTI">MARIANA NOVIANTI</option>
-              <option value="YUDHA PRATAMA SUMADI">YUDHA PRATAMA SUMADI</option>
+              <option value="REMON">REMON</option>
               <option value="VINI ASTRIANI">VINI ASTRIANI</option>
-              <option value="EKA MUSIKAWATI">EKA MUSIKAWATI</option>
-              <option value="RIZKY KURNIANI">RIZKY KURNIANI</option>
+              <option value="YUDHA PRATAMA SUMADI">YUDHA PRATAMA SUMADI</option>
+              <option value="MARIA ARZALIA">MARIA ARZALIA</option>
+              <option value="MARIANA NOVIANTI">MARIANA NOVIANTI</option>
+              <option value="RIAN YULI HARTANTO">RIAN YULI HARTANTO</option>
               <option value="EYO SURYADI">EYO SURYADI</option>
-              <option value="CHEVI NOVIZAYANTI">CHEVI NOVIZAYANTI</option>
-              <option value="KADEK BUDAYA">KADEK BUDAYA</option>
-              <option value="SAGITA AYU DIWANTI">SAGITA AYU DIWANTI</option>
-              <option value="GETA THERESIA PANGGABEAN">GETA THERESIA PANGGABEAN</option>
-              <option value="ACEP KUSNADI NURKAMIL">ACEP KUSNADI NURKAMIL</option>
+              <option value="EKA MUSIKAWATI">EKA MUSIKAWATI</option>
               <option value="ROY JOHANNES BUDIMAN MARBUN">ROY JOHANNES BUDIMAN MARBUN</option>
+              <option value="KADEK BUDAYA">KADEK BUDAYA</option>
               <option value="ACH. MURTAKI">ACH. MURTAKI</option>
+              <option value="ACEP KUSNADI NURKAMIL">ACEP KUSNADI NURKAMIL</option>
+              <option value="RIZKY KURNIANI">RIZKY KURNIANI</option>
               <option value="ADHARIANI SARAH">ADHARIANI SARAH</option>
+              <option value="GETA THERESIA PANGGABEAN">GETA THERESIA PANGGABEAN</option>
+              <option value="SAGITA AYU DIWANTI">SAGITA AYU DIWANTI</option>
+              <option value="CHEVI NOVIZAYANTI">CHEVI NOVIZAYANTI</option>
               <option value="SANDY PURBANDARU">SANDY PURBANDARU</option>
               <option value="MERY NATALIA">MERY NATALIA</option>
               <option value="ENDRO HERMAWAN">ENDRO HERMAWAN</option>
               <option value="INTEN RATNA SARI">INTEN RATNA SARI</option>
-              <option value="RENE SARI UTAMI">RENE SARI UTAMI</option>
-              <option value="PEBRIZAL">PEBRIZAL</option>
-              <option value="ILHAM WAHYUDIN">ILHAM WAHYUDIN</option>
             </select>
           </div>
         </div>
@@ -3969,85 +3879,35 @@ const Form = () => {
         {/* posisi 4 */}
         <div className="section-form-body section-form-flex input-form-standar">
           <label className="label-normal label-wide">Penempatan posisi 4</label>
-          <div class="select select-width margin-right-20">
+          <div class="select select-width margin-right-20" style={{flex: 1}}>
             <select
+              style={{width: '100%'}}
               id="unit4"
               name="unit4"
               value={dataUmum.unit4}
               onChange={event => handleInputDataUmum(0, event)}>
               <option value="">-Pilih Unit Organisasi-</option>
-              <option value="KPP Pratama">KPP Pratama</option>
-              <option value="Pengawasan dan Konsultasi II">Pengawasan dan Konsultasi II</option>
-              <option value="Pengawasan dan Konsultasi III">Pengawasan dan Konsultasi III</option>
-              <option value="Pengawasan dan Konsultasi IV">Pengawasan dan Konsultasi IV</option>
-              <option value="Ekstensifikasi dan Penyuluhan">Ekstensifikasi dan Penyuluhan</option>
             </select>
           </div>
-          <div class="select select-width margin-right-20">
+          <div class="select select-width margin-right-20" style={{flex: 1}}>
             <select
+              style={{width: '100%'}}
               id="jabatan4"
               name="jabatan4"
               value={dataUmum.jabatan4}
               onChange={event => handleInputDataUmum(0, event)}>
-              <option value="">-Pilih Jabatan-</option>
               <option value="Kepala Kantor">Kepala Kantor</option>
-              <option value="Kepala Seksi">Kepala Seksi</option>
-              <option value="Account Representative">Account Representative</option>
-              <option value="Supervisor Fungsional Pemeriksa ">Supervisor Fungsional Pemeriksa </option>
             </select>
           </div>
-          <div class="select select-width margin-right-20">
+          <div class="select select-width margin-right-20" style={{flex: 1}}>
             <select
+              style={{width: '100%'}}
               id="nama4"
               name="nama4"
               value={dataUmum.nama4}
               onChange={event => handleInputDataUmum(0, event)}>
               <option value="">-Pilih Nama-</option>
               <option value="FAISAL FATAHILLAH">FAISAL FATAHILLAH</option>
-              <option value="RICKY WELLYANDO">RICKY WELLYANDO</option>
-              <option value="TUNGGUL HAMONANGAN MANURUNG">TUNGGUL HAMONANGAN MANURUNG</option>
-              <option value="SUBECHAN">SUBECHAN</option>
-              <option value="BENY SANTOSO">BENY SANTOSO</option>
-              <option value="AIDA HELMY FITRIANA">AIDA HELMY FITRIANA</option>
-              <option value="NDRA SANTOSO">INDRA SANTOSO</option>
-              <option value="HASNIATI">HASNIATI</option>
-              <option value="DANIA SWANDITA">DANIA SWANDITA</option>
-              <option value="NORMA GITA LIANI">NORMA GITA LIANI</option>
-              <option value="WIDYA CIPTA RANY">WIDYA CIPTA RANY</option>
-              <option value="MUHAMMAD IQBAL RIZQILLAH">MUHAMMAD IQBAL RIZQILLAH</option>
-              <option value="EVY RIANA">EVY RIANA</option>
-              <option value="DIAN MOHAMAD YAKOP">DIAN MOHAMAD YAKOP</option>
-              <option value="KURNIA WAHDI">KURNIA WAHDI</option>
-              <option value="ERNIE ARTHA">ERNIE ARTHA</option>
-              <option value="RIAN YULI HARTANTO">RIAN YULI HARTANTO</option>
-              <option value="SOPHIAN HADI PRANOTO">SOPHIAN HADI PRANOTO</option>
-              <option value="REMON">REMON</option>
-              <option value="SULAEMAN">SULAEMAN</option>
-              <option value="FAHMI SYAMSIDI">FAHMI SYAMSIDI</option>
-              <option value="EKO PRASETYO WAHYU DEWANTO">EKO PRASETYO WAHYU DEWANTO</option>
-              <option value="MARIA ARZALIA">MARIA ARZALIA</option>
-              <option value="IKA KUSUMAWATI">IKA KUSUMAWATI</option>
-              <option value="MARIANA NOVIANTI">MARIANA NOVIANTI</option>
-              <option value="YUDHA PRATAMA SUMADI">YUDHA PRATAMA SUMADI</option>
-              <option value="VINI ASTRIANI">VINI ASTRIANI</option>
-              <option value="EKA MUSIKAWATI">EKA MUSIKAWATI</option>
-              <option value="RIZKY KURNIANI">RIZKY KURNIANI</option>
-              <option value="EYO SURYADI">EYO SURYADI</option>
-              <option value="CHEVI NOVIZAYANTI">CHEVI NOVIZAYANTI</option>
-              <option value="KADEK BUDAYA">KADEK BUDAYA</option>
-              <option value="SAGITA AYU DIWANTI">SAGITA AYU DIWANTI</option>
-              <option value="GETA THERESIA PANGGABEAN">GETA THERESIA PANGGABEAN</option>
-              <option value="ACEP KUSNADI NURKAMIL">ACEP KUSNADI NURKAMIL</option>
-              <option value="ROY JOHANNES BUDIMAN MARBUN">ROY JOHANNES BUDIMAN MARBUN</option>
-              <option value="ACH. MURTAKI">ACH. MURTAKI</option>
-              <option value="ADHARIANI SARAH">ADHARIANI SARAH</option>
-              <option value="SANDY PURBANDARU">SANDY PURBANDARU</option>
-              <option value="MERY NATALIA">MERY NATALIA</option>
-              <option value="ENDRO HERMAWAN">ENDRO HERMAWAN</option>
-              <option value="INTEN RATNA SARI">INTEN RATNA SARI</option>
-              <option value="RENE SARI UTAMI">RENE SARI UTAMI</option>
-              <option value="PEBRIZAL">PEBRIZAL</option>
-              <option value="ILHAM WAHYUDIN">ILHAM WAHYUDIN</option>
             </select>
           </div>
         </div>
