@@ -3139,7 +3139,7 @@ const Form = () => {
             </div>
 
             <div className="section-form-header">
-              <p className="sub-title-form">5. Pendapatan dan Beban lain-lain <i style={{ fontSize: 10, color: 'red' }}>*jika memasukan beban lainnya silahkan masukan dengan angka minus (-). contoh = -90.000.0000 </i></p>
+              <p className="sub-title-form">5. Pendapatan dan Beban lain-lain</p>
               {pendapatanBeban.map((pendapatanBeban, index) => (
                 <Fragment key={`${pendapatanBeban}~${index}`}>
                   <div className="section-form-body section-form-flex">

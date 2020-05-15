@@ -175,7 +175,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol15}>
                 <Text style={styles.tableCellLeft}>{a.nama}</Text>
@@ -223,16 +223,16 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol30}>
-                <Text style={styles.tableCell}>{truncateText(a.nomorLHA, 28)}</Text>
+                <Text style={styles.tableCellLeft}>{truncateText(a.nomorLHA, 28)}</Text>
               </View>
               <View style={styles.tableCol30}>
-                <Text style={styles.tableCell}>{a.nilaiLHA}</Text>
+                <Text style={styles.tableCellRight}>{a.nilaiLHA}</Text>
               </View>
               <View style={styles.tableCol35}>
-                <Text style={styles.tableCell}>{a.sumberLHA}</Text>
+                <Text style={styles.tableCellLeft}>{a.sumberLHA}</Text>
               </View>
             </View>
           );
@@ -271,13 +271,13 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol30}>
                 <Text style={styles.tableCell}>{truncateText(a.nomorSp, 14)}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCell}>{a.jenisPajak}</Text>
+                <Text style={styles.tableCellLeft}>{a.jenisPajak}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCell}>{a.tahunPajak}</Text>
@@ -325,10 +325,10 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol20}>
-                <Text style={styles.tableCell}>{a.jenisPajak}</Text>
+                <Text style={styles.tableCellLeft}>{a.jenisPajak}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCell}>{a.tahun}</Text>
@@ -340,7 +340,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCellRight}>{currencyFormatter(a.cfmPeriksa)}</Text>
               </View>
               <View style={styles.tableCol25}>
-                <Text style={styles.tableCellR}>{currencyFormatter(a.koreksi)}</Text>
+                <Text style={styles.tableCellRight}>{currencyFormatter(a.koreksi)}</Text>
               </View>
             </View>
           );
@@ -373,19 +373,19 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol15}>
                 <Text style={styles.tableCell}>{a.tahun}</Text>
               </View>
               <View style={styles.tableCol20}>
-                <Text style={styles.tableCell}>{a.jenisPajak}</Text>
+                <Text style={styles.tableCellLeft}>{a.jenisPajak}</Text>
               </View>
               <View style={styles.tableCol25}>
-                <Text style={styles.tableCell}>{a.sumberKoreksi}</Text>
+                <Text style={styles.tableCellLeft}>{a.sumberKoreksi}</Text>
               </View>
               <View style={styles.tableCol35}>
-                <Text style={styles.tableCellLeft}>{a.alasanKkoreksi}</Text>
+                <Text style={styles.tableCellLeft}>{a.alasanKoreksi}</Text>
               </View>
             </View>
           );
@@ -421,13 +421,13 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol15}>
-                <Text style={styles.tableCell}>{a.masaPajak}</Text>
+                <Text style={styles.tableCellLeft}>{a.masaPajak}</Text>
               </View>
               <View style={styles.tableCol15}>
-                <Text style={styles.tableCell}>{a.jenisPajak}</Text>
+                <Text style={styles.tableCellLeft}>{a.jenisPajak}</Text>
               </View>
               <View style={styles.tableCol20}>
                 <Text style={styles.tableCellRight}>{currencyFormatter(a.cfmPemeriksa)}</Text>
@@ -466,16 +466,16 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol25}>
-                <Text style={styles.tableCell}>{a.masaPajak}</Text>
+                <Text style={styles.tableCellLeft}>{a.masaPajak}</Text>
               </View>
               <View style={styles.tableCol25}>
-                <Text style={styles.tableCell}>{a.jenisPajak}</Text>
+                <Text style={styles.tableCellLeft}>{a.jenisPajak}</Text>
               </View>
               <View style={styles.tableCol45}>
-                <Text style={styles.tableCell}>{a.risalahKeputusan}</Text>
+                <Text style={styles.tableCellLeft}>{a.risalahKeputusan}</Text>
               </View>
             </View>
           );
@@ -499,7 +499,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol95}>
                 <Text style={styles.tableCellLeft}>{a.analisis}</Text>
@@ -535,7 +535,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol30}>
                 <Text style={styles.tableCellLeft}>{a.uraian}</Text>
@@ -577,10 +577,10 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol25}>
-                <Text style={styles.tableCell}>{a.nomor}</Text>
+                <Text style={styles.tableCellLeft}>{a.nomor}</Text>
               </View>
               <View style={styles.tableCol25}>
                 <Text style={styles.tableCell}>{convertDate(a.tanggal)}</Text>
@@ -610,10 +610,10 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol95}>
-                <Text style={styles.tableCell}>{a.fakta}</Text>
+                <Text style={styles.tableCellLeft}>{a.fakta}</Text>
               </View>
             </View>
           );
@@ -633,7 +633,7 @@ const Pdf = (props) => {
             <Text style={styles.tableCell}>Tahun Pajak</Text>
           </View>
           <View style={styles.tableCol20}>
-            <Text style={styles.tableCell}>Jenis Data</Text>
+            <Text style={styles.tableCell}>Jenis Pajak</Text>
           </View>
           <View style={styles.tableCol15}>
             <Text style={styles.tableCell}>Nilai Data</Text>
@@ -649,22 +649,22 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCell}>{a.tahunPajak}</Text>
               </View>
               <View style={styles.tableCol20}>
-                <Text style={styles.tableCell}>{a.jenisData}</Text>
+                <Text style={styles.tableCellLeft}>{a.jenisData}</Text>
               </View>
               <View style={styles.tableCol15}>
-                <Text style={styles.tableCell}>{a.nilaiData}</Text>
+                <Text style={styles.tableCellRight}>{a.nilaiData}</Text>
               </View>
               <View style={styles.tableCol20}>
-                <Text style={styles.tableCell}>{a.modusOper}</Text>
+                <Text style={styles.tableCellLeft}>{a.modusOper}</Text>
               </View>
               <View style={styles.tableCol30}>
-                <Text style={styles.tableCell}>{a.tindakLanjut}</Text>
+                <Text style={styles.tableCellLeft}>{a.tindakLanjut}</Text>
               </View>
             </View>
           );
@@ -688,7 +688,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol95}>
                 <Text style={styles.tableCellLeft}>{a.indikasi}</Text>
@@ -715,7 +715,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol95}>
                 <Text style={styles.tableCellLeft}>{a.modus}</Text>
@@ -748,10 +748,10 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol30}>
-                <Text style={styles.tableCell}>{a.jenisData}</Text>
+                <Text style={styles.tableCellLeft}>{a.jenisData}</Text>
               </View>
               <View style={styles.tableCol30}>
                 <Text style={styles.tableCell}>{a.tahunPajak}</Text>
@@ -805,7 +805,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellLeft}>{a.akun}</Text>
@@ -909,7 +909,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellLeft}>{a.akun}</Text>
@@ -1013,7 +1013,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellLeft}>{a.akun}</Text>
@@ -1117,7 +1117,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellLeft}>{a.akun}</Text>
@@ -1221,7 +1221,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellLeft}>{a.akun}</Text>
@@ -1331,7 +1331,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellLeft}>{a.akun}</Text>
@@ -1453,7 +1453,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellLeft}>{a.akun}</Text>
@@ -1575,7 +1575,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellLeft}>{a.akun}</Text>
@@ -1697,7 +1697,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellLeft}>{a.akun}</Text>
@@ -1819,7 +1819,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellLeft}>{a.akun}</Text>
@@ -2229,7 +2229,7 @@ const Pdf = (props) => {
           return (
             <View style={styles.tableRow}>
               <View style={styles.tableCol5}>
-                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol95}>
                 <Text style={styles.tableCellLeft}>{a.lampiran}</Text>
