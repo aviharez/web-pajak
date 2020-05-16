@@ -1,22 +1,27 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Image, Font } from '@react-pdf/renderer';
 
+
 Font.registerHyphenationCallback(word => {
   // Return entire word as unique part
   return [word];
 });
 
 
-function truncateText(text, length) {
-  let arr = []
-  let i = 0;
+// function truncateText(text, length) {
+//   let arr = []
+//   let i = 0;
 
-  while (i < text.length) {
-    arr.push(text.slice(i, i + length))
-    i += length
-  }
+//   while (i < text.length) {
+//     arr.push(text.slice(i, i + length))
+//     i += length
+//   }
 
-  return arr.join(" ")
+//   return arr.join(" ")
+// }
+
+function slashEnter(text) {
+  return text.replace(/\//g, " / ");
 }
 
 function currencyFormatter(price) {
@@ -226,7 +231,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol30}>
-                <Text style={styles.tableCellLeft}>{truncateText(a.nomorLHA, 28)}</Text>
+                <Text style={styles.tableCellLeft}>{a.nomorLHA}</Text>
               </View>
               <View style={styles.tableCol30}>
                 <Text style={styles.tableCellRight}>{a.nilaiLHA}</Text>
@@ -274,7 +279,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol30}>
-                <Text style={styles.tableCell}>{truncateText(a.nomorSp, 14)}</Text>
+                <Text style={styles.tableCell}>{a.nomorSp}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellLeft}>{a.jenisPajak}</Text>
@@ -808,7 +813,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCellLeft}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{slashEnter(a.akun)}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellRight}>{currencyFormatter(a.nilaiTahun1)}</Text>
@@ -912,7 +917,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCellLeft}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{slashEnter(a.akun)}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellRight}>{currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1016,7 +1021,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCellLeft}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{slashEnter(a.akun)}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellRight}>{currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1120,7 +1125,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCellLeft}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{slashEnter(a.akun)}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellRight}>{currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1224,7 +1229,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCellLeft}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{slashEnter(a.akun)}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellRight}>{currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1334,7 +1339,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCellLeft}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{slashEnter(a.akun)}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellRight}>{currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1456,7 +1461,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCellLeft}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{slashEnter(a.akun)}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellRight}>{currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1578,7 +1583,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCellLeft}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{slashEnter(a.akun)}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellRight}>{currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1700,7 +1705,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCellLeft}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{slashEnter(a.akun)}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellRight}>{currencyFormatter(a.nilaiTahun1)}</Text>
@@ -1822,7 +1827,7 @@ const Pdf = (props) => {
                 <Text style={styles.tableCellRight}>{index + 1}</Text>
               </View>
               <View style={styles.tableCol10}>
-                <Text style={styles.tableCellLeft}>{a.akun}</Text>
+                <Text style={styles.tableCellLeft}>{slashEnter(a.akun)}</Text>
               </View>
               <View style={styles.tableCol10}>
                 <Text style={styles.tableCellRight}>{currencyFormatter(a.nilaiTahun1)}</Text>
@@ -2243,7 +2248,7 @@ const Pdf = (props) => {
 
   return (
     <Document>
-      <Page size="A4" style={styles.page}>
+      <Page size="A4" style={styles.page} wrap>
         <Text style={{ fontSize: 7, textAlign: 'right' }}>dicetak pada tanggal {tgl}</Text>
         <View style={styles.header}>
           <Image
