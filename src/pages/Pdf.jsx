@@ -2468,6 +2468,12 @@ const Pdf = (props) => {
               </View>
             </View>
           </View>
+
+          <Text style={styles.footer} fixed>KPP Pratama Tangerang Timur</Text>
+        
+      </Page>
+
+      <Page size="A4" style={styles.page}>
           <Text style={{ fontSize: 11 }}>IV. LAMPIRAN</Text>
           <View style={{ paddingVertical: 6, paddingHorizontal: 10 }}>
             <TabelLampiran />
